@@ -12,5 +12,6 @@ namespace Mejuri_Back_end.Models
         {
                 
         }
+        public DbSet<Brand> Brands { get; set; }
     }
 }
