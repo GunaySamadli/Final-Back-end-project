@@ -179,56 +179,19 @@
         <div class="container">
             <div class="row">
                 <div class="new-items single-items">
-                    <div class="col-md-12">
-                        <div class="new-item">
-                            <img src="~/assets/images/new1.jfif" alt="">
-                            <div class="new-info">
-                                <h4>Weekly Monday Drop</h4>
-                                <p>Forged Carbon</p>
-                                <a class="button button-primary" href="">Shop New</a>
+                    @foreach (var slider in Model.Sliders)
+                    {
+                        <div class="col-md-12">
+                            <div class="new-item">
+                                <img src="~/assets/images/@slider.Image" alt="">
+                                <div class="new-info">
+                                    <h4>@slider.SubTitle</h4>
+                                    <p>@slider.Title</p>
+                                    <a class="button button-primary" href="@slider.RedirectUrl">@slider.RedirectUrlText</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="new-item">
-                            <img src="~/assets/images/new2.jfif" alt="">
-                            <div class="new-info">
-                                <h4>Weekly Monday Drop</h4>
-                                <p>Forged Carbon</p>
-                                <a class="button button-primary" href="">Shop New</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="new-item">
-                            <img src="~/assets/images/new3.jfif" alt="">
-                            <div class="new-info">
-                                <h4>Weekly Monday Drop</h4>
-                                <p>Forged Carbon</p>
-                                <a class="button button-primary" href="">Shop New</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="new-item">
-                            <img src="~/assets/images/new4.jfif" alt="">
-                            <div class="new-info">
-                                <h4>Weekly Monday Drop</h4>
-                                <p>Forged Carbon</p>
-                                <a class="button button-primary" href="">Shop New</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="new-item">
-                            <img src="~/assets/images/new5.jfif" alt="">
-                            <div class="new-info">
-                                <h4>Weekly Monday Drop</h4>
-                                <p>Forged Carbon</p>
-                                <a class="button button-primary" href="">Shop New</a>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>

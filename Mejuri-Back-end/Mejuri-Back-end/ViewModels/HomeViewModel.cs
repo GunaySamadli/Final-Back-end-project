@@ -9,5 +9,7 @@ namespace Mejuri_Back_end.ViewModels
     public class HomeViewModel
     {
        public List<Brand> Brands { get; set; }
+       public List<Slider> Sliders { get; set; }
+
     }
 }

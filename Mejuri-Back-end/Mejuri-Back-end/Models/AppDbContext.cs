@@ -13,5 +13,7 @@ namespace Mejuri_Back_end.Models
                 
         }
         public DbSet<Brand> Brands { get; set; }
+        public DbSet<Slider> Sliders { get; set; }
+
     }
 }

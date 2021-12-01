@@ -20,7 +20,9 @@ namespace Mejuri_Back_end.Controllers
         {
             HomeViewModel homeVM = new HomeViewModel
             {
-                Brands = _context.Brands.ToList()
+                Brands = _context.Brands.ToList(),
+                Sliders = _context.Sliders.ToList()
+
             };
             return View(homeVM);
         }
