@@ -32,54 +32,17 @@
                     <a href="">Shop All</a>
                 </div>
                 <div class="category-item slider">
-                    <div class="col-md-4 col-sm-6">
-                        <a href="">
-                            <img src="~/assets/images/earing.jfif" alt="">
+                    @foreach (var category in Model.Categories)
+                    {
+                        <div class="col-md-4 col-sm-6">
                             <a href="">
-                                <p>EARRINGS</p>
+                                <img src="~/assets/images/@category.Image" alt="">
                             </a>
-                        </a>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <a href="">
-                            <img src="~/assets/images/necklas.jfif" alt="">
-                        </a>
-                        <a href="">
-                            <p>NECKLACES</p>
-                        </a>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <a href="">
-                            <img src="~/assets/images/rings.jfif" alt="">
-                        </a>
-                        <a href="">
-                            <p>RINGS</p>
-                        </a>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <a href="">
-                            <img src="~/assets/images/bracelets.jfif" alt="">
-                        </a>
-                        <a href="">
-                            <p>BRACELETS</p>
-                        </a>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <a href="">
-                            <img src="~/assets/images/bestSteller.jfif" alt="">
-                        </a>
-                        <a href="">
-                            <p>BEST SELLERS</p>
-                        </a>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <a href="">
-                            <img src="~/assets/images/wedding.jfif" alt="">
-                        </a>
-                        <a href="">
-                            <p>WEDDING</p>
-                        </a>
-                    </div>
+                            <a href="">
+                                <p>@category.Name</p>
+                            </a>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

@@ -1,5 +1,9 @@
 
-
+$('.single-items').slick({
+    dots: true,
+    arrows: false,
+    infinite: false,
+});
 //Slider
 $('.slider').slick({
     dots: false,
@@ -35,8 +39,3 @@ $('.slider').slick({
     ]
 });
 
-$('.single-items').slick({
-    dots: true,
-    arrows: false,
-    infinite: false,
-});
