@@ -15,6 +15,10 @@ namespace Mejuri_Back_end.Models
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Gender> Genders { get; set; }
+        public DbSet<Color> Colors { get; set; }
+
+
 
 
     }
