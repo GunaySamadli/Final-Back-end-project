@@ -10,9 +10,12 @@ namespace Mejuri_Back_end.Models
     {
         public int Id { get; set; }
         public int ProductColorId { get; set; }
+
         [StringLength(maximumLength: 100)]
         public string Image { get; set; }
         public bool? PosterStatus { get; set; }
+
+        public ProductColor ProductColor { get; set; }
 
     }
 }

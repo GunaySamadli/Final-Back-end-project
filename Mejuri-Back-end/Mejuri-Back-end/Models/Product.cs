@@ -22,10 +22,11 @@ namespace Mejuri_Back_end.Models
         public int Rate { get; set; }
         public bool IsStock { get; set; }
         public int? ShippingPrice { get; set; }
+
+        public Category Category { get; set; }
+        public Gender Gender { get; set; }
         public List<ProductColor> ProductColors { get; set; }
         public List<ProductMaterial> ProductMaterials { get; set; }
-
-
 
 
     }

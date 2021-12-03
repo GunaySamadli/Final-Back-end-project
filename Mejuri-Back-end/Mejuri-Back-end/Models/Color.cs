@@ -14,7 +14,9 @@ namespace Mejuri_Back_end.Models
         public string Name { get; set; }
         [StringLength(maximumLength: 100)]
         public string Image { get; set; }
-        public List<ProductColor> ProductColors { get; set; }
+        [Required]
+        [StringLength(maximumLength: 50)]
+        public string Desc { get; set; }
 
 
     }

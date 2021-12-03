@@ -10,5 +10,7 @@ namespace Mejuri_Back_end.Models
         public int Id { get; set; }
         public int ProductId { get; set; }
         public int MaterialId { get; set; }
+        public Product Product { get; set; }
+        public Material Material { get; set; }
     }
 }
