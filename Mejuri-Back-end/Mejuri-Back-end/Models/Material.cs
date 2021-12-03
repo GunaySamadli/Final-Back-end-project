@@ -12,5 +12,7 @@ namespace Mejuri_Back_end.Models
         [Required]
         [StringLength(maximumLength: 50)]
         public string Name { get; set; }
+        public List<ProductMaterial> ProductMaterials { get; set; }
+
     }
 }

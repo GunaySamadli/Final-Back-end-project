@@ -4,14 +4,16 @@ using Mejuri_Back_end.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mejuri_Back_end.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211203072245_ProductColorImageTableCreated")]
+    partial class ProductColorImageTableCreated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -204,28 +206,6 @@ namespace Mejuri_Back_end.Migrations
                     b.ToTable("ProductColorImages");
                 });
 
-            modelBuilder.Entity("Mejuri_Back_end.Models.ProductMaterial", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("MaterialId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MaterialId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductMaterials");
-                });
-
             modelBuilder.Entity("Mejuri_Back_end.Models.Slider", b =>
                 {
                     b.Property<int>("Id")
@@ -294,21 +274,6 @@ namespace Mejuri_Back_end.Migrations
                     b.HasOne("Mejuri_Back_end.Models.ProductColor", null)
                         .WithMany("ProductColorImages")
                         .HasForeignKey("ProductColorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Mejuri_Back_end.Models.ProductMaterial", b =>
-                {
-                    b.HasOne("Mejuri_Back_end.Models.Material", null)
-                        .WithMany("ProductMaterials")
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Mejuri_Back_end.Models.Product", null)
-                        .WithMany("ProductMaterials")
-                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
