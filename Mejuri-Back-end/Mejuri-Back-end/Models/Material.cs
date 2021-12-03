@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace Mejuri_Back_end.Models
 {
-    public class Gender
+    public class Material
     {
         public int Id { get; set; }
         [Required]
-        [StringLength(maximumLength: 20)]
+        [StringLength(maximumLength: 50)]
         public string Name { get; set; }
-        public List<Product> Products { get; set; }
-
     }
 }

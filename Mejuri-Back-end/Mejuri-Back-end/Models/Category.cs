@@ -15,5 +15,7 @@ namespace Mejuri_Back_end.Models
         [StringLength(maximumLength: 100)]
         public string Image { get; set; }
 
+        public List<Product> Products { get; set; }
+
     }
 }

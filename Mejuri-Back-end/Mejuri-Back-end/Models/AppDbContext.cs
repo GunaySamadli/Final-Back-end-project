@@ -17,6 +17,8 @@ namespace Mejuri_Back_end.Models
         public DbSet<Category> Categories { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Color> Colors { get; set; }
+        public DbSet<Material> Materials { get; set; }
+        public DbSet<Product> Products { get; set; }
 
 
 
