@@ -1,0 +1,80 @@
+﻿@model List<Slider>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="content-wrapper" style="min-height: 1604.71px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Projects</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Projects</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-head">
+                <h4>Products List</h4>
+                <a href="product-edit.html">Add Slider</a>
+            </div>
+            
+            <table class="table table-striped projects">
+                <tbody>
+                    <tr>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>SubTitle</th>
+                        <th>Setting</th>
+                    </tr>
+                    @foreach (var slider in Model)
+                    {
+                        <tr>
+                            <td>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <img style="width:6.5rem;border-radius:0" alt="Avatar" class="table-avatar" src="~/assets/images/@slider.Image">
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>@slider.Title</td>
+                            <td>@slider.SubTitle</td>
+                            <td>
+                                <button style="background:orange;" data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit"><i class="fas fa-edit"></i></button>
+                                <button style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+            <div class="custom-pagination">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+</div>
+
