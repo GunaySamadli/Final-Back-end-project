@@ -1,4 +1,4 @@
-﻿@model List<Slider>
+﻿@model List<Gender>
 @{
     ViewData["Title"] = "Index";
     int order = 0;
@@ -29,32 +29,22 @@
         <div class="card">
             <div class="card-head">
                 <h4>Products List</h4>
-                <a href="product-edit.html">Add Slider</a>
+                <a href="product-edit.html">Add Gender</a>
             </div>
-            
+
             <table class="table table-striped projects">
                 <tbody>
                     <tr>
                         <th>#</th>
-                        <th>Image</th>
-                        <th>Title</th>
-                        <th>SubTitle</th>
+                        <th>Name</th>
                         <th>Setting</th>
                     </tr>
-                    @foreach (var slider in Model)
+                    @foreach (var gender in Model)
                     {
                         order++;
                         <tr>
                             <td>@order</td>
-                            <td>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <img style="width:6.5rem;border-radius:0" alt="Avatar" class="table-avatar" src="~/assets/images/@slider.Image">
-                                    </li>
-                                </ul>
-                            </td>
-                            <td>@slider.Title</td>
-                            <td>@slider.SubTitle</td>
+                            <td>@gender.Name</td>
                             <td>
                                 <button style="background:orange;" data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit"><i class="fas fa-edit"></i></button>
                                 <button style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash"><i class="fas fa-trash-alt"></i></button>
@@ -64,17 +54,18 @@
                     }
                 </tbody>
             </table>
-            <div class="card-tools">
-                <ul class="pagination pagination-sm">
-                    <li class="page-item"><a href="#" class="page-link">«</a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">»</a></li>
+
+            <div class="custom-pagination">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
                 </ul>
             </div>
         </div>
-        
+
         <!-- /.card -->
 
     </section>
