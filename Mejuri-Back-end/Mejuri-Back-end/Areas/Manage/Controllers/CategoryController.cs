@@ -39,14 +39,14 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             {
                 return View();
             }
-            if (category.ImageFile!=null)
+            if (category.ImageFile != null)
             {
                 if (category.ImageFile.ContentType != "image/png" && category.ImageFile.ContentType != "image/jpeg" && category.ImageFile.ContentType != "image/jfif")
                 {
                     ModelState.AddModelError("ImageFile", "File type can be only jpeg,jpg,jfif or png!");
                     return View();
                 }
-                if (category.ImageFile.Length> 2097152)
+                if (category.ImageFile.Length > 2097152)
                 {
                     ModelState.AddModelError("ImageFile", "File size can not be more than 2MB!");
                     return View();
@@ -73,6 +73,84 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("index");
+        }
+
+
+        public IActionResult Edit(int id)
+        {
+            Category category = _context.Categories.FirstOrDefault(x => x.Id == id);
+
+            if (category == null) return NotFound();
+
+            return View(category);
+        }
+
+        [HttpPost]
+
+        public IActionResult Edit(Category category)
+        {
+            if (!ModelState.IsValid) return NotFound();
+
+            Category existCategory = _context.Categories.FirstOrDefault(x => x.Id == category.Id);
+
+            if (existCategory == null) return NotFound();
+
+            if (category.ImageFile != null)
+            {
+                if (category.ImageFile.ContentType != "image/png" && category.ImageFile.ContentType != "image/jpeg" && category.ImageFile.ContentType != "image/jfif")
+                {
+                    ModelState.AddModelError("ImageFile", "File type can be only jpeg,jpg,jfif or png!");
+                    return View();
+                }
+                if (category.ImageFile.Length > 2097152)
+                {
+                    ModelState.AddModelError("ImageFile", "File size can not be more than 2MB!");
+                    return View();
+                }
+
+                string fileName = category.ImageFile.FileName;
+
+                if (fileName.Length > 64)
+                {
+                    fileName = fileName.Substring(fileName.Length - 64, 64);
+                }
+                string newFileName = Guid.NewGuid().ToString() + fileName;
+
+                string path = Path.Combine(_env.WebRootPath, "uploads/category", newFileName);
+
+                if (existCategory.Image != null)
+                {
+                    string deletePath = Path.Combine(_env.WebRootPath, "uploads/category", existCategory.Image);
+                    if (System.IO.File.Exists(deletePath))
+                    {
+                        System.IO.File.Delete(deletePath);
+                    }
+                }
+
+                using (FileStream stream = new FileStream(path, FileMode.Create))
+                {
+                    category.ImageFile.CopyTo(stream);
+                }
+                existCategory.Image = newFileName;
+            }
+            else if (category.Image == null && existCategory.Image != null)
+            {
+                string deletePath = Path.Combine(_env.WebRootPath, "uploads/category", existCategory.Image);
+
+                if (System.IO.File.Exists(deletePath))
+                {
+                    System.IO.File.Delete(deletePath);
+                }
+
+                existCategory.Image = null;
+            }
+
+            existCategory.Name = category.Name;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("index");
+
         }
     }
 }
