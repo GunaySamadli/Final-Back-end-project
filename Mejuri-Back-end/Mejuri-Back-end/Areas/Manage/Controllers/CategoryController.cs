@@ -152,5 +152,23 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             return RedirectToAction("index");
 
         }
+
+        public IActionResult DeleteFetch(int id)
+        {
+            Category category = _context.Categories.FirstOrDefault(x => x.Id == id);
+            if (category == null) return Json(new { status = 404 });
+
+            try
+            {
+                _context.Categories.Remove(category);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return Json(new { status = 500 });
+            }
+
+            return Json(new { status = 200 });
+        }
     }
 }

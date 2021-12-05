@@ -55,7 +55,7 @@
                             <td>@category.Name</td>
                             <td>
                                 <a  asp-action="edit" asp-route-id="@category.Id" class="pd-setting-ed"  style="background:orange;" ><i class="fas fa-edit"></i></a> 
-                                <button style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash"><i class="fas fa-trash-alt"></i></button>
+                                <a asp-action="deletefetch" asp-route-id="@category.Id"  style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed btn-item-delete" data-original-title="Trash"><i class="fas fa-trash-alt "></i></a>
                             </td>
                         </tr>
 
