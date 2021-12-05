@@ -1,7 +1,10 @@
-﻿using Mejuri_Back_end.Models;
+﻿using Mejuri_Back_end.Helpers;
+using Mejuri_Back_end.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,9 +14,12 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
     public class CategoryController : Controller
     {
         public readonly AppDbContext _context;
-        public CategoryController(AppDbContext context)
+        private readonly IWebHostEnvironment _env;
+
+        public CategoryController(AppDbContext context, IWebHostEnvironment env)
         {
             _context = context;
+            _env = env;
         }
         public IActionResult Index()
         {
@@ -24,6 +30,49 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Category category)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            if (category.ImageFile!=null)
+            {
+                if (category.ImageFile.ContentType != "image/png" && category.ImageFile.ContentType != "image/jpeg" && category.ImageFile.ContentType != "image/jfif")
+                {
+                    ModelState.AddModelError("ImageFile", "File type can be only jpeg,jpg,jfif or png!");
+                    return View();
+                }
+                if (category.ImageFile.Length> 2097152)
+                {
+                    ModelState.AddModelError("ImageFile", "File size can not be more than 2MB!");
+                    return View();
+                }
+                string fileName = category.ImageFile.FileName;
+
+                if (fileName.Length > 64)
+                {
+                    fileName = fileName.Substring(fileName.Length - 64, 64);
+                }
+
+                string newFileName = Guid.NewGuid().ToString() + fileName;
+
+                string path = Path.Combine(_env.WebRootPath, "uploads/category", newFileName);
+
+                using (FileStream stream = new FileStream(path, FileMode.Create))
+                {
+                    category.ImageFile.CopyTo(stream);
+                }
+                category.Image = newFileName;
+            }
+
+            _context.Categories.Add(category);
+            _context.SaveChanges();
+
+            return RedirectToAction("index");
         }
     }
 }

@@ -41,35 +41,16 @@
                                 <span class="text-danger" asp-validation-for="Name"></span>
                             </div>
                             <div class="form-group">
-                                <label for="inputDescription">Project Description</label>
-                                <textarea id="inputDescription" class="form-control" rows="4"></textarea>
+                                <label asp-for="ImageFile">ImageFile</label>
+                                <input asp-for="ImageFile" class="form-control">
+                                <span class="text-danger" asp-validation-for="ImageFile"></span>
                             </div>
                             <div class="form-group">
-                                <label for="inputStatus">Status</label>
-                                <select id="inputStatus" class="form-control custom-select">
-                                    <option selected="" disabled="">Select one</option>
-                                    <option>On Hold</option>
-                                    <option>Canceled</option>
-                                    <option>Success</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputClientCompany">Client Company</label>
-                                <input type="text" id="inputClientCompany" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputProjectLeader">Project Leader</label>
-                                <input type="text" id="inputProjectLeader" class="form-control">
+                                <button type="submit" class="btn btn-success float-right">Create new Category</button>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <a href="#" class="btn btn-secondary">Cancel</a>
-                <input type="submit" value="Create new Project" class="btn btn-success float-right">
             </div>
         </div>
     </section>
