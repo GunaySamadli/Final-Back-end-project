@@ -21,10 +21,12 @@ namespace Mejuri_Back_end.Controllers
         {
             ShopViewModel shopVM = new ShopViewModel
             {
-                ProductColors=_context.ProductColors.Include(x=>x.ProductColorImages).Include(x=>x.Product).
-                ThenInclude(x => x.ProductColors).
+                ProductColors = _context.ProductColors
+                .Include(x => x.ProductColorImages)
+                .Include(x => x.Product).
                 Include(x => x.Color).ToList(),
 
+                
                 Categories=_context.Categories.ToList(),
                 Genders = _context.Genders.ToList(),
                 ProductMaterials=_context.ProductMaterials.Include(x=>x.Material).ToList()
