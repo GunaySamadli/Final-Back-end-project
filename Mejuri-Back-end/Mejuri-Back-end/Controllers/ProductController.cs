@@ -31,6 +31,7 @@ namespace Mejuri_Back_end.Controllers
                 .Include(x=>x.ProductColors).ThenInclude(x=>x.Color)
                 .Include(x => x.ProductMaterials).ThenInclude(x => x.Material).Where(x=>x.Id==id).FirstOrDefault()
 
+
             };
            
             return View(shopVM);

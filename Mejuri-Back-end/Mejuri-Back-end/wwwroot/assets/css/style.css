@@ -6442,7 +6442,6 @@ main #company .company-item {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap:wrap;
   padding: 1rem 0; }
   @media screen and (max-width: 320px) {
     main #company .company-item {
@@ -6550,6 +6549,23 @@ main #edit .edit-info {
     font-size: 1.6rem;
     text-decoration: underline;
     color: #737373; }
+
+main #edit .img-product {
+  position: relative; }
+  main #edit .img-product .img-responsive {
+    opacity: 1; }
+    main #edit .img-product .img-responsive:hover {
+      opacity: 0; }
+  main #edit .img-product .img-responsive-hov {
+    transition: opacity 0.25s ease, filter 0.25s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0; }
+    main #edit .img-product .img-responsive-hov:hover {
+      opacity: 1; }
 
 main #edit .hover-btns {
   position: absolute;

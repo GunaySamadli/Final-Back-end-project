@@ -21,5 +21,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             List<Gender> genders = _context.Genders.ToList();
             return View(genders);
         }
+
+        
     }
 }

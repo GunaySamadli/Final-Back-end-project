@@ -101,27 +101,29 @@
                 <div class="edit-item company-slider">
                     @foreach (var company in Model.ProductColors)
                     {
-                        if (company.Product.CompanyId!=null)
+                        if (company.Product.CompanyId != null)
                         {
                             <div class="col-md-3 company-slider-item">
-                            <a href="">
-                                    <img src="./assets/images/@company.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" alt="">
                                 <a href="">
-                                    @if (company.Product.CompanyId != null)
-                                    {
+                                    <div class="img-product">
+                                        <a href="./detail.html">
+                                            <img src="~/assets/images/@company.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
+                                            <img src="~/assets/images/@company.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image" class="img-responsive-hov">
+                                        </a>
+                                    </div>
+                                    <a href="">
                                         <p>@company.Product.Company.Title</p>
-                                    }
+                                    </a>
                                 </a>
-                            </a>
-                            <div class="hover-btns">
-                                <a class="single-btn add-basket">
-                                    <i class="fas fa-shopping-basket"></i>
-                                </a>
-                                <a href="wishlist.html" class="single-btn">
-                                    <i class="far fa-heart"></i>
-                                </a>
+                                <div class="hover-btns">
+                                    <a class="single-btn add-basket">
+                                        <i class="fas fa-shopping-basket"></i>
+                                    </a>
+                                    <a href="wishlist.html" class="single-btn">
+                                        <i class="far fa-heart"></i>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
                         }
                     }
                 </div>
@@ -137,11 +139,11 @@
                     {
                         <div class="col-md-12">
                             <div class="new-item">
-                                <img src="~/assets/images/@slider.Image" alt="">
+                                <img src="~/uploads/slider/@slider.Image" style="width: 1125px; height:604px;" alt="">
                                 <div class="new-info">
                                     <h4>@slider.SubTitle</h4>
                                     <p>@slider.Title</p>
-                                    <a class="button button-primary" href="@slider.RedirectUrl">@slider.RedirectUrlText</a>
+                                    <a class="button button-primary" href="">Shop New</a>
                                 </div>
                             </div>
                         </div>

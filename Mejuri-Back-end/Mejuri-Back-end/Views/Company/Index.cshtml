@@ -1,6 +1,150 @@
 ﻿
-
+@model CompanyViewModel
 
 @{
     ViewData["Title"] = "Company";
 }
+
+<main class="row">
+    <div class="col-lg-3 left-side company-left">
+        <aside class="company-aside">
+            <div class="sidebar-company">
+                <div class="container">
+                    <div class="row">
+                        <div class="sidebar-items">
+                            <div class="sidebar-item">
+                                <ul>
+                                    <li><a href="">All Company</a></li>
+                                    <li><a href="">Personalized Company</a></li>
+                                    <li><a href="">The Silver Company</a></li>
+                                    <li><a href="">Company Under $150</a></li>
+                                    <li><a href="">Company Under $250</a></li>
+                                    <li><a href="">Company Under $500</a></li>
+                                    <li><a href="">Company Over $500</a></li>
+                                    <li><a href="">Company for Him</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+    <!--Info-->
+    <div class="col-lg-9 col-md-12">
+        <!--Dropdown-->
+        <section id="dropdown">
+            <div class="container">
+                <div class="row">
+                    <div class="company-category">
+                        <div class="company-category-head">
+                            <h5>Companies</h5>
+                            <img src="./assets/images/arrow-down.svg" alt="">
+                        </div>
+                        <ul class="drop-menu" style="display: none;">
+                            <li><a href="">All Company</a></li>
+                            <li><a href="">Personalized Company</a></li>
+                            <li><a href="">The Silver Company</a></li>
+                            <li><a href="">Company Under $150</a></li>
+                            <li><a href="">Company Under $250</a></li>
+                            <li><a href="">Company Under $500</a></li>
+                            <li><a href="">Company Over $500</a></li>
+                            <li><a href="">Company for Him</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Section Info-->
+        <section id="info">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="company-info">
+                            <div class="info-img">
+                                <img src="./assets/images/company-head.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Personilazed Company-->
+        @if (Model.Product.CompanyId!=null)
+        {
+
+        }
+
+        @foreach (var item in Model.Products)
+        {
+            @if (item.CompanyId != null)
+            {
+                <section id="favory">
+                    <div class="favory-title">
+                        <h2>@item.Company.CompanyCategory.Name</h2>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            @for (int i = 0; i < Model.Products.Count; i++)
+                            {
+                                <div class="col-md-4">
+                                    <div class="favory-item">
+                                        <div class="card-image">
+                                            <div class="img-product">
+                                                <div class="content-colors" id="@Model.Products[i].Id">
+                                                    @*@for (int j = 0; j < Model.Products.Count; j++)
+                                                    {
+                                                        <div class="content-color @(j==0?"active":"")" id="@Model.Products[j].Id">
+                                                            <a href="./detail.html">
+                                                                <img src="./assets/images/@Model.Products[j].ProductColors.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
+                                                                <img src="./assets/images/@Model.ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image"
+                                                                     class="img-responsive-hov">
+                                                            </a>
+                                                        </div>
+                                                    }*@
+                                                </div>
+                                            </div>
+                                            <div class="hover-btns">
+                                                <a class="single-btn add-basket">
+                                                    <i class="fas fa-shopping-basket"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="single-btn">
+                                                    <i class="far fa-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fav-info">
+                                        <a href="">
+                                            <h2 class="basket-head">@Model.Products[i].Name</h2>
+                                        </a>
+                                        <p class="basket-price">
+                                            <span>$</span>
+                                            @Model.Products[i].SalePrice
+                                        </p>
+                                    </div>
+                                    <div class="fav-color">
+                                        <div class="color-items" data-id="@Model.Products[i].Id">
+                                            @*@for (int d = 0; d < Model.ProductColors.Count; d++)
+                                            {
+                                                <div class="color-item">
+                                                    <a class="tab-color @(d==0?"active":"")" data-target="@Model.ProductColors[d].Color.Name">
+                                                        <img src="./assets/images/color/@Model.ProductColors[d].Color.Image" alt="">
+                                                    </a>
+                                                </div>
+
+                                            }*@
+                                        </div>
+                                        @*<p>@Model.Products[i].ProductColors.Color.Desc</p>*@
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </section>
+            }
+
+        }
+
+    </div>
+</main>

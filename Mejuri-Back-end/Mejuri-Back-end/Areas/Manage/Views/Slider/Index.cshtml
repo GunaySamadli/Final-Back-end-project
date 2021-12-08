@@ -29,7 +29,7 @@
         <div class="card">
             <div class="card-head">
                 <h4>Products List</h4>
-                <a href="product-edit.html">Add Slider</a>
+                <a asp-action="create">Add Slider</a>
             </div>
             
             <table class="table table-striped projects">
@@ -44,22 +44,22 @@
                     @foreach (var slider in Model)
                     {
                         order++;
-                        <tr>
-                            <td>@order</td>
-                            <td>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <img style="width:6.5rem;border-radius:0" alt="Avatar" class="table-avatar" src="~/assets/images/@slider.Image">
-                                    </li>
-                                </ul>
-                            </td>
-                            <td>@slider.Title</td>
-                            <td>@slider.SubTitle</td>
-                            <td>
-                                <button style="background:orange;" data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit"><i class="fas fa-edit"></i></button>
-                                <button style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash"><i class="fas fa-trash-alt"></i></button>
-                            </td>
-                        </tr>
+                <tr>
+                    <td>@order</td>
+                    <td>
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <img style="width:6.5rem;border-radius:0" alt="Avatar" class="table-avatar" src="~/uploads/slider/@slider.Image">
+                            </li>
+                        </ul>
+                    </td>
+                    <td>@slider.Title</td>
+                    <td>@slider.SubTitle</td>
+                    <td>
+                        <a asp-action="edit" asp-route-id="@slider.Id" class="pd-setting-ed" style="background:orange;"><i class="fas fa-edit"></i></a>
+                        <a asp-action="deletefetch" asp-route-id="@slider.Id" style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed btn-item-delete" data-original-title="Trash"><i class="fas fa-trash-alt "></i></a>
+                    </td>
+                </tr>
 
                     }
                 </tbody>
