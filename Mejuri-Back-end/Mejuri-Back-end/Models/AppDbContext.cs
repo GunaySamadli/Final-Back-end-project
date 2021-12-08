@@ -22,21 +22,9 @@ namespace Mejuri_Back_end.Models
         public DbSet<ProductColor> ProductColors { get; set; }
         public DbSet<ProductColorImage> ProductColorImages { get; set; }
         public DbSet<ProductMaterial> ProductMaterials { get; set; }
+        public DbSet<CompanyCategory> CompanyCategories { get; set; }
+        public DbSet<Company> Companies { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-            ApplyDbSeedData(builder);
-        }
-        public static void ApplyDbSeedData(ModelBuilder builder)
-        {
-            builder.Entity<Brand>()
-                .HasData(
-                new Brand { Id = 1, Text = "Prices are lower than traditional luxury brands, meaning you can stock up on the pieces you love." },
-                new Brand { Id = 2, Text = "Mejuri's affordable gold pieces are both timeless and of the moment." }
-                );
-
-        }
 
 
 

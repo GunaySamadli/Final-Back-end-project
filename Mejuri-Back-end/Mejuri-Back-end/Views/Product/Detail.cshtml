@@ -14,7 +14,7 @@
                                                 @for (int j= 0; j < Model.Product.ProductColors.Count; j++)
                                                 {
                                                 <div class="col-md-6 col-sm-12">
-                                                    <img src="~/assets/images/@Model.Product.ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==null)?.Image" alt="">
+                                                    <img src="~/assets/images/@Model.Product.ProductColors[i].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==null)?.Image" alt="">
                                                 </div>
                                                 }
                                                 
@@ -72,7 +72,7 @@
                                 else
                                 {
                                 <span>
-                                    Out Stock
+                                    Out of Stock
                                 </span>
                                 }
                                 </p>

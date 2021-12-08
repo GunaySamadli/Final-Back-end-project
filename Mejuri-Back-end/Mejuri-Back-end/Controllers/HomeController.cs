@@ -1,6 +1,7 @@
 ﻿using Mejuri_Back_end.Models;
 using Mejuri_Back_end.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +23,14 @@ namespace Mejuri_Back_end.Controllers
             {
                 Brands = _context.Brands.ToList(),
                 Sliders = _context.Sliders.ToList(),
-                Categories = _context.Categories.ToList()
-
-
+                Categories = _context.Categories.ToList(),
+                CompanyCategories = _context.CompanyCategories.ToList(),
+                ProductColors = _context.ProductColors
+                .Include(x => x.Product).ThenInclude(x=>x.Company)
+                .Include(x => x.ProductColorImages)
+                .ToList()
             };
+
             return View(homeVM);
         }
     }

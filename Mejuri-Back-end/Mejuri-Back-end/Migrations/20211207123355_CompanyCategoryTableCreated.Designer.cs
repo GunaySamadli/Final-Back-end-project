@@ -4,14 +4,16 @@ using Mejuri_Back_end.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mejuri_Back_end.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211207123355_CompanyCategoryTableCreated")]
+    partial class CompanyCategoryTableCreated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,36 +88,6 @@ namespace Mejuri_Back_end.Migrations
                     b.ToTable("Colors");
                 });
 
-            modelBuilder.Entity("Mejuri_Back_end.Models.Company", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CompanyCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Percent")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyCategoryId");
-
-                    b.ToTable("Companies");
-                });
-
             modelBuilder.Entity("Mejuri_Back_end.Models.CompanyCategory", b =>
                 {
                     b.Property<int>("Id")
@@ -181,9 +153,6 @@ namespace Mejuri_Back_end.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Desc")
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
@@ -211,8 +180,6 @@ namespace Mejuri_Back_end.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("CompanyId");
 
                     b.HasIndex("GenderId");
 
@@ -320,15 +287,6 @@ namespace Mejuri_Back_end.Migrations
                     b.ToTable("Sliders");
                 });
 
-            modelBuilder.Entity("Mejuri_Back_end.Models.Company", b =>
-                {
-                    b.HasOne("Mejuri_Back_end.Models.CompanyCategory", "CompanyCategory")
-                        .WithMany("Companies")
-                        .HasForeignKey("CompanyCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Mejuri_Back_end.Models.Product", b =>
                 {
                     b.HasOne("Mejuri_Back_end.Models.Category", "Category")
@@ -336,10 +294,6 @@ namespace Mejuri_Back_end.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Mejuri_Back_end.Models.Company", "Company")
-                        .WithMany("Products")
-                        .HasForeignKey("CompanyId");
 
                     b.HasOne("Mejuri_Back_end.Models.Gender", "Gender")
                         .WithMany("Products")

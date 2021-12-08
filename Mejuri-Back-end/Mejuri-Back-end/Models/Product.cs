@@ -11,6 +11,8 @@ namespace Mejuri_Back_end.Models
         public int Id { get; set; }
         public int CategoryId { get; set; }
         public int GenderId { get; set; }
+        public int? CompanyId { get; set; }
+
         [Required]
         [StringLength(maximumLength: 100)]
         public string Name { get; set; }
@@ -25,8 +27,11 @@ namespace Mejuri_Back_end.Models
 
         public Category Category { get; set; }
         public Gender Gender { get; set; }
+        public Company Company { get; set; }
         public List<ProductColor> ProductColors { get; set; }
         public List<ProductMaterial> ProductMaterials { get; set; }
+
+
 
 
     }

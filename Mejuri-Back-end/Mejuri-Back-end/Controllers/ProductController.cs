@@ -25,15 +25,11 @@ namespace Mejuri_Back_end.Controllers
         {
             ShopViewModel shopVM = new ShopViewModel
             {
-                ProductColor= _context.ProductColors
-               .Include(x => x.ProductColorImages)
-               .Include(x => x.Product).
-               Include(x => x.Color).FirstOrDefault(x => x.Id == id),
 
                 Product = _context.Products
                 .Include(x=>x.ProductColors).ThenInclude(x=>x.ProductColorImages)
                 .Include(x=>x.ProductColors).ThenInclude(x=>x.Color)
-                .Include(x => x.ProductMaterials).ThenInclude(x => x.Material).FirstOrDefault(x => x.Id == id)
+                .Include(x => x.ProductMaterials).ThenInclude(x => x.Material).Where(x=>x.Id==id).FirstOrDefault()
 
             };
            

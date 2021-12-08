@@ -255,7 +255,7 @@
                                 <div class="favory-item">
                                     <div class="card-image">
                                         <div class="img-product">
-                                            <div class="content-colors" id="@Model.ProductColors[i].Product.Id">
+                                            <div class="content-colors" id="@Model.ProductColors[i].Id">
                                                 @for (int j = 0; j < Model.ProductColors.Count; j++)
                                                 {
                                                     <div class="content-color @(j==0?"active":"")" id="@Model.ProductColors[j].Color.Name">
@@ -288,7 +288,7 @@
                                     </p>
                                 </div>
                                 <div class="fav-color">
-                                    <div class="color-items" data-id="@Model.ProductColors[i].Product.Id">
+                                    <div class="color-items" data-id="@Model.ProductColors[i].Id">
                                         @for (int d = 0; d < Model.ProductColors.Count; d++)
                                         {
                                             <div class="color-item">

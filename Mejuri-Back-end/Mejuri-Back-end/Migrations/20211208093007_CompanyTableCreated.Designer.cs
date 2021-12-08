@@ -4,14 +4,16 @@ using Mejuri_Back_end.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mejuri_Back_end.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211208093007_CompanyTableCreated")]
+    partial class CompanyTableCreated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -181,9 +183,6 @@ namespace Mejuri_Back_end.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Desc")
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
@@ -211,8 +210,6 @@ namespace Mejuri_Back_end.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("CompanyId");
 
                     b.HasIndex("GenderId");
 
@@ -336,10 +333,6 @@ namespace Mejuri_Back_end.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Mejuri_Back_end.Models.Company", "Company")
-                        .WithMany("Products")
-                        .HasForeignKey("CompanyId");
 
                     b.HasOne("Mejuri_Back_end.Models.Gender", "Gender")
                         .WithMany("Products")

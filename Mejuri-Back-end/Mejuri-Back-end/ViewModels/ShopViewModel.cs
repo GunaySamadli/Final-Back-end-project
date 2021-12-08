@@ -9,7 +9,6 @@ namespace Mejuri_Back_end.ViewModels
     public class ShopViewModel
     {
         public Product Product { get; set; }
-
         public List<Product> Products { get; set; }
         public List<ProductMaterial> ProductMaterials { get; set; }
         public List<Material> Materials { get; set; }

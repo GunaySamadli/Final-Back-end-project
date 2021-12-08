@@ -53,6 +53,30 @@
             <div class="row">
                 <div class="company-info">
                     <h2>Company Shop</h2>
+                </div>
+            </div>
+            <div class="company-item" style="flex-wrap:wrap;">
+                @foreach (var item in Model.CompanyCategories)
+                {
+                    <div class="col-md-3 col-sm-6">
+                        <a href="">
+                            <img src="~/assets/images/@item.Image" alt="">
+                        </a>
+                        <a href="">
+                            <h3>@item.Name</h3>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+    <!--Style Edit-->
+    <section id="edit">
+        <div class="container">
+            <div class="row">
+                <hr>
+                <div class="edit-info">
+                    <h2>Company Shop</h2>
                     <div class="coming-soon">
                         <div class="countdown">
                             <div class="container-day time">
@@ -74,65 +98,32 @@
                         </div>
                     </div>
                 </div>
-                <div class="company-item company-up">
-                    <div class="col-md-4 col-sm-12 company-up-item">
-                        <a href="">
-                            <img src="~/assets/images/company1.jfif" alt="">
-                        </a>
-                        <a href="">
-                            <h3>MOST GIFTED</h3>
-                        </a>
-                    </div>
-                    <div class="col-md-4 company-up-item">
-                        <a href="">
-                            <img src="~/assets/images/company2.jfif" alt="">
-                        </a>
-                        <a href="">
-                            <h3>PERSONALIZED</h3>
-                        </a>
-                    </div>
-                    <div class="col-md-4 company-up-item">
-                        <a href="">
-                            <img src="~/assets/images/company3.jfif" alt="">
-                        </a>
-                        <a href="">
-                            <h3>FOR HIM</h3>
-                        </a>
-                    </div>
-                </div>
-                <div class="company-item">
-                    <div class="col-md-3 col-sm-6">
-                        <a href="">
-                            <img src="~/assets/images/gift1.jfif" alt="">
-                        </a>
-                        <a href="">
-                            <h3>UNDER $150</h3>
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <a href="">
-                            <img src="~/assets/images/gift2.jfif" alt="">
-                        </a>
-                        <a href="">
-                            <h3>UNDER $250</h3>
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <a href="">
-                            <img src="~/assets/images/gift3.jfif" alt="">
-                        </a>
-                        <a href="">
-                            <h3>UNDER $500</h3>
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <a href="">
-                            <img src="~/assets/images/gift4.jfif" alt="">
-                        </a>
-                        <a href="">
-                            <h3>$500+</h3>
-                        </a>
-                    </div>
+                <div class="edit-item company-slider">
+                    @foreach (var company in Model.ProductColors)
+                    {
+                        if (company.Product.CompanyId!=null)
+                        {
+                            <div class="col-md-3 company-slider-item">
+                            <a href="">
+                                    <img src="./assets/images/@company.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" alt="">
+                                <a href="">
+                                    @if (company.Product.CompanyId != null)
+                                    {
+                                        <p>@company.Product.Company.Title</p>
+                                    }
+                                </a>
+                            </a>
+                            <div class="hover-btns">
+                                <a class="single-btn add-basket">
+                                    <i class="fas fa-shopping-basket"></i>
+                                </a>
+                                <a href="wishlist.html" class="single-btn">
+                                    <i class="far fa-heart"></i>
+                                </a>
+                            </div>
+                        </div>
+                        }
+                    }
                 </div>
             </div>
         </div>
@@ -184,15 +175,15 @@
                     <div class="content-brands">
                         @for (int i = 0; i < Model.Brands.Count; i++)
                         {
-                        <div class="content-brand @(i==0?"active":"")" active" id="@Model.Brands[i].Id">
-                            <p class="text-brand">
-                                <q>
-                                    @Model.Brands[i].Text
-                                </q>
-                            </p>
-                        </div>
+                            <div class="content-brand @(i==0?"active":"")" active" id="@Model.Brands[i].Id">
+                                <p class="text-brand">
+                                    <q>
+                                        @Model.Brands[i].Text
+                                    </q>
+                                </p>
+                            </div>
                         }
-                       
+
                     </div>
                 </div>
             </div>
