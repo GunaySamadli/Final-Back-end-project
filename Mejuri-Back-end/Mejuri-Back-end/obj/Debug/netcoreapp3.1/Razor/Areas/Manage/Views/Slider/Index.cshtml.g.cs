@@ -19,8 +19,15 @@ using Mejuri_Back_end.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\Areas\Manage\Views\_ViewImports.cshtml"
+using Mejuri_Back_end.Areas.Manage.ViewModels;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"35e520ad0a3219dc0417285d1f6e6472f9b8092d", @"/Areas/Manage/Views/Slider/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"c347225f519b5b5613c442dd8c196970013dbc54", @"/Areas/Manage/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"cf251b33a873fbe76e0b9c8b18998dacf9b35253", @"/Areas/Manage/Views/_ViewImports.cshtml")]
     public class Areas_Manage_Views_Slider_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<Slider>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "create", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -97,7 +104,7 @@ using Mejuri_Back_end.Models;
             <div class=""card-head"">
                 <h4>Products List</h4>
                 ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "35e520ad0a3219dc0417285d1f6e6472f9b8092d8862", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "35e520ad0a3219dc0417285d1f6e6472f9b8092d9108", async() => {
                 WriteLiteral("Add Slider");
             }
             );
@@ -143,7 +150,7 @@ using Mejuri_Back_end.Models;
 #line hidden
 #nullable disable
             WriteLiteral("</td>\r\n                    <td>\r\n                        <ul class=\"list-inline\">\r\n                            <li class=\"list-inline-item\">\r\n                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "35e520ad0a3219dc0417285d1f6e6472f9b8092d11230", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "35e520ad0a3219dc0417285d1f6e6472f9b8092d11476", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -185,7 +192,7 @@ AddHtmlAttributeValue("", 1843, slider.Image, 1843, 13, false);
 #line hidden
 #nullable disable
             WriteLiteral("</td>\r\n                    <td>\r\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "35e520ad0a3219dc0417285d1f6e6472f9b8092d13771", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "35e520ad0a3219dc0417285d1f6e6472f9b8092d14017", async() => {
                 WriteLiteral("<i class=\"fas fa-edit\"></i>");
             }
             );
@@ -218,7 +225,7 @@ AddHtmlAttributeValue("", 1843, slider.Image, 1843, 13, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "35e520ad0a3219dc0417285d1f6e6472f9b8092d16182", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "35e520ad0a3219dc0417285d1f6e6472f9b8092d16428", async() => {
                 WriteLiteral("<i class=\"fas fa-trash-alt \"></i>");
             }
             );

@@ -58,6 +58,7 @@ namespace Mejuri_Back_end
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             
