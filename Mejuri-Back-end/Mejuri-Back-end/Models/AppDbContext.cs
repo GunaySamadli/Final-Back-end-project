@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Mejuri_Back_end.Models
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext:IdentityDbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options):base(options)
         {
@@ -24,6 +25,8 @@ namespace Mejuri_Back_end.Models
         public DbSet<ProductMaterial> ProductMaterials { get; set; }
         public DbSet<CompanyCategory> CompanyCategories { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
+
 
 
 
