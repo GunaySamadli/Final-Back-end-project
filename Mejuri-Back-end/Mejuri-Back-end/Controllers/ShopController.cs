@@ -19,14 +19,13 @@ namespace Mejuri_Back_end.Controllers
         }
         public IActionResult Index()
         {
+            List<Product> products = _context.Products
+               .Include(x => x.ProductColors).ThenInclude(x => x.Color)
+               .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages).ToList();
+
             ShopViewModel shopVM = new ShopViewModel
             {
-                ProductColors = _context.ProductColors
-                .Include(x => x.ProductColorImages)
-                .Include(x => x.Product).
-                Include(x => x.Color).ToList(),
-
-                
+                Products=products,
                 Categories=_context.Categories.ToList(),
                 Genders = _context.Genders.ToList(),
                 ProductMaterials=_context.ProductMaterials.Include(x=>x.Material).ToList()

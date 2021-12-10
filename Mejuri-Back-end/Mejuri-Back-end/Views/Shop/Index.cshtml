@@ -249,19 +249,19 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-                        @for (int i = 0; i < Model.ProductColors.Count; i++)
+                        @for (int i = 0; i < Model.Products.Count; i++)
                         {
                             <div class="col-md-4">
                                 <div class="favory-item">
                                     <div class="card-image">
                                         <div class="img-product">
-                                            <div class="content-colors" id="@Model.ProductColors[i].Id">
-                                                @for (int j = 0; j < Model.ProductColors.Count; j++)
+                                            <div class="content-colors" id="@Model.Products[i].Id">
+                                                @for (int j = 0; j < Model.Products[i].ProductColors.Count; j++)
                                                 {
-                                                    <div class="content-color @(j==0?"active":"")" id="@Model.ProductColors[j].Color.Name">
+                                                    <div class="content-color @(j==0?"active":"")" id="@Model.Products[i].ProductColors[j].Color.Name">
                                                         <a href="./detail.html">
-                                                            <img src="./assets/images/@Model.ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
-                                                            <img src="./assets/images/@Model.ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image"
+                                                            <img src="./assets/images/@Model.Products[i].ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
+                                                            <img src="./assets/images/@Model.Products[i].ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image"
                                                                  class="img-responsive-hov">
                                                         </a>
                                                     </div>
@@ -280,26 +280,26 @@
                                 </div>
                                 <div class="fav-info">
                                     <a href="">
-                                        <h2 class="basket-head">@Model.ProductColors[i].Product.Name</h2>
+                                        <h2 class="basket-head">@Model.Products[i].Name</h2>
                                     </a>
                                     <p class="basket-price">
                                         <span>$</span>
-                                        @Model.ProductColors[i].Product.SalePrice
+                                        @Model.Products[i].SalePrice
                                     </p>
                                 </div>
                                 <div class="fav-color">
-                                    <div class="color-items" data-id="@Model.ProductColors[i].Id">
-                                        @for (int d = 0; d < Model.ProductColors.Count; d++)
+                                    <div class="color-items" data-id="@Model.Products[i].Id">
+                                        @for (int d = 0; d < Model.Products[i].ProductColors.Count; d++)
                                         {
                                             <div class="color-item">
-                                                <a class="tab-color @(d==0?"active":"")" data-target="@Model.ProductColors[d].Color.Name">
-                                                    <img src="./assets/images/color/@Model.ProductColors[d].Color.Image" alt="">
+                                                <a class="tab-color @(d==0?"active":"")" data-target="@Model.Products[i].ProductColors[d].Color.Name">
+                                                    <img src="./assets/images/color/@Model.Products[i].ProductColors[d].Color.Image" alt="">
                                                 </a>
                                             </div>
 
                                         }
                                     </div>
-                                    <p>@Model.ProductColors[i].Color.Desc</p>
+                                    @*<p>@Model.Products[i].ProductColors[d].Color.Desc</p>*@
                                 </div>
                             </div>
 

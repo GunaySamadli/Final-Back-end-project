@@ -6310,6 +6310,101 @@ footer {
         align-items: center;
         padding-top: 2rem; } }
 
+/* The Modal (background) */
+.ebcf_modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding-top: 100px;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  animation: 0.5s ease 0s 1 normal forwards running jBcSpD;
+  background: rgba(0, 0, 0, 0.75); }
+
+/* Modal Content */
+.ebcf_modal-content {
+  background: white;
+  margin: auto;
+  max-width: 570px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 0px 20px;
+  z-index: 1002; }
+
+/* The Close Button */
+.ebcf_close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold; }
+
+.ebcf_close:hover,
+.ebcf_close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer; }
+
+.modal {
+  text-align: center;
+  padding: 70px 16px 50px; }
+  .modal .modal-header h1 {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 24px; }
+  .modal .modal-header p {
+    font-size: 18px;
+    margin-bottom: 24px;
+    font-weight: 300;
+    line-height: 24px;
+    padding: 10px 0px;
+    letter-spacing: 0.1px;
+    width: 70%;
+    text-align: center;
+    margin: 0 auto; }
+  .modal .modal-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center; }
+    .modal .modal-form input {
+      outline: none;
+      display: block;
+      width: 70%;
+      padding: 10px 30px 10px 10px;
+      text-align: left;
+      border-radius: initial;
+      height: 48px;
+      line-height: 48px;
+      border-width: 1px;
+      margin-bottom: 1.5rem; }
+  .modal .modal-btn {
+    margin: 2rem 0;
+    background-color: #000;
+    color: white;
+    font-size: 15px;
+    width: 70%; }
+    .modal .modal-btn:hover {
+      background: #737373;
+      border: 1px solid #737373;
+      color: white; }
+  .modal .forgot-ans {
+    color: #737373;
+    margin-top: 24px;
+    font-size: 1.5rem;
+    font-weight: 300;
+    transition: all 0.1s ease 0s; }
+
 main #info .info {
   position: relative;
   display: flex;
