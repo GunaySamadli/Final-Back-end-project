@@ -170,3 +170,6 @@ C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\o
 C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Areas\Manage\Views\CompanyCategory\Index.cshtml.g.cs
 C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Areas\Manage\Views\CompanyCategory\Create.cshtml.g.cs
 C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Areas\Manage\Views\CompanyCategory\Edit.cshtml.g.cs
+C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Areas\Manage\Views\Company\Index.cshtml.g.cs
+C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Areas\Manage\Views\Company\Create.cshtml.g.cs
+C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Areas\Manage\Views\Company\Edit.cshtml.g.cs
