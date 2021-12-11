@@ -20,10 +20,14 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             _context = context;
             _env = env;
         }
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            List<Slider> sliders = _context.Sliders.ToList();
-            return View(sliders);
+            var query = _context.Sliders.AsQueryable();
+
+            var pagenatedSlider = PagenatedList<Slider>.Create(query, 4, page);
+
+            return View(pagenatedSlider);
+
         }
 
         public IActionResult Create()

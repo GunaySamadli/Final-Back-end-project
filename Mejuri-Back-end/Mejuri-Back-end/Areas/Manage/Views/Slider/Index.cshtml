@@ -1,9 +1,8 @@
-﻿@model List<Slider>
+﻿@model PagenatedList<Slider>
 @{
     ViewData["Title"] = "Index";
-    int order = 0;
+    int order = (Model.PageIndex - 1) * 4;
 }
-
 <div class="content-wrapper" style="min-height: 1604.71px;">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -31,7 +30,7 @@
                 <h4>Products List</h4>
                 <a asp-action="create">Add Slider</a>
             </div>
-            
+
             <table class="table table-striped projects">
                 <tbody>
                     <tr>
@@ -44,37 +43,49 @@
                     @foreach (var slider in Model)
                     {
                         order++;
-                <tr>
-                    <td>@order</td>
-                    <td>
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <img style="width:6.5rem;border-radius:0" alt="Avatar" class="table-avatar" src="~/uploads/slider/@slider.Image">
-                            </li>
-                        </ul>
-                    </td>
-                    <td>@slider.Title</td>
-                    <td>@slider.SubTitle</td>
-                    <td>
-                        <a asp-action="edit" asp-route-id="@slider.Id" class="pd-setting-ed" style="background:orange;"><i class="fas fa-edit"></i></a>
-                        <a asp-action="deletefetch" asp-route-id="@slider.Id" style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed btn-item-delete" data-original-title="Trash"><i class="fas fa-trash-alt "></i></a>
-                    </td>
-                </tr>
+                        <tr>
+                            <td>@order</td>
+                            <td>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <img style="width:6.5rem;border-radius:0" alt="Avatar" class="table-avatar" src="~/uploads/slider/@slider.Image">
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>@slider.Title</td>
+                            <td>@slider.SubTitle</td>
+                            <td>
+                                <a asp-action="edit" asp-route-id="@slider.Id" class="pd-setting-ed" style="background:orange;"><i class="fas fa-edit"></i></a>
+                                <a asp-action="deletefetch" asp-route-id="@slider.Id" style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed btn-item-delete" data-original-title="Trash"><i class="fas fa-trash-alt "></i></a>
+                            </td>
+                        </tr>
 
                     }
                 </tbody>
             </table>
+            <div class="d-flex justify-content-center">
             <div class="card-tools">
                 <ul class="pagination pagination-sm">
-                    <li class="page-item"><a href="#" class="page-link">«</a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">»</a></li>
+                    <li class="page-item @(Model.HasPrev?"":"disabled")">
+                        <a class="page-link" asp-action="index" asp-route-page="@(Model.PageIndex-1)" aria-label="Previous">
+                           «
+                        </a>
+                    </li>
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i==Model.PageIndex?"active":"")"><a class="page-link" asp-action="index" asp-route-page="@i">@i</a></li>
+                    }
+                    <li class="page-item @(Model.HasNext?"":"disabled")">
+                        <a class="page-link" asp-action="index" asp-route-page="@(Model.PageIndex+1)"  aria-label="Next">
+                            »
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
-        
+           
+        </div>
+
         <!-- /.card -->
 
     </section>
