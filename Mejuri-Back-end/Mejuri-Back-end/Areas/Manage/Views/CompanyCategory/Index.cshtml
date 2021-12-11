@@ -1,0 +1,75 @@
+﻿@model List<CompanyCategory>
+@{
+    ViewData["Title"] = "Index";
+    int order = 0;
+}
+
+<div class="content-wrapper" style="min-height: 1604.71px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Projects</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Projects</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-head">
+                <h4>Products List</h4>
+                <a asp-action="Create">Add Company Category</a>
+            </div>
+
+            <table class="table table-striped projects">
+                <tbody>
+                    <tr>
+                        <th>#</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Setting</th>
+                    </tr>
+                    @foreach (var category in Model)
+                    {
+                        order++;
+                        <tr>
+                            <td>@order</td>
+                            <td>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <img style="width:6.5rem;border-radius:0" alt="Avatar" class="table-avatar" src="~/uploads/companycategory/@category.Image">
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>@category.Name</td>
+                            <td>
+                                <a asp-action="edit" asp-route-id="@category.Id" class="pd-setting-ed" style="background:orange;"><i class="fas fa-edit"></i></a>
+                                <a asp-action="deletefetch" asp-route-id="@category.Id" style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed btn-item-delete" data-original-title="Trash"><i class="fas fa-trash-alt "></i></a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+           
+        </div>
+
+        <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+</div>
+
+
+

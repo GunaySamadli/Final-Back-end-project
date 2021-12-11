@@ -1,4 +1,4 @@
-﻿@model Slider
+﻿@model CompanyCategory
 @{
     ViewData["Title"] = "Edit";
 }
@@ -38,14 +38,9 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label asp-for="Title">Title</label>
-                                <input asp-for="Title" class="form-control" placeholder="Title">
-                                <span class="text-danger" asp-validation-for="Title"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="SubTitle">SubTitle</label>
-                                <input asp-for="SubTitle" class="form-control" placeholder="SubTitle">
-                                <span class="text-danger" asp-validation-for="SubTitle"></span>
+                                <label asp-for="Name">FullName</label>
+                                <input asp-for="Name" class="form-control" placeholder="FullName">
+                                <span class="text-danger" asp-validation-for="Name"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="ImageFile">ImageFile</label>
@@ -55,7 +50,7 @@
 
                             <div class="img-box" style=" display: flex; flex-direction: column; position: relative;">
                                 <input type="hidden" name="Image" value="@Model.Image" />
-                                <img style="max-width:200px" src="~/uploads/slider/@Model.Image" alt="Alternate Text" />
+                                <img style="max-width:200px" src="~/uploads/companycategory/@Model.Image" alt="Alternate Text" />
                                 <div style="max-width:200px" class="btn-group btn-group-sm remove-img-box">
                                     <a class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                 </div>
