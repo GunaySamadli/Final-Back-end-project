@@ -1,0 +1,109 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="content-wrapper" style="min-height: 1604.71px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Project Add</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Project Add</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">General</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            <div class="row d-flex justify-content-between">
+                                <div class="form-group col-md-4">
+                                    <label asp-for="Name">Name</label>
+                                    <input asp-for="Name" class="form-control">
+                                    <span class="text-danger" asp-validation-for="Name"></span>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="CategoryId">Category</label>
+                                    <select asp-for="CategoryId" class="form-control" id="CategoryId" asp-items="@(new SelectList(ViewBag.Category,"Id","Name"))">
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2 d-flex justify-content-center align-items-center">
+                                    <label asp-for="IsStock">IsStock</label>
+                                    <input asp-for="IsStock" class="form-control mr-5">
+                                    <span class="text-danger" asp-validation-for="IsStock"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Desc">Desc</label>
+                                <input asp-for="Desc" class="form-control">
+                                <span class="text-danger" asp-validation-for="Desc"></span>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label asp-for="SalePrice">SalePrice</label>
+                                    <input asp-for="SalePrice" class="form-control">
+                                    <span class="text-danger" asp-validation-for="SalePrice"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="Rate">Rate</label>
+                                    <input asp-for="Rate" class="form-control">
+                                    <span class="text-danger" asp-validation-for="Rate"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="ShippingPrice">Shipping Price</label>
+                                    <input asp-for="ShippingPrice" class="form-control">
+                                    <span class="text-danger" asp-validation-for="ShippingPrice"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label asp-for="GenderId">Gender</label>
+                                    <select asp-for="GenderId" class="form-control" id="GenderId" asp-items="@(new SelectList(ViewBag.Gender,"Id","Name"))">
+                                    </select>
+                                </div>
+                                @*<div class="form-group col-md-2">
+                <label asp-for="CompanyId">Company</label>
+                <select asp-for="CompanyId" class="form-control" id="CompanyId" asp-items="@(new SelectList(ViewBag.Company,"Id","Name"))">
+                </select>
+            </div>*@
+                                <div class="form-group col-md-2">
+                                    <label asp-for="MaterialIds">Material</label>
+                                    <select asp-for="MaterialIds" class="form-control" id="MaterialIds" asp-items="@(new SelectList(ViewBag.Material,"Id","Name"))">
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="ColorIds">Color</label>
+                                    <select asp-for="ColorIds" class="form-control" id="ColorIds" asp-items="@(new SelectList(ViewBag.Color,"Id","Name"))">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success float-right">Create new Product</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>

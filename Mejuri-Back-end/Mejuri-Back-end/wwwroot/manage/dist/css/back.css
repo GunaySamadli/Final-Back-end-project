@@ -18,6 +18,12 @@
     align-items: center;
     padding: 15px 20px;
 }
-.card{
-    padding-bottom:5rem;
+.card {
+    padding-bottom: 5rem;
+}
+.fold {
+   display:none;
+}
+.fold.open {
+    display: table-row;
 }

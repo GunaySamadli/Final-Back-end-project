@@ -11,13 +11,12 @@
                                     {
                                         <div class="content-detail-color @(i==0?"active":"")" id="@Model.Product.ProductColors[i].Id">
                                             <div class="row">
-                                                @for (int j= 0; j < Model.Product.ProductColors.Count; j++)
+                                                @foreach (var item in Model.Product.ProductColors[i].ProductColorImages)
                                                 {
-                                                <div class="col-md-6 col-sm-12">
-                                                    <img src="~/assets/images/@Model.Product.ProductColors[i].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==null)?.Image" alt="">
-                                                </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <img src="~/assets/images/@item.Image" alt="">
+                                                    </div>
                                                 }
-                                                
                                             </div>
                                         </div>
                                     }

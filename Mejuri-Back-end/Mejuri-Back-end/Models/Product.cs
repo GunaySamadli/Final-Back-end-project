@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,10 +30,20 @@ namespace Mejuri_Back_end.Models
         public Category Category { get; set; }
         public Gender Gender { get; set; }
         public Company Company { get; set; }
-        public List<ProductColor> ProductColors { get; set; }
-        public List<ProductMaterial> ProductMaterials { get; set; }
+        public List<ProductColor> ProductColors { get; set; } = new List<ProductColor>();
+        public List<ProductMaterial> ProductMaterials { get; set; } = new List<ProductMaterial>();
 
+        [NotMapped]
+        public IFormFile PosterFile { get; set; }
 
+        [NotMapped]
+        public List<IFormFile> ImageFiles { get; set; }
+
+        [NotMapped]
+        public List<int> ColorIds { get; set; } = new List<int>();
+
+        [NotMapped]
+        public List<int> MaterialIds { get; set; } = new List<int>();
 
 
     }
