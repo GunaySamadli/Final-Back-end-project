@@ -28,7 +28,7 @@
         <div class="card">
             <div class="card-head">
                 <h4>Products List</h4>
-                <a asp-action="create">Add Slider</a>
+                <a asp-action="create">Add Product</a>
             </div>
 
             <table class="table table-striped projects" style="position:relative;">
@@ -38,7 +38,7 @@
                         <th>Images</th>
                         <th>Name</th>
                         <th>Sale Price</th>
-                        <th>Sale Price</th>
+                        <th>Category</th>
                         <th>IsStock</th>
                         <th>Setting</th>
                     </tr>
@@ -76,7 +76,7 @@
                                                 @foreach (ProductColor productColor in product.ProductColors)
                                                 {
                                                     productColorCounter++;
-                                                    <tr style="background-color:@("#"+productColor.Color.Image)">
+                                                    <tr>
                                                         <td>@productColorCounter</td>
                                                         <td>
                                                             @if (productColor.ProductColorImages.Count() > 0)
@@ -85,15 +85,17 @@
                                                             }
                                                             else
                                                             {
-                                                               
+                                                                <a class="btn btn-dark" asp-action="addimage" asp-route-productId="@product.Id" asp-route-colorId="@productColor.Color.Id">
+                                                                    <i class="fas fa-plus"></i>
+                                                                </a>
                                                             }
                                                         </td>
                                                         <td>@productColor.Color.Name</td>
                                                         <td>
-                                                            <a asp-action="edit" asp-route-id="@product.Id" class="pd-setting-ed" style="background:orange;"><i class="fas fa-edit"></i></a>
-                                                            <a asp-action="deletefetch" asp-route-id="@product.Id" style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed btn-item-delete" data-original-title="Trash"><i class="fas fa-trash-alt "></i></a>
-                                                        </td>
+                                                            <a asp-action="addimage" asp-route-productId="@product.Id" asp-route-colorId="@productColor.Color.Id" class="pd-setting-ed" style="background:orange;"><i class="fas fa-edit"></i></a>
+                                                            <a asp-action="deletecolor" asp-route-productId="@product.Id" asp-route-colorId="@productColor.Color.Id"  style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed btn-item-delete" data-original-title="Trash"><i class="fas fa-trash-alt "></i></a>
 
+                                                        </td>
                                                     </tr>
                                                 }
                                             </tbody>

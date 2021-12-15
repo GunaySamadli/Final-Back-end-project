@@ -1,5 +1,8 @@
-﻿using Mejuri_Back_end.Models;
+﻿using Mejuri_Back_end.Extentions;
+using Mejuri_Back_end.Helpers;
+using Mejuri_Back_end.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -215,6 +218,155 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             }
 
             return Json(new { status = 200 });
+        }
+
+
+        public IActionResult AddImage(int? productId, int? colorId)
+        {
+            if (productId == null || colorId == null) return NotFound();
+            ProductColor productColor = _context.ProductColors
+                                        .Include(x => x.ProductColorImages)
+                                        .Include(x => x.Product)
+                                        .Include(x => x.Color)
+                                        .FirstOrDefault(x => x.ColorId == colorId && x.ProductId == productId);
+            if (productColor == null) return NotFound();
+
+            return View(productColor);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddImage(int? productId, int? colorId, ProductColor productColor)
+        {
+            ProductColor productColorDb = _context.ProductColors
+                                        .Include(x => x.ProductColorImages)
+                                        .Include(x => x.Product)
+                                        .Include(x => x.Color)
+                                        .FirstOrDefault(x => x.ColorId == colorId && x.ProductId == productId);
+            if (productColorDb == null) return NotFound();
+
+            string path = Path.Combine(_env.WebRootPath, "uploads", "product");
+            ProductColorImage poster = productColorDb.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true);
+            ProductColorImage hover = productColorDb.ProductColorImages.FirstOrDefault(x => x.PosterStatus == false);
+            #region PosterFileAdded
+            if (poster == null)
+            {
+                if (productColor.PosterFile == null)
+                {
+                    ModelState.AddModelError("PosterImage", "Please, select file");
+                    return View(productColorDb);
+                }
+                if (!productColor.PosterFile.CheckContent()) ModelState.AddModelError("PosterImage", "Please, select a file in the correct format");
+                if (productColor.PosterFile.CheckSize(1024)) ModelState.AddModelError("PosterImage", "File's length cann't be greater than specified size");
+                if (!ModelState.IsValid) return View(productColorDb);
+
+                productColorDb.ProductColorImages.Add(new ProductColorImage
+                {
+                    PosterStatus = true,
+                    Image = await productColor.PosterFile.SaveImage(path)
+                });
+            }
+            else
+            {
+                if (productColor.PosterFile != null)
+                {
+                    Helper.FileDelete(path, poster.Image);
+                    poster.Image = await productColor.PosterFile.SaveImage(path);
+                }
+            }
+            #endregion
+
+            #region HoverFileAdded
+            if (hover == null)
+            {
+                if (productColor.HoverFile == null)
+                {
+                    ModelState.AddModelError("HoverImage", "Please, select file");
+                    return View(productColorDb);
+                }
+                if (!productColor.HoverFile.CheckContent()) ModelState.AddModelError("HoverImage", "Please, select a file in the correct format");
+                if (productColor.HoverFile.CheckSize(1024)) ModelState.AddModelError("HoverImage", "File's length cann't be greater than specified size");
+                if (!ModelState.IsValid) return View(productColorDb);
+
+                productColorDb.ProductColorImages.Add(new ProductColorImage
+                {
+                    PosterStatus = false,
+                    Image = await productColor.HoverFile.SaveImage(path)
+                });
+            }
+            else
+            {
+                if (productColor.HoverFile != null)
+                {
+                    Helper.FileDelete(path, hover.Image);
+                    hover.Image = await productColor.HoverFile.SaveImage(path);
+                }
+            }
+            #endregion
+
+            #region ImagesFileAdded
+
+            List<ProductColorImage> productImages = productColorDb.ProductColorImages.Where(x => x.PosterStatus == null && !productColor.ImageIds.Contains(x.Id)).ToList();
+            foreach (ProductColorImage image in productImages)
+            {
+                Helper.FileDelete(path, image.Image);
+                productColorDb.ProductColorImages.Remove(image);
+            }
+            if (productColor.ImagesFile != null)
+            {
+                foreach (IFormFile file in productColor.ImagesFile)
+                {
+                    if (!file.CheckContent()) ModelState.AddModelError("Images", "Please, select a file in the correct format");
+                    if (file.CheckSize(1024)) ModelState.AddModelError("Images", "File's length cann't be greater than specified size");
+                    if (!ModelState.IsValid) return View(productColorDb);
+
+                    productColorDb.ProductColorImages.Add(new ProductColorImage
+                    {
+                        PosterStatus = null,
+                        Image = await file.SaveImage(path)
+                    });
+                }
+            }
+            #endregion
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("index");
+        }
+
+        public IActionResult DeleteColorFetch (int? productId, int? colorId)
+        {
+            if (productId == null || colorId == null) return NotFound();
+            ProductColor productColor = _context.ProductColors
+                                        .Include(x => x.ProductColorImages)
+                                        .Include(x => x.Product)
+                                        .Include(x => x.Color)
+                                        .FirstOrDefault(x => x.ColorId == colorId && x.ProductId == productId);
+            if (productColor == null) return NotFound();
+
+            try
+            {
+                if (productColor.ProductColorImages != null)
+                {
+                    foreach (ProductColorImage productImage in productColor.ProductColorImages)
+                    {
+                        _context.ProductColorImages.Remove(productImage);
+                    }
+                }
+                _context.ProductColors.Remove(productColor);
+                _context.SaveChanges();
+                return Json(new
+                {
+                    Code = 204,
+                    Message = "Item has been deleted successfully!"
+                });
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    Code = 500,
+                    Message = "Something went wrong!"
+                });
+            }
         }
     }
 }

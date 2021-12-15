@@ -1,0 +1,139 @@
+﻿@model ProductColor
+@{
+    ViewData["Title"] = "AddImage";
+}
+
+<div class="content-wrapper" style="min-height: 1604.71px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Project Add</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Project Add</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">General</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label asp-for="PosterFile">PosterFile</label>
+                                    <input style="position: static; opacity: 1;" asp-for="PosterFile" id="PosterFile" class="file-upload-default">
+                                    <div class="input-group col-xs-12">
+                                        <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                                        <span class="input-group-append">
+                                            <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        @if (Model.ProductColorImages.Count() > 0)
+                                        {
+                                            <div class="col-md-6">
+                                                <div class="img-box" style=" display: flex; flex-direction: column; position: relative; margin-top: 2rem;">
+                                                    <input type="hidden" name="PosterFile" value="@Model.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" />
+                                                    <img src="~/uploads/product/@Model.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" width="200" alt="Not found image,Please Upload Image" />
+                                                    <div style="max-width:200px" class="btn-group btn-group-sm remove-img-box">
+                                                        <a class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <span class="text-danger" asp-validation-for="PosterFile"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="HoverFile">HoverFile</label>
+                                    <input style="position: static; opacity: 1;" asp-for="HoverFile"  id="HoverFile" class="file-upload-default">
+                                    <div class="input-group col-xs-12">
+                                        <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                                        <span class="input-group-append">
+                                            <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                        </span>
+                                    </div>
+
+                                    <div>
+                                        @if (Model.ProductColorImages.Count() > 0)
+                                        {
+                                            <div class="col-md-6">
+                                                <div class="img-box" style=" display: flex; flex-direction: column; position: relative; margin-top: 2rem;">
+                                                    <input type="hidden" name="HoverFile" value="@Model.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image" />
+                                                    <img src="~/uploads/product/@Model.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image" width="200" alt="Not found image,Please Upload Image" />
+                                                    <div style="max-width:200px" class="btn-group btn-group-sm remove-img-box">
+                                                        <a class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <span class="text-danger" asp-validation-for="HoverFile"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="ImagesFile">Images</label>
+                                <input style="position: static; opacity: 1;" asp-for="ImagesFile"  id="ImagesFile" class="file-upload-default">
+                                <div class="input-group col-xs-12">
+                                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                                    <span class="input-group-append">
+                                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                    </span>
+                                </div>
+
+                                <div class="row">
+                                    @foreach (ProductColorImage productImage in Model.ProductColorImages.Where(x => x.PosterStatus == null))
+                                    {
+                                        <div class="col-md-4">
+                                            <div class="img-box" style=" display: flex; flex-direction: column; position: relative; margin-top: 2rem;">
+                                                <input type="hidden" name="ImageIds[]" value="@productImage.Id" />
+                                                <img src="~/uploads/product/@productImage.Image" width="200" alt="Not found image,Please Upload Image" />
+                                                <div style="max-width:200px" class="btn-group btn-group-sm remove-img-box">
+                                                    <a class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+                                <span class="text-danger" asp-validation-for="ImagesFile"></span>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success float-right">Add Product Image</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+
+@section Scripts{
+    <script src="~/manage/dist/js/file-upload.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+}
+
+
+

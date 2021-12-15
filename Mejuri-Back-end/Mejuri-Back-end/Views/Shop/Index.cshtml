@@ -260,8 +260,8 @@
                                                 {
                                                     <div class="content-color @(j==0?"active":"")" id="@Model.Products[i].ProductColors[j].Color.Name">
                                                         <a href="./detail.html">
-                                                            <img src="./assets/images/@Model.Products[i].ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
-                                                            <img src="./assets/images/@Model.Products[i].ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image"
+                                                            <img src="~/uploads/product/@Model.Products[i].ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
+                                                            <img src="~/uploads/product/@Model.Products[i].ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image"
                                                                  class="img-responsive-hov">
                                                         </a>
                                                     </div>

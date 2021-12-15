@@ -27,3 +27,8 @@
 .fold.open {
     display: table-row;
 }
+option:checked {
+    background-color: #4b545c;
+    color:white;
+}
+
