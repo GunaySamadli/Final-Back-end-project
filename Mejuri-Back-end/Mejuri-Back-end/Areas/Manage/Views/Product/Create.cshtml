@@ -80,11 +80,14 @@
                                     <select asp-for="GenderId" class="form-control" id="GenderId" asp-items="@(new SelectList(ViewBag.Gender,"Id","Name"))">
                                     </select>
                                 </div>
-                                @*<div class="form-group col-md-2">
-                <label asp-for="CompanyId">Company</label>
-                <select asp-for="CompanyId" class="form-control" id="CompanyId" asp-items="@(new SelectList(ViewBag.Company,"Id","Name"))">
-                </select>
-            </div>*@
+                                @if (Model.CompanyId != null)
+                                {
+                                    <div class="form-group col-md-2">
+                                        <label asp-for="CompanyId">Company</label>
+                                        <select asp-for="CompanyId" class="form-control" id="CompanyId" asp-items="@(new SelectList(ViewBag.Company,"Id","Name"))">
+                                        </select>
+                                    </div>
+                                }
                                 <div class="form-group col-md-2">
                                     <label asp-for="MaterialIds">Material</label>
                                     <select asp-for="MaterialIds" class="form-control" id="MaterialIds" asp-items="@(new SelectList(ViewBag.Material,"Id","Name"))">

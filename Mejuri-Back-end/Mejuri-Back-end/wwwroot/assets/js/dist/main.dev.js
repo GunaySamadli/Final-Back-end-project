@@ -1,41 +1,6 @@
 "use strict";
 
-//Slider
-$('.slider').slick({
-  dots: false,
-  arrows: true,
-  infinite: false,
-  speed: 300,
-  slidesToShow: 4,
-  slidesToScroll: 4,
-  responsive: [{
-    breakpoint: 1024,
-    settings: {
-      slidesToShow: 3,
-      slidesToScroll: 3,
-      infinite: true,
-      dots: true
-    }
-  }, {
-    breakpoint: 600,
-    settings: {
-      slidesToShow: 2,
-      slidesToScroll: 2
-    }
-  }, {
-    breakpoint: 480,
-    settings: {
-      slidesToShow: 1,
-      slidesToScroll: 1
-    }
-  }]
-});
-$('.single-items').slick({
-  dots: true,
-  arrows: false,
-  infinite: false
-}); // barnd filter
-
+// barnd filter
 var tabBrands = Array.from(document.querySelectorAll(" .tab-brand"));
 var tabContents = Array.from(document.querySelectorAll(".content-brands .content-brand"));
 
@@ -126,20 +91,25 @@ for (var i = 0; i < removeItemFromBasket.length; i++) {
   var button;
 
   _loop(i);
-} // var quantityInputs = document.getElementsByClassName("card-count");
-// for (let i = 0; i < quantityInputs.length; i++) {
-//     var input = quantityInputs[i];
-//     input.addEventListener("change", quantityChanged)
-// }
-// function quantityChanged(e) {
-//     e.preventDefault();
-//     var input = e.target
-//     if (isNaN(input.value) || input.value <= 0) {
-//         input.value = 1;
-//     }
-//     updateCartTotal()
-// }
-// var AddToCardButtons = document.querySelectorAll(".add-basket")
+}
+
+var quantityInputs = document.getElementsByClassName("card-count");
+
+for (var _i = 0; _i < quantityInputs.length; _i++) {
+  var input = quantityInputs[_i];
+  input.addEventListener("change", quantityChanged);
+}
+
+function quantityChanged(e) {
+  e.preventDefault();
+  var input = e.target;
+
+  if (isNaN(input.value) || input.value <= 0) {
+    input.value = 1;
+  }
+
+  updateCartTotal();
+} // var AddToCardButtons = document.querySelectorAll(".add-basket")
 // for (var i = 0; i < AddToCardButtons.length; i++) {
 //     var button = AddToCardButtons[i]
 //     button.addEventListener('click', addToCard)
@@ -218,6 +188,20 @@ $(document).ready(function () {
 
     $(this).next('.drop-menu').slideToggle();
   });
+}); //Filter
+
+$(document).ready(function () {
+  $('.filter-open').on('click', function (e) {
+    e.preventDefault();
+
+    if ($('#filter').css('display') == 'none') {
+      $(".filter-open").removeClass('.fas fa-plus').addClass('.fas fa-minus');
+    } else {
+      $(".filter-open").removeClass('.fas fa-minus').addClass('.fas fa-plus');
+    }
+
+    $('#filter').slideToggle();
+  });
 }); //Search
 
 var SearchBar = document.querySelector(".search-bar");
@@ -231,4 +215,54 @@ SearchBarX.addEventListener("click", function (e) {
   e.preventDefault();
   var search = document.getElementById("search");
   search.style.display = "none";
+}); // Filter Color
+
+var tabColors = Array.from(document.querySelectorAll(".tab-color"));
+var tabColorContents = Array.from(document.querySelectorAll(".content-colors .content-color"));
+
+var clearColorActives = function clearColorActives(dataId) {
+  tabColors.forEach(function (tabREw) {
+    if (tabREw.parentElement.parentElement.getAttribute('data-id') == dataId) {
+      tabREw.classList.remove("active");
+    }
+  });
+  tabColorContents.forEach(function (tabRewContent) {
+    if (tabRewContent.parentElement.getAttribute('id') == dataId) {
+      tabRewContent.classList.remove("active");
+    }
+  });
+};
+
+tabColors.forEach(function (tabREw) {
+  tabREw.onclick = function () {
+    var dataId = this.parentElement.parentElement.getAttribute('data-id');
+    var contentColor = document.getElementById(dataId);
+    clearColorActives(dataId);
+    var targetId = tabREw.getAttribute("data-target");
+    var targetContent = contentColor.querySelector('#' + targetId);
+    tabREw.classList.add("active");
+    targetContent.classList.add("active");
+  };
+}); // Filter Color Detail Page
+
+var tabDetail = Array.from(document.querySelectorAll(" .tab-color-detail"));
+var tabContentsColor = Array.from(document.querySelectorAll(".content-detail-colors .content-detail-color"));
+
+var clearActivesFromDetail = function clearActivesFromDetail() {
+  tabDetail.forEach(function (tabBrand) {
+    tabBrand.classList.remove("active");
+  });
+  tabContentsColor.forEach(function (tabContent) {
+    tabContent.classList.remove("active");
+  });
+};
+
+tabDetail.forEach(function (tabBrand) {
+  tabBrand.onclick = function () {
+    clearActivesFromDetail();
+    var targetId = tabBrand.getAttribute("data-target");
+    var targetContent = document.getElementById(targetId);
+    tabBrand.classList.add("active");
+    targetContent.classList.add("active");
+  };
 });

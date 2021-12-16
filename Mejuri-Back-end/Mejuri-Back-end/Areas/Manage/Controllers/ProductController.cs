@@ -332,15 +332,15 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             return RedirectToAction("index");
         }
 
-        public IActionResult DeleteColorFetch (int? productId, int? colorId)
+        public IActionResult DeleteColorFetch(int? productId, int? colorId)
         {
-            if (productId == null || colorId == null) return NotFound();
             ProductColor productColor = _context.ProductColors
                                         .Include(x => x.ProductColorImages)
                                         .Include(x => x.Product)
                                         .Include(x => x.Color)
                                         .FirstOrDefault(x => x.ColorId == colorId && x.ProductId == productId);
-            if (productColor == null) return NotFound();
+
+            if (productColor == null) return Json(new { status = 404 });
 
             try
             {
@@ -351,22 +351,16 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                         _context.ProductColorImages.Remove(productImage);
                     }
                 }
+
                 _context.ProductColors.Remove(productColor);
                 _context.SaveChanges();
-                return Json(new
-                {
-                    Code = 204,
-                    Message = "Item has been deleted successfully!"
-                });
             }
             catch (Exception)
             {
-                return Json(new
-                {
-                    Code = 500,
-                    Message = "Something went wrong!"
-                });
+                return Json(new { status = 500 });
             }
+
+            return Json(new { status = 200 });
         }
     }
 }

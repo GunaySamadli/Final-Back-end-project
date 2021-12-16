@@ -29,6 +29,7 @@
                     let remove = document.createElement('i');
                     remove.classList.add('fas', 'fa-trash');
                     col4.classList.add('col-md-4');
+                    col4.style.marginTop="20px"
 
                     box.classList.add('image-box');
 

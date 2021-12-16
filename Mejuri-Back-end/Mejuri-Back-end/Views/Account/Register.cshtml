@@ -1,0 +1,57 @@
+﻿@model MemberRegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<main>
+    <section id="register">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 register-col">
+                    <h1>
+                        Register
+                        Your Account
+                    </h1>
+                    <div class="register">
+                        <form action="" method="post">
+                            <div class="name-surname">
+                                <div class="fieldset">
+                                    <label for="">FullName</label>
+                                    <input type="text" placeholder="Enter Your FullName">
+                                </div>
+                                <div class="fieldset">
+                                    <label for="">UserName</label>
+                                    <input type="text" asp-for="UserName" placeholder="Enter Your UserName">
+                                    <span class="text-danger" asp-validation-for="UserName"></span>
+
+                                </div>
+                            </div>
+                            <div class="fieldset">
+                                <label for="">Email</label>
+                                <input type="email" asp-for="Email" placeholder="Enter Your Email">
+                                <span class="text-danger" asp-validation-for="Email"></span>
+
+                            </div>
+                            <div class="name-surname">
+                                <div class="fieldset">
+                                    <label for="">Password</label>
+                                    <input type="text" asp-for="Password" placeholder="Enter Your Password">
+                                    <span class="text-danger" asp-validation-for="Password"></span>
+                                </div>
+                                <div class="fieldset">
+                                    <label for="">Repeat Password</label>
+                                    <input type="text" asp-for="ConfirmPassword" placeholder="Repeat Password">
+                                    <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+
+                                </div>
+                            </div>
+                            <button class="button button-secondary regis" type="submit">Create Account</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

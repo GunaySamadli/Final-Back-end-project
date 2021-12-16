@@ -1,55 +1,251 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿
+@inject UserManager<AppUser> userManager
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="~/assets/css/style.css">
-    <link rel="icon" type="image/png" href="https://static.mejuri.com/front-assets/production/images/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
-          integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Source+Sans+Pro:wght@200;300;400&display=swap"
-          rel="stylesheet">
-    <title>@ViewBag.Title</title>
-</head>
+@{
+    AppUser member = User.Identity.IsAuthenticated ? userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name && !x.IsAdmin) : null;
 
-<body>
-    <!--Navbar-->
-    <header id="header">
-        <nav>
-            <div class="container-fluid navbar">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="custom-nav">
-                            <ul class="nav-items">
-                                <li>
-                                    <div class="openMenu">
-                                        <i class="fas fa-bars"></i>
-                                    </div>
-                                    <a class="nav-item" asp-controller="shop" asp-action="index">Shop</a>
-                                </li>
-                                <li class="nav-item">
-                                <a asp-controller="company" asp-action="index">Company</a>
-                                </li>
-                                <li class="search-bar">
+}
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="~/assets/css/style.css">
+        <link rel="icon" type="image/png" href="https://static.mejuri.com/front-assets/production/images/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+              integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+              crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Source+Sans+Pro:wght@200;300;400&display=swap"
+              rel="stylesheet">
+        <title>@ViewBag.Title</title>
+    </head>
+
+    <body>
+        <!--Navbar-->
+        <!--Navbar-->
+        <header id="header">
+            <nav>
+                <div class="container-fluid navbar">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="custom-nav">
+                                <ul class="nav-items">
+                                    <li>
+                                        <div class="openMenu">
+                                            <i class="fas fa-bars"></i>
+                                        </div>
+                                        <a class="nav-item" asp-controller="shop" asp-action="index">Shop</a>
+                                    </li>
+                                    <li class="nav-item"><a asp-controller="company" asp-action="index">Company</a></li>
+
+                                    <li class="search-bar">
+                                        <a href="">
+                                            <svg class="search" width="15" height="15" xmlns="http://www.w3.org/2000/svg"
+                                                 viewBox="0 0 512 512">
+                                                <path d="M213.194 34.713c98.705 0 179 81.461 179 181.575 0 100.113-80.295 181.574-179 181.574-98.681 0-178.977-81.46-178.977-181.574 0-100.114 80.296-181.575 178.977-181.575m0 397.863c54.497 0 104.111-21.013 141.864-55.264L487.797 512 512 487.446l-133.241-135.15c29.746-37.19 47.653-84.493 47.653-136.008C426.412 97.036 330.74 0 213.194 0 95.648 0 0 97.036 0 216.288c0 119.275 95.648 216.288 213.194 216.288"
+                                                      fill-rule="evenodd"></path>
+                                            </svg>
+                                            <span>Search</span>
+                                        </a>
+                                    </li>
+                                    <li class="mejuri-li">
+                                        <a href="./index.html">
+                                            <svg class="mejuri" xmlns="http://www.w3.org/2000/svg" width="281.538"
+                                                 height="92.308" viewBox="0 0 281.538 92.308">
+                                                <path d="M109.446 33.947v-4.602H87.983l.003 32.588h21.46v-4.546H92.852V48.04h14.202v-4.391H92.852v-9.702zM246.995 29.068V62.46h4.871V29.068h.25-5.37z">
+                                                </path>
+                                                <g>
+                                                    <path d="M184.359 29.409H179.5v19.232c0 5.436-3.628 9.232-8.823 9.232-5.134 0-8.72-3.838-8.72-9.333V29.41h-4.858v19.488c0 7.741 5.837 13.578 13.578 13.578 7.799 0 13.681-5.837 13.681-13.578V29.409zM222.103 61.965h5.863l-7.702-12.982.271-.109c4.769-1.919 7.395-5.285 7.395-9.478 0-5.694-4.675-9.987-10.874-9.987h-13.268v32.556h4.756v-12.65h6.773l6.786 12.65zm-13.457-28.107h8.001c3.691 0 6.475 2.425 6.475 5.641 0 3.891-3.257 5.927-6.475 5.927h-8.001V33.858z">
+                                                    </path>
+                                                </g>
+                                                <path d="M64.477 50.775v4.135c0 7.261 2.267 11.021 7.345 12.166l1.154-1.733c-3.12-1.581-3.58-5.203-3.587-8.913l-.003-.094-.07-26.957H65.71L49.986 53.17 34.903 29.377h-4.284v32.615h4.687l-.036-22.495L48.987 59.75h1.733l13.763-20.249v11.281l-.006-.007zM121.541 58.306c1.119 1.332 3.897 4.042 7.963 4.042 6.231 0 10.257-4.309 10.257-10.977V29.347h-4.83v22.079c0 4.633-2.726 6.707-5.427 6.707-1.926 0-4.25-1.812-5.22-2.817l-.449.438L122 57.743l-.459.563z">
+                                                </path>
+                                            </svg>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="./wish-list.html">
+                                            <i class="far fa-heart"></i>
+                                        </a>
+                                        <div class="fav-number-sum">3</div>
+                                    </li>
+                                    @if (member != null)
+                                     {
+                                        <li class="nav-item">
+                                        <a>@member.FullName</a>
+                                        @*<ul class="styled__Panel-sc-a0ky3z-0 jwzECN">
+                                            <li class="styled__Option-sc-a0ky3z-3 gzcnMD">
+                                                <a href="/profile" data-h="header-user-menu-btn">
+                                                    <span>My Profile</span>
+                                                </a>
+                                            </li>
+                                            <li class="styled__Option-sc-a0ky3z-3 gzcnMD">
+                                                <a href="/profile/history" data-h="header-user-menu-btn">
+                                                    <span>My Orders</span>
+                                                </a>
+                                            </li>
+                                            <li class="styled__Option-sc-a0ky3z-3 gzcnMD">
+                                                <a href="/profile/wish-list" data-h="header-user-menu-btn">
+                                                    <span> My Wishlist</span>
+                                                </a>
+                                            </li>
+                                            <li class="styled__Option-sc-a0ky3z-3 gzcnMD">
+                                                <a href="/profile/return" data-h="header-user-menu-btn">
+                                                    <span>Returns</span>
+                                                </a>
+                                            </li>
+                                            <li class="styled__Option-sc-a0ky3z-3 gzcnMD">
+                                                <a href="/signout" data-h="header-user-menu-btn">
+                                                    <span>Sign Out</span>
+                                                </a>
+                                            </li>
+                                        </ul>*@
+                                        </li>
+
+                                     }
+                                    else
+                                    {
+                                        <li class="nav-item">
+                                            <a asp-controller="account" asp-action="login">Sign In</a>
+
+                                        </li>
+
+                                    }
+                                    <li>
+                                        <a id="basket-icon" href="">
+                                            <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                                                 viewBox="0 0 512 512">
+                                                <path d="M422.2 484.9H90L37.6 189.6h130.3c-4.7 25.5-7.9 48-9.7 62.5-.9 6.9 3.9 13.2 10.8 14.1.5.1 1.1.1 1.7.1 6.2 0 11.6-4.6 12.4-10.9 2.8-22 6.5-44.1 10.5-65.7h126.7c3.7 22.6 6.6 45 8.5 65.2.6 7 6.9 12.1 13.6 11.4 7-.6 11.9-6.7 11.4-13.7-1-11.3-3.6-34.8-7.9-62.9h128.4l-52.1 295.2zM255.5 27.1c25 0 46.7 66.2 60.5 137.3H198.7c16.1-75.7 38.2-137.3 56.8-137.3zm243.6 141.8c-2.4-2.8-6-4.4-9.7-4.4H341.7C328.3 91 302.3 2 255.5 2c-40.8 0-67.4 87.6-82.8 162.4H22.6c-3.7 0-7.2 1.7-9.7 4.4-2.4 2.8-3.4 6.6-2.7 10.3l57 320.4c1 6 6.2 10.4 12.3 10.4h353.2c6.1 0 11.3-4.3 12.3-10.4l56.8-320.4c.7-3.6-.3-7.3-2.7-10.2z">
+                                                </path>
+                                            </svg>
+                                        </a>
+                                        <div class="basket-number-sum">3</div>
+                                    </li>
+                                    <div id="basket">
+                                        <div class="basket">
+                                            <div>
+                                                <div class="basket-header">
+                                                    <a href="">
+                                                        <i class="fas fa-chevron-left"></i>
+                                                    </a>
+                                                    <span>You're Basket</span>
+                                                    <a href="">
+                                                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                                                             viewBox="0 0 512 512">
+                                                            <path d="M422.2 484.9H90L37.6 189.6h130.3c-4.7 25.5-7.9 48-9.7 62.5-.9 6.9 3.9 13.2 10.8 14.1.5.1 1.1.1 1.7.1 6.2 0 11.6-4.6 12.4-10.9 2.8-22 6.5-44.1 10.5-65.7h126.7c3.7 22.6 6.6 45 8.5 65.2.6 7 6.9 12.1 13.6 11.4 7-.6 11.9-6.7 11.4-13.7-1-11.3-3.6-34.8-7.9-62.9h128.4l-52.1 295.2zM255.5 27.1c25 0 46.7 66.2 60.5 137.3H198.7c16.1-75.7 38.2-137.3 56.8-137.3zm243.6 141.8c-2.4-2.8-6-4.4-9.7-4.4H341.7C328.3 91 302.3 2 255.5 2c-40.8 0-67.4 87.6-82.8 162.4H22.6c-3.7 0-7.2 1.7-9.7 4.4-2.4 2.8-3.4 6.6-2.7 10.3l57 320.4c1 6 6.2 10.4 12.3 10.4h353.2c6.1 0 11.3-4.3 12.3-10.4l56.8-320.4c.7-3.6-.3-7.3-2.7-10.2z">
+                                                            </path>
+                                                        </svg>
+                                                </div>
+                                                <div class="basket-body">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <div class="basket-item">
+                                                                        <div class="basket-item-content">
+                                                                            <div class="col-md-3">
+                                                                                <img src="./assets/images/baskte-1.jpg"
+                                                                                     alt="">
+                                                                            </div>
+                                                                            <div class="col-md-9">
+                                                                                <div class="name-icon">
+                                                                                    <h2>
+                                                                                        Jewelry Care Kit
+                                                                                    </h2>
+                                                                                    <button id="removeitem" type="button">
+                                                                                        <i class="fas fa-times"></i>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="count-price">
+                                                                                    <div class="count">
+                                                                                        <button>
+                                                                                            <i class="fas fa-minus"></i>
+                                                                                        </button>
+                                                                                        <span>2</span>
+                                                                                        <button>
+                                                                                            <i class="fas fa-plus"></i>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <span class="price">$40</span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="basket-item">
+                                                                        <div class="basket-item-content">
+                                                                            <div class="col-md-3">
+                                                                                <img src="./assets/images/baskte-1.jpg"
+                                                                                     alt="">
+                                                                            </div>
+                                                                            <div class="col-md-9">
+                                                                                <div class="name-icon">
+                                                                                    <h2>
+                                                                                        Jewelry Care Kit
+                                                                                    </h2>
+                                                                                    <button id="removeitem" type="button">
+                                                                                        <i class="fas fa-times"></i>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="count-price">
+                                                                                    <div class="count">
+                                                                                        <button>
+                                                                                            <i class="fas fa-minus"></i>
+                                                                                        </button>
+                                                                                        <span>2</span>
+                                                                                        <button>
+                                                                                            <i class="fas fa-plus"></i>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <span class="price">$40</span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="basket-footer">
+                                                        <div class="basket-footer-content">
+                                                            <h3>
+                                                                Total price
+                                                            </h3>
+                                                            <span>
+                                                                $390
+                                                            </span>
+                                                        </div>
+                                                        <div class="checkout">
+                                                            <a class="button button-secondary" href="./checkout.html">
+                                                                Continue to Checkout
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-responsive-nav">
+                    <nav id="navbar-responsive">
+                        <div class="container-fluid">
+                            <div class="nav-item-logo">
+                                <h2>
                                     <a href="">
-                                        <svg class="search" width="15" height="15" xmlns="http://www.w3.org/2000/svg"
-                                             viewBox="0 0 512 512">
-                                            <path d="M213.194 34.713c98.705 0 179 81.461 179 181.575 0 100.113-80.295 181.574-179 181.574-98.681 0-178.977-81.46-178.977-181.574 0-100.114 80.296-181.575 178.977-181.575m0 397.863c54.497 0 104.111-21.013 141.864-55.264L487.797 512 512 487.446l-133.241-135.15c29.746-37.19 47.653-84.493 47.653-136.008C426.412 97.036 330.74 0 213.194 0 95.648 0 0 97.036 0 216.288c0 119.275 95.648 216.288 213.194 216.288"
-                                                  fill-rule="evenodd"></path>
-                                        </svg>
-                                        <span>Search</span>
-                                    </a>
-                                </li>
-                                <li class="mejuri-li">
-                                    <a href="./index.html">
-                                        <svg class="mejuri" xmlns="http://www.w3.org/2000/svg" width="281.538"
-                                             height="92.308" viewBox="0 0 281.538 92.308">
+                                        <svg style="font-size: 2rem;" class="styled__MejuriLogo-sc-16722op-0 kiWGXF"
+                                             xmlns="http://www.w3.org/2000/svg" width="281.538" height="92.308"
+                                             viewBox="0 0 281.538 92.308">
                                             <path d="M109.446 33.947v-4.602H87.983l.003 32.588h21.46v-4.546H92.852V48.04h14.202v-4.391H92.852v-9.702zM246.995 29.068V62.46h4.871V29.068h.25-5.37z">
                                             </path>
                                             <g>
@@ -60,266 +256,121 @@
                                             </path>
                                         </svg>
                                     </a>
-                                </li>
+                                </h2>
+                                <a class="">
+                                    <i class="fas fa-times close-btn"></i>
+                                </a>
+                            </div>
+                            <ul class="nav-items">
+                                <li class="nav-item"><a href="">Shop</a></li>
                                 <li class="nav-item">
-                                    <a href="./wish-list.html">
-                                        <i class="far fa-heart"></i>
-                                    </a>
-                                    <div class="fav-number-sum">3</div>
+                                    <a href="">Company</a>
+                                    <i class="fas fa-plus"></i>
                                 </li>
-                                <li class="nav-item"><a href="./sign.html">Sign In</a></li>
-                                <li>
-                                    <a id="basket-icon" href="">
-                                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"
-                                             viewBox="0 0 512 512">
-                                            <path d="M422.2 484.9H90L37.6 189.6h130.3c-4.7 25.5-7.9 48-9.7 62.5-.9 6.9 3.9 13.2 10.8 14.1.5.1 1.1.1 1.7.1 6.2 0 11.6-4.6 12.4-10.9 2.8-22 6.5-44.1 10.5-65.7h126.7c3.7 22.6 6.6 45 8.5 65.2.6 7 6.9 12.1 13.6 11.4 7-.6 11.9-6.7 11.4-13.7-1-11.3-3.6-34.8-7.9-62.9h128.4l-52.1 295.2zM255.5 27.1c25 0 46.7 66.2 60.5 137.3H198.7c16.1-75.7 38.2-137.3 56.8-137.3zm243.6 141.8c-2.4-2.8-6-4.4-9.7-4.4H341.7C328.3 91 302.3 2 255.5 2c-40.8 0-67.4 87.6-82.8 162.4H22.6c-3.7 0-7.2 1.7-9.7 4.4-2.4 2.8-3.4 6.6-2.7 10.3l57 320.4c1 6 6.2 10.4 12.3 10.4h353.2c6.1 0 11.3-4.3 12.3-10.4l56.8-320.4c.7-3.6-.3-7.3-2.7-10.2z">
-                                            </path>
-                                        </svg>
-                                    </a>
-                                    <div class="basket-number-sum">3</div>
-                                </li>
-                                <div id="basket">
-                                    <div class="basket">
-                                        <div>
-                                            <div class="basket-header">
-                                                <a href="">
-                                                    <i class="fas fa-chevron-left"></i>
-                                                </a>
-                                                <span>You're Basket</span>
-                                                <a href="">
-                                                    <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"
-                                                         viewBox="0 0 512 512">
-                                                        <path d="M422.2 484.9H90L37.6 189.6h130.3c-4.7 25.5-7.9 48-9.7 62.5-.9 6.9 3.9 13.2 10.8 14.1.5.1 1.1.1 1.7.1 6.2 0 11.6-4.6 12.4-10.9 2.8-22 6.5-44.1 10.5-65.7h126.7c3.7 22.6 6.6 45 8.5 65.2.6 7 6.9 12.1 13.6 11.4 7-.6 11.9-6.7 11.4-13.7-1-11.3-3.6-34.8-7.9-62.9h128.4l-52.1 295.2zM255.5 27.1c25 0 46.7 66.2 60.5 137.3H198.7c16.1-75.7 38.2-137.3 56.8-137.3zm243.6 141.8c-2.4-2.8-6-4.4-9.7-4.4H341.7C328.3 91 302.3 2 255.5 2c-40.8 0-67.4 87.6-82.8 162.4H22.6c-3.7 0-7.2 1.7-9.7 4.4-2.4 2.8-3.4 6.6-2.7 10.3l57 320.4c1 6 6.2 10.4 12.3 10.4h353.2c6.1 0 11.3-4.3 12.3-10.4l56.8-320.4c.7-3.6-.3-7.3-2.7-10.2z">
-                                                        </path>
-                                                    </svg>
-                                            </div>
-                                            <div class="basket-body">
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div class="container">
-                                                            <div class="row">
-                                                                <div class="basket-item">
-                                                                    <div class="basket-item-content">
-                                                                        <div class="col-md-3">
-                                                                            <img src="~/assets/images/baskte-1.jpg"
-                                                                                 alt="">
-                                                                        </div>
-                                                                        <div class="col-md-9">
-                                                                            <div class="name-icon">
-                                                                                <h2>
-                                                                                    Jewelry Care Kit
-                                                                                </h2>
-                                                                                <button id="removeitem" type="button">
-                                                                                    <i class="fas fa-times"></i>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="count-price">
-                                                                                <div class="count">
-                                                                                    <button>
-                                                                                        <i class="fas fa-minus"></i>
-                                                                                    </button>
-                                                                                    <span>2</span>
-                                                                                    <button>
-                                                                                        <i class="fas fa-plus"></i>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <div>
-                                                                                    <span class="price">$40</span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="basket-item">
-                                                                    <div class="basket-item-content">
-                                                                        <div class="col-md-3">
-                                                                            <img src="~/assets/images/baskte-1.jpg"
-                                                                                 alt="">
-                                                                        </div>
-                                                                        <div class="col-md-9">
-                                                                            <div class="name-icon">
-                                                                                <h2>
-                                                                                    Jewelry Care Kit
-                                                                                </h2>
-                                                                                <button id="removeitem" type="button">
-                                                                                    <i class="fas fa-times"></i>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="count-price">
-                                                                                <div class="count">
-                                                                                    <button>
-                                                                                        <i class="fas fa-minus"></i>
-                                                                                    </button>
-                                                                                    <span>2</span>
-                                                                                    <button>
-                                                                                        <i class="fas fa-plus"></i>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <div>
-                                                                                    <span class="price">$40</span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="basket-footer">
-                                                    <div class="basket-footer-content">
-                                                        <h3>
-                                                            Total price
-                                                        </h3>
-                                                        <span>
-                                                            $390
-                                                        </span>
-                                                    </div>
-                                                    <div class="checkout">
-                                                        <a class="button button-secondary" href="">
-                                                            Continue to Checkout
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <li class="nav-item"><a href="">Our Commitment</a></li>
+                                <li class="nav-item"><a href="">Sign In/Sign Up</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </nav>
+            <!--Search-->
+            <div id="search">
+                <div class="search">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="search-input-button">
+                                    <input placeholder="Find what you're looking for" class="search-input" value=""
+                                           aria-label="search">
+                                    <button data-h="main-search-close-btn" data-testid="main-search-close-btn"
+                                            class="search-button">
+                                        <svg width="16" height="16" viewBox="0 0 16 16"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <g fill="#000" fill-rule="nonzero">
+                                                <path d="M2.343 15.071L.93 13.657 13.657.929l1.414 1.414z">
+                                                </path>
+                                                <path d="M.929 2.343L2.343.93l12.728 12.728-1.414 1.414z">
+                                                </path>
+                                            </g>
+                                        </svg><span class="sr-only" uptsign="apr-0203">
+                                            close
+                                            overlay
+                                        </span>
+                                    </button>
+                                </div>
+                                <span>Search any products and/or materials</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        @RenderBody()
+        <footer id="footer">
+            <div class="container footer-up">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="footer-item">
+                            <h3>Pages</h3>
+                            <ul>
+                                <li><a href="./index.html">Mejuri</a></li>
+                                <li><a href="./shop.html">Shop All</a></li>
+                                <li><a href="./company.html">Company</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="footer-item">
+                            <h3>ABOUT US</h3>
+                            <ul>
+                                <li><a href="./shop.html">Review</a></li>
+                                <li><a href="./shop.html">Questions</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 footer-right col-sm-12">
+                        <div class="footer-item">
+                            <span>JOIN THE FINE CREW</span>
+                            <p>Insider info on new arrivals, early access, and everything fine.</p>
+                            <form>
+                                <input type="email" class="text-field" maxlength="256" name="email" data-name="email"
+                                       placeholder="Your email" id="email" required>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-down">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                            <ul class="foot-item">
+                                <li>© 2021 Mejuri Inc.</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 foot-right col-xs-12">
+                            <ul class="foot-item">
+                                <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href=""><i class="fab fa-instagram"></i></a></li>
+                                <li><a href=""><i class="fab fa-pinterest-p"></i></a></li>
+                                <li><a href=""><i class="fab fa-twitter"></i></a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="custom-responsive-nav">
-                <nav id="navbar-responsive">
-                    <div class="container-fluid">
-                        <div class="nav-item-logo">
-                            <h2>
-                                <a href="">
-                                    <svg style="font-size: 2rem;" class="styled__MejuriLogo-sc-16722op-0 kiWGXF"
-                                         xmlns="http://www.w3.org/2000/svg" width="281.538" height="92.308"
-                                         viewBox="0 0 281.538 92.308">
-                                        <path d="M109.446 33.947v-4.602H87.983l.003 32.588h21.46v-4.546H92.852V48.04h14.202v-4.391H92.852v-9.702zM246.995 29.068V62.46h4.871V29.068h.25-5.37z">
-                                        </path>
-                                        <g>
-                                            <path d="M184.359 29.409H179.5v19.232c0 5.436-3.628 9.232-8.823 9.232-5.134 0-8.72-3.838-8.72-9.333V29.41h-4.858v19.488c0 7.741 5.837 13.578 13.578 13.578 7.799 0 13.681-5.837 13.681-13.578V29.409zM222.103 61.965h5.863l-7.702-12.982.271-.109c4.769-1.919 7.395-5.285 7.395-9.478 0-5.694-4.675-9.987-10.874-9.987h-13.268v32.556h4.756v-12.65h6.773l6.786 12.65zm-13.457-28.107h8.001c3.691 0 6.475 2.425 6.475 5.641 0 3.891-3.257 5.927-6.475 5.927h-8.001V33.858z">
-                                            </path>
-                                        </g>
-                                        <path d="M64.477 50.775v4.135c0 7.261 2.267 11.021 7.345 12.166l1.154-1.733c-3.12-1.581-3.58-5.203-3.587-8.913l-.003-.094-.07-26.957H65.71L49.986 53.17 34.903 29.377h-4.284v32.615h4.687l-.036-22.495L48.987 59.75h1.733l13.763-20.249v11.281l-.006-.007zM121.541 58.306c1.119 1.332 3.897 4.042 7.963 4.042 6.231 0 10.257-4.309 10.257-10.977V29.347h-4.83v22.079c0 4.633-2.726 6.707-5.427 6.707-1.926 0-4.25-1.812-5.22-2.817l-.449.438L122 57.743l-.459.563z">
-                                        </path>
-                                    </svg>
-                                </a>
-                            </h2>
-                            <a class="">
-                                <i class="fas fa-times close-btn"></i>
-                            </a>
-                        </div>
-                        <ul class="nav-items">
-                            <li class="nav-item"><a href="">Shop</a></li>
-                            <li class="nav-item">
-                                <a href="">Company</a>
-                                <i class="fas fa-plus"></i>
-                            </li>
-                            <li class="nav-item"><a href="">Our Commitment</a></li>
-                            <li class="nav-item"><a href="">Sign In/Sign Up</a></li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </nav>
-        <!--Search-->
-        <div id="search">
-            <div class="search">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="search-input-button">
-                                <input placeholder="Find what you're looking for" class="search-input" value=""
-                                       aria-label="search">
-                                <button data-h="main-search-close-btn" data-testid="main-search-close-btn"
-                                        class="search-button">
-                                    <svg width="16" height="16" viewBox="0 0 16 16"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <g fill="#000" fill-rule="nonzero">
-                                            <path d="M2.343 15.071L.93 13.657 13.657.929l1.414 1.414z">
-                                            </path>
-                                            <path d="M.929 2.343L2.343.93l12.728 12.728-1.414 1.414z">
-                                            </path>
-                                        </g>
-                                    </svg><span class="sr-only" uptsign="apr-0203">
-                                        close
-                                        overlay
-                                    </span>
-                                </button>
-                            </div>
-                            <span>Search any products and/or materials</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    @RenderBody()
-    <footer id="footer">
-        <div class="container footer-up">
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-item">
-                        <h3>Pages</h3>
-                        <ul>
-                            <li><a href="./index.html">Mejuri</a></li>
-                            <li><a href="./shop.html">Shop All</a></li>
-                            <li><a href="./company.html">Company</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-item">
-                        <h3>ABOUT US</h3>
-                        <ul>
-                            <li><a href="./shop.html">Review</a></li>
-                            <li><a href="./shop.html">Questions</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-6 footer-right col-sm-12">
-                    <div class="footer-item">
-                        <span>JOIN THE FINE CREW</span>
-                        <p>Insider info on new arrivals, early access, and everything fine.</p>
-                        <form>
-                            <input type="email" class="text-field" maxlength="256" name="email" data-name="email"
-                                   placeholder="Your email" id="email" required>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-down">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-xs-12">
-                        <ul class="foot-item">
-                            <li>© 2021 Mejuri Inc.</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6 foot-right col-xs-12">
-                        <ul class="foot-item">
-                            <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href=""><i class="fab fa-instagram"></i></a></li>
-                            <li><a href=""><i class="fab fa-pinterest-p"></i></a></li>
-                            <li><a href=""><i class="fab fa-twitter"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-</body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="~/assets/js/main.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-<script src="~/assets/js/slider.js"></script>
-<script src="~/assets/js/plugin.js"></script>
-<script src="~/assets/js/timer.js"></script>
+        </footer>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="~/assets/js/main.js"></script>
+    <script src="~/assets/js/modal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="~/assets/js/slider.js"></script>
+    <script src="~/assets/js/plugin.js"></script>
+    <script src="~/assets/js/loginRegister.js"></script>
+    <script src="~/assets/js/timer.js"></script>
 
 </html>

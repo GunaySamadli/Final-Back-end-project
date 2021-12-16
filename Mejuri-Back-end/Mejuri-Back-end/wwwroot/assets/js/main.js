@@ -246,7 +246,7 @@ SearchBarX.addEventListener("click", function (e) {
 // Filter Color
 
 
-const tabColors = Array.from(document.querySelectorAll(".tab-color"));
+const tabColors = Array.from(document.querySelectorAll(".color-item"));
 const tabColorContents = Array.from(document.querySelectorAll(".content-colors .content-color"));
 
 const clearColorActives = function (dataId) {
@@ -261,7 +261,6 @@ const clearColorActives = function (dataId) {
         }
     });
 }
-
 
 
 tabColors.forEach(tabREw => {

@@ -5,6 +5,10 @@
     ViewData["Title"] = "Mejuri | Everyday Fine Jewelry | Online Jewelry Shop";
 }
 <main>
+
+    <input value="@Model.Companies.OrderBy(x=>x.EndTime).Where(x=>x.EndTime>=DateTime.Now).FirstOrDefault().EndTime"
+           type="hidden" id="datetime"/>
+
     <!--Info-->
     <section id="info">
         <div class="container-fluid">
@@ -99,20 +103,23 @@
                     </div>
                 </div>
                 <div class="edit-item company-slider">
-                    @foreach (var company in Model.ProductColors)
+                    @foreach (var company in Model.Products)
                     {
-                        if (company.Product.CompanyId != null)
+                        if (company.CompanyId != null)
                         {
                             <div class="col-md-3 company-slider-item">
                                 <a href="">
                                     <div class="img-product">
-                                        <a href="./detail.html">
-                                            <img src="~/assets/images/@company.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
-                                            <img src="~/assets/images/@company.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image" class="img-responsive-hov">
-                                        </a>
+                                        @foreach (var item in company.ProductColors)
+                                        {
+                                            <a href="./detail.html">
+                                                <img src="~/assets/images/@item.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
+                                                <img src="~/assets/images/@item.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image" class="img-responsive-hov">
+                                            </a>
+                                        }
                                     </div>
                                     <a href="">
-                                        <p>@company.Product.Company.Title</p>
+                                        <p>@company.Company.Title</p>
                                     </a>
                                 </a>
                                 <div class="hover-btns">

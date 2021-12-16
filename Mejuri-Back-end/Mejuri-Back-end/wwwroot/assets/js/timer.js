@@ -1,6 +1,10 @@
+
+
 //Timer
 const countdown = () => {
-    const countDate = new Date('November 26,2022 00:00:00').getTime();
+    const endDate = document.getElementById('datetime').value;
+    console.log(endDate);
+    const countDate = new Date(endDate).getTime();
     const now = new Date().getTime();
     const gap = countDate - now;
 
@@ -9,6 +13,9 @@ const countdown = () => {
     const minute = second * 60;
     const hour = minute * 60;
     const day = hour * 24;
+    if (day == 0) {
+        day.style.display = none;
+    }
 
     //Calculate
     const textDay = Math.floor(gap / day);

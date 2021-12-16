@@ -39,7 +39,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label asp-for="PosterFile">PosterFile</label>
-                                    <input style="position: static; opacity: 1;" asp-for="PosterFile" id="PosterFile" class="file-upload-default">
+                                    <input style="position: static;display:none;" asp-for="PosterFile" id="PosterFile" class="file-upload-default">
                                     <div class="input-group col-xs-12">
                                         <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
                                         <span class="input-group-append">
@@ -52,7 +52,7 @@
                                             <div class="col-md-6">
                                                 <div class="img-box" style=" display: flex; flex-direction: column; position: relative; margin-top: 2rem;">
                                                     <input type="hidden" name="PosterFile" value="@Model.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" />
-                                                    <img src="~/uploads/product/@Model.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" width="200" alt="Not found image,Please Upload Image" />
+                                                    <img src="~/uploads/product/@Model.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image"style="white-space:nowrap"  width="200" alt="Not found image,Please Upload Image" />
                                                     <div style="max-width:200px" class="btn-group btn-group-sm remove-img-box">
                                                         <a class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                                     </div>
@@ -64,7 +64,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label asp-for="HoverFile">HoverFile</label>
-                                    <input style="position: static; opacity: 1;" asp-for="HoverFile"  id="HoverFile" class="file-upload-default">
+                                    <input style="position: static; display: none;" asp-for="HoverFile"  id="HoverFile" class="file-upload-default">
                                     <div class="input-group col-xs-12">
                                         <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
                                         <span class="input-group-append">
@@ -78,7 +78,7 @@
                                             <div class="col-md-6">
                                                 <div class="img-box" style=" display: flex; flex-direction: column; position: relative; margin-top: 2rem;">
                                                     <input type="hidden" name="HoverFile" value="@Model.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image" />
-                                                    <img src="~/uploads/product/@Model.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image" width="200" alt="Not found image,Please Upload Image" />
+                                                    <img src="~/uploads/product/@Model.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image" style="white-space:nowrap"  width="200" alt="Not found image,Please Upload Image" />
                                                     <div style="max-width:200px" class="btn-group btn-group-sm remove-img-box">
                                                         <a class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                                     </div>
@@ -92,7 +92,7 @@
 
                             <div class="form-group">
                                 <label asp-for="ImagesFile">Images</label>
-                                <input style="position: static; opacity: 1;" asp-for="ImagesFile"  id="ImagesFile" class="file-upload-default">
+                                <input style="position: static; display: none;" asp-for="ImagesFile"  id="ImagesFile" class="file-upload-default">
                                 <div class="input-group col-xs-12">
                                     <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
                                     <span class="input-group-append">
@@ -106,7 +106,7 @@
                                         <div class="col-md-4">
                                             <div class="img-box" style=" display: flex; flex-direction: column; position: relative; margin-top: 2rem;">
                                                 <input type="hidden" name="ImageIds[]" value="@productImage.Id" />
-                                                <img src="~/uploads/product/@productImage.Image" width="200" alt="Not found image,Please Upload Image" />
+                                                <img src="~/uploads/product/@productImage.Image" width="200" style="white-space:nowrap" alt="Not found image,Please Upload Image" />
                                                 <div style="max-width:200px" class="btn-group btn-group-sm remove-img-box">
                                                     <a class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                                 </div>

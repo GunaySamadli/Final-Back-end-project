@@ -25,10 +25,11 @@ namespace Mejuri_Back_end.Controllers
                 Sliders = _context.Sliders.ToList(),
                 Categories = _context.Categories.ToList(),
                 CompanyCategories = _context.CompanyCategories.ToList(),
-                ProductColors = _context.ProductColors
-                .Include(x => x.Product).ThenInclude(x=>x.Company)
-                .Include(x => x.ProductColorImages)
-                .ToList()
+                Products = _context.Products
+                .Include(x => x.ProductColors).ThenInclude(x=>x.ProductColorImages)
+                .Include(x => x.Company)
+                .ToList(),
+                Companies = _context.Companies.ToList()
             };
 
             return View(homeVM);
