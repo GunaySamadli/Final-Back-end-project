@@ -26,9 +26,7 @@ namespace Mejuri_Back_end.Models
         public DbSet<CompanyCategory> CompanyCategories { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
-
-
-
+        public DbSet<BasketItem> BasketItems { get; set; }
 
 
     }

@@ -18,16 +18,14 @@ namespace Mejuri_Back_end.Controllers
         public IActionResult Index()
         {
             List<Company> companies = _context.Companies.
-                Include(x => x.Products).ThenInclude(x => x.ProductColors).ThenInclude(x => x.Color)
-                .Include(x => x.Products).ThenInclude(x => x.ProductColors).ThenInclude(x => x.ProductColorImages)
+                Include(x => x.Product).ThenInclude(x => x.ProductColors).ThenInclude(x => x.Color)
+                .Include(x => x.Product).ThenInclude(x => x.ProductColors).ThenInclude(x => x.ProductColorImages)
                 .ToList();
            
             CompanyViewModel companyVM = new CompanyViewModel
             {
                Companies=companies,
                CompanyCategories = _context.CompanyCategories.ToList(),
-            
-
             };
             return View(companyVM);
 

@@ -335,7 +335,7 @@
                                             </div>
                                         </div>
                                         <div class="hover-btns">
-                                            <a class="single-btn add-basket">
+                                            <a asp-action="addtobasket" asp-controller="product" asp-route-id="@Model.Products[i].Id"  data-id="@Model.Products[i].Id" class="single-btn add-basket">
                                                 <i class="fas fa-shopping-basket"></i>
                                             </a>
                                             <a href="wishlist.html" class="single-btn">

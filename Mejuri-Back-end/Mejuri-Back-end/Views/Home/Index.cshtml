@@ -103,14 +103,12 @@
                     </div>
                 </div>
                 <div class="edit-item company-slider">
-                    @foreach (var company in Model.Products)
+                    @foreach (var company in Model.Companies)
                     {
-                        if (company.CompanyId != null)
-                        {
                             <div class="col-md-3 company-slider-item">
                                 <a href="">
                                     <div class="img-product">
-                                        @foreach (var item in company.ProductColors)
+                                        @foreach (var item in company.Product.ProductColors)
                                         {
                                             <a href="./detail.html">
                                                 <img src="~/assets/images/@item.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
@@ -119,7 +117,7 @@
                                         }
                                     </div>
                                     <a href="">
-                                        <p>@company.Company.Title</p>
+                                        <p>@company.Title</p>
                                     </a>
                                 </a>
                                 <div class="hover-btns">
@@ -131,7 +129,6 @@
                                     </a>
                                 </div>
                             </div>
-                        }
                     }
                 </div>
             </div>

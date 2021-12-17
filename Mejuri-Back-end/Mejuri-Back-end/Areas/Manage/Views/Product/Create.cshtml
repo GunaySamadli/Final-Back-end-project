@@ -43,7 +43,8 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label asp-for="CategoryId">Category</label>
-                                    <select asp-for="CategoryId" class="form-control" id="CategoryId" asp-items="@(new SelectList(ViewBag.Category,"Id","Name"))">
+                                    <select asp-for="CategoryId" class="form-control"
+                                            id="CategoryId" asp-items="@(new SelectList(ViewBag.Category,"Id","Name"))">
                                     </select>
                                 </div>
                                 <div class="form-group col-md-2 d-flex justify-content-center align-items-center">
@@ -80,14 +81,15 @@
                                     <select asp-for="GenderId" class="form-control" id="GenderId" asp-items="@(new SelectList(ViewBag.Gender,"Id","Name"))">
                                     </select>
                                 </div>
-                                @if (Model.CompanyId != null)
-                                {
-                                    <div class="form-group col-md-2">
-                                        <label asp-for="CompanyId">Company</label>
-                                        <select asp-for="CompanyId" class="form-control" id="CompanyId" asp-items="@(new SelectList(ViewBag.Company,"Id","Name"))">
-                                        </select>
-                                    </div>
-                                }
+                                <button type="button">
+                                    +
+                                </button>
+                                <input type="datetime" />
+                                @*<div class="form-group col-md-2">
+                                    <label asp-for="CompanyId">Company</label>
+                                    <select asp-for="CompanyId" class="form-control" id="CompanyId" asp-items="@(new SelectList(ViewBag.Company,"Id","Name"))">
+                                    </select>
+                                </div>*@
                                 <div class="form-group col-md-2">
                                     <label asp-for="MaterialIds">Material</label>
                                     <select asp-for="MaterialIds" class="form-control" id="MaterialIds" asp-items="@(new SelectList(ViewBag.Material,"Id","Name"))">

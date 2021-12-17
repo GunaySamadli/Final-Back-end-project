@@ -10,6 +10,8 @@ namespace Mejuri_Back_end.Models
     {
         public int Id { get; set; }
         public int CompanyCategoryId { get; set; }
+        public int ProductId { get; set; }
+
         public DateTime StartTime { get; set; }
         [Required]
         public DateTime EndTime { get; set; }
@@ -18,8 +20,9 @@ namespace Mejuri_Back_end.Models
         [Required]
         public int Percent { get; set; }
 
+        public Product Product { get; set; }
+
         public CompanyCategory CompanyCategory { get; set; }
-        public List<Product> Products { get; set; }
 
 
 

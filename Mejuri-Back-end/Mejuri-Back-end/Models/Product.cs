@@ -13,7 +13,6 @@ namespace Mejuri_Back_end.Models
         public int Id { get; set; }
         public int CategoryId { get; set; }
         public int GenderId { get; set; }
-        public int? CompanyId { get; set; }
 
         [Required]
         [StringLength(maximumLength: 100)]
@@ -29,9 +28,10 @@ namespace Mejuri_Back_end.Models
 
         public Category Category { get; set; }
         public Gender Gender { get; set; }
-        public Company Company { get; set; }
         public List<ProductColor> ProductColors { get; set; } = new List<ProductColor>();
         public List<ProductMaterial> ProductMaterials { get; set; } = new List<ProductMaterial>();
+
+        public List<Company> Companies { get; set; }
 
         [NotMapped]
         public IFormFile PosterFile { get; set; }

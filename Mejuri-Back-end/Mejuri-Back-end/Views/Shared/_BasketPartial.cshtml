@@ -1,0 +1,85 @@
+﻿
+@model List<BasketItemViewModel>
+
+@{
+    Layout = null;
+    double totalCount = 0;
+    foreach (var item in Model)
+    {
+        totalCount += item.Price * item.Count;
+    }
+
+    double itemTotalCount = 0;
+    foreach (var item in Model)
+    {
+        itemTotalCount += item.Price * item.Count;
+    }
+}
+
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <div class="row" id="favorite" data-favorite-count="@Model.Count">
+                @foreach (var item in Model)
+                {
+                    <div class="basket-item">
+                        <div class="basket-item-content">
+                            <div class="col-md-3">
+                                <img src="~/uploads/product/@item.Image"
+                                     alt="">
+                            </div>
+                            <div class="col-md-9">
+                                <div class="name-icon">
+                                    <h2>
+                                        @item.Name
+                                    </h2>
+                                    <a class="delete" data-id="@item.ProductId" asp-action="deletefrombasket" asp-controller="product" asp-route-id="@item.ProductId">
+                                        <i class="fas fa-times"></i>
+                                    </a>
+                                </div>
+                                <div class="count-price">
+                                    <div class="count">
+                                        <button>
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <span>@item.Count</span>
+                                        <button>
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <span class="price">
+                                            $ @if (item.Count==1)
+                                            {
+                                                @item.Price
+                                            }
+                                            else
+                                            {
+                                                @itemTotalCount
+                                            }
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="basket-footer">
+    <div class="basket-footer-content">
+        <h3>
+            Total price
+        </h3>
+        <span>
+            $@totalCount
+        </span>
+    </div>
+    <div class="checkout">
+        <a class="button button-secondary" href="./checkout.html">
+            Continue to Checkout
+        </a>
+    </div>
+</div>

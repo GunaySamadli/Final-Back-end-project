@@ -5900,7 +5900,23 @@ ul {
 a {
   text-decoration: none;
   color: black; }
-
+.dropdown{
+    cursor:pointer;
+    position:relative;
+}
+.nav-drop-menu {
+    animation: 0.5s ease 0s 1 normal forwards running jBcSpD;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(218, 218, 218);
+    margin: 0px;
+    padding: 30px 50px;
+    position: absolute;
+    right: -65px;
+    text-align: left;
+    top: 97%;
+    z-index: 5;
+    display: none;
+}
 section {
   padding-bottom: 3rem; }
 
@@ -8365,3 +8381,5 @@ aside {
     line-height: 18px;
     margin: 0 0 10px;
     font-weight: 300; }
+
+

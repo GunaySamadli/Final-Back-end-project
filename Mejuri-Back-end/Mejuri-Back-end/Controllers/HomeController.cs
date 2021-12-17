@@ -27,9 +27,8 @@ namespace Mejuri_Back_end.Controllers
                 CompanyCategories = _context.CompanyCategories.ToList(),
                 Products = _context.Products
                 .Include(x => x.ProductColors).ThenInclude(x=>x.ProductColorImages)
-                .Include(x => x.Company)
                 .ToList(),
-                Companies = _context.Companies.ToList()
+                Companies = _context.Companies.Include(x => x.Product).OrderBy(x => x.EndTime).Where(x => x.EndTime >= DateTime.Now).ToList()
             };
 
             return View(homeVM);

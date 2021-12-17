@@ -34,7 +34,6 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                 .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages)
                 .Include(x => x.ProductColors).ThenInclude(x => x.Color)
                 .Include(x => x.ProductMaterials).ThenInclude(x => x.Material)
-                .Include(x=>x.Company).ThenInclude(x=>x.CompanyCategory)
                 .ToList();
 
             var pagenatedSlider = PagenatedList<Product>.Create(query, 4, page);
@@ -48,7 +47,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             ViewBag.ProductColorImage = _context.ProductColorImages.ToList();
             ViewBag.Category = _context.Categories.ToList();
             ViewBag.Gender = _context.Genders.ToList();
-            ViewBag.Company = _context.Companies.ToList();
+            ViewBag.Company = _context.Companies.Include(x=>x.CompanyCategory).ToList();
             ViewBag.Color = _context.Colors.ToList();
             ViewBag.Material = _context.Materials.ToList();
 
@@ -61,13 +60,12 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             ViewBag.ProductColorImage = _context.ProductColorImages.ToList();
             ViewBag.Category = _context.Categories.ToList();
             ViewBag.Gender = _context.Genders.ToList();
-            ViewBag.Company = _context.Companies.ToList();
+            ViewBag.Company = _context.Companies.Include(x=>x.CompanyCategory).ToList();
             ViewBag.Color = _context.Colors.ToList();
             ViewBag.Material = _context.Materials.ToList();
 
             if (!_context.Genders.Any(x => x.Id == product.GenderId)) ModelState.AddModelError("GenderId", "Gender not found!");
             if (!_context.Categories.Any(x => x.Id == product.CategoryId)) ModelState.AddModelError("CategoryId", "Category not found!");
-            if (!_context.Companies.Any(x => x.Id == product.CompanyId)) ModelState.AddModelError("CompanyId", "Company not found!");
 
             foreach (var materialid in product.MaterialIds)
             {
@@ -117,7 +115,6 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                 .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages)
                 .Include(x => x.ProductColors).ThenInclude(x => x.Color)
                 .Include(x => x.ProductMaterials).ThenInclude(x => x.Material)
-                .Include(x => x.Company).ThenInclude(x => x.CompanyCategory)
                 .FirstOrDefault(x => x.Id == id);
 
             ViewBag.Category = _context.Categories.ToList();
@@ -143,7 +140,6 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
 
             if (!ModelState.IsValid) return View();
 
-            if (!_context.Companies.Any(x => x.Id == product.CompanyId)) ModelState.AddModelError("CompanyId", "Company not found!");
 
             Product existProudct = _context.Products.Include(x => x.ProductMaterials).Include(x => x.ProductColors).FirstOrDefault(x => x.Id == product.Id);
 
@@ -189,7 +185,6 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             existProudct.Name = product.Name;
             existProudct.CategoryId = product.CategoryId;
             existProudct.GenderId = product.GenderId;
-            existProudct.CompanyId = product.CompanyId;
             existProudct.SalePrice = product.SalePrice;
             existProudct.Desc = product.Desc;
             existProudct.Rate = product.Rate;
