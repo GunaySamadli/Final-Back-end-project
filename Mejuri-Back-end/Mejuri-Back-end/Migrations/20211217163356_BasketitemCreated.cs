@@ -2,7 +2,7 @@
 
 namespace Mejuri_Back_end.Migrations
 {
-    public partial class BasketItemTableCreated : Migration
+    public partial class BasketitemCreated : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace Mejuri_Back_end.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<int>(nullable: false),
+                    ProductColorId = table.Column<int>(nullable: false),
                     AppUserId = table.Column<string>(nullable: true),
                     Count = table.Column<int>(nullable: false)
                 },
@@ -26,9 +26,9 @@ namespace Mejuri_Back_end.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_BasketItems_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
+                        name: "FK_BasketItems_ProductColors_ProductColorId",
+                        column: x => x.ProductColorId,
+                        principalTable: "ProductColors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -39,9 +39,9 @@ namespace Mejuri_Back_end.Migrations
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BasketItems_ProductId",
+                name: "IX_BasketItems_ProductColorId",
                 table: "BasketItems",
-                column: "ProductId");
+                column: "ProductColorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

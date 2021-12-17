@@ -43,7 +43,7 @@ namespace Mejuri_Back_end.Controllers
 
         public IActionResult AddToBasket(int id)
         {
-            Product product = _context.Products.Include(x => x.ProductColors).ThenInclude(x=>x.ProductColorImages)
+            ProductColor product = _context.ProductColors.Include(x=>x.Product).Include(x=>x.ProductColorImages)
                 .FirstOrDefault(x => x.Id == id);
             BasketItemViewModel basketItem = null;
 
@@ -67,17 +67,17 @@ namespace Mejuri_Back_end.Controllers
                     productsStr = HttpContext.Request.Cookies["Products"];
                     products = JsonConvert.DeserializeObject<List<BasketItemViewModel>>(productsStr);
 
-                    basketItem = products.FirstOrDefault(x => x.ProductId == id);
+                    basketItem = products.FirstOrDefault(x => x.ProductColorId == id);
                 }
 
                 if (basketItem == null)
                 {
                     basketItem = new BasketItemViewModel
                     {
-                        ProductId = product.Id,
-                        Name = product.Name,
-                        Image = product.ProductColors.FirstOrDefault().ProductColorImages.FirstOrDefault(x => x.PosterStatus == true).Image,
-                        Price = product.SalePrice,
+                        ProductColorId = product.Id,
+                        Name = product.Product.Name,
+                        Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true).Image,
+                        Price = product.Product.SalePrice,
                         Count = 1
                     };
                     products.Add(basketItem);
@@ -91,13 +91,13 @@ namespace Mejuri_Back_end.Controllers
             }
             else
             {
-                BasketItem memberBasketItem = _context.BasketItems.FirstOrDefault(x => x.AppUserId == member.Id && x.ProductId == id);
+                BasketItem memberBasketItem = _context.BasketItems.FirstOrDefault(x => x.AppUserId == member.Id && x.ProductColorId == id);
                 if (memberBasketItem == null)
                 {
                     memberBasketItem = new BasketItem
                     {
                         AppUserId = member.Id,
-                        ProductId = id,
+                        ProductColorId = id,
                         Count = 1
                     };
                     _context.BasketItems.Add(memberBasketItem);
@@ -111,11 +111,11 @@ namespace Mejuri_Back_end.Controllers
                 products = _context.BasketItems.Select(x =>
                   new BasketItemViewModel
                   {
-                      ProductId = x.ProductId,
+                      ProductColorId = x.ProductColorId,
                       Count = x.Count,
-                      Name = x.Product.Name,
-                      Price = x.Product.SalePrice,
-                      Image = x.Product.ProductColors.FirstOrDefault().ProductColorImages.FirstOrDefault(bi => bi.PosterStatus == true).Image
+                      Name = x.ProductColor.Product.Name,
+                      Price = x.ProductColor.Product.SalePrice,
+                      Image = x.ProductColor.ProductColorImages.FirstOrDefault(bi => bi.PosterStatus == true).Image
                   }).ToList();
             }
 
@@ -132,8 +132,8 @@ namespace Mejuri_Back_end.Controllers
 
         public IActionResult DeleteFromBasket(int id)
         {
-            Product product = _context.Products.Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages)
-               .FirstOrDefault(x => x.Id == id);
+            ProductColor product = _context.ProductColors.Include(x => x.Product).Include(x => x.ProductColorImages)
+                 .FirstOrDefault(x => x.Id == id);
 
             BasketItemViewModel basketItem = null;
 
@@ -155,7 +155,7 @@ namespace Mejuri_Back_end.Controllers
                 string productsStr = HttpContext.Request.Cookies["Products"];
                 products = JsonConvert.DeserializeObject<List<BasketItemViewModel>>(productsStr);
 
-                basketItem = products.FirstOrDefault(x => x.ProductId == id);
+                basketItem = products.FirstOrDefault(x => x.ProductColorId == id);
 
 
                 if (basketItem.Count == 1)
@@ -173,7 +173,7 @@ namespace Mejuri_Back_end.Controllers
 
             else
             {
-                BasketItem memberBasketItem = _context.BasketItems.Include(x => x.Product).ThenInclude(x => x.ProductColors).ThenInclude(x => x.ProductColorImages).FirstOrDefault(x => x.AppUserId == member.Id && x.ProductId == id);
+                BasketItem memberBasketItem = _context.BasketItems.Include(x => x.ProductColor).ThenInclude(x=>x.Product).Include(x => x.ProductColor).ThenInclude(x => x.ProductColorImages).FirstOrDefault(x => x.AppUserId == member.Id && x.ProductColorId == id);
 
                 if (memberBasketItem.Count == 1)
                 {
@@ -187,8 +187,8 @@ namespace Mejuri_Back_end.Controllers
 
                 _context.SaveChanges();
 
-                products = _context.BasketItems.Include(x => x.Product).ThenInclude(bi => bi.ProductColors).ThenInclude(bi => bi.ProductColorImages).Where(x => x.AppUserId == member.Id)
-                    .Select(x => new BasketItemViewModel { ProductId = x.ProductId, Count = x.Count, Name = x.Product.Name, Price = x.Product.SalePrice, Image = x.Product.ProductColors.FirstOrDefault().ProductColorImages.FirstOrDefault(b => b.PosterStatus == true).Image }).ToList();
+                products = _context.BasketItems.Include(x => x.ProductColor).ThenInclude(bi => bi.ProductColorImages).Where(x => x.AppUserId == member.Id)
+                    .Select(x => new BasketItemViewModel { ProductColorId = x.ProductColorId, Count = x.Count, Name = x.ProductColor.Product.Name, Price = x.ProductColor.Product.SalePrice, Image = x.ProductColor.ProductColorImages.FirstOrDefault(b => b.PosterStatus == true).Image }).ToList();
 
             }
             return PartialView("_BasketPartial",products );

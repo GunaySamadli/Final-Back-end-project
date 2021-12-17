@@ -7,7 +7,7 @@ namespace Mejuri_Back_end.ViewModels
 {
     public class BasketItemViewModel
     {
-        public int ProductId { get; set; }
+        public int ProductColorId { get; set; }
         public double Price { get; set; }
         public string Image { get; set; }
         public string Name { get; set; }

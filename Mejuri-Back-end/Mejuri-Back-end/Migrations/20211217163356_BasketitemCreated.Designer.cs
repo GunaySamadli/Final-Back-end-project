@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mejuri_Back_end.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211217083724_BasketItemTableCreated")]
-    partial class BasketItemTableCreated
+    [Migration("20211217163356_BasketitemCreated")]
+    partial class BasketitemCreated
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,14 +34,14 @@ namespace Mejuri_Back_end.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("ProductColorId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductColorId");
 
                     b.ToTable("BasketItems");
                 });
@@ -560,9 +560,9 @@ namespace Mejuri_Back_end.Migrations
                         .WithMany()
                         .HasForeignKey("AppUserId");
 
-                    b.HasOne("Mejuri_Back_end.Models.Product", "Product")
+                    b.HasOne("Mejuri_Back_end.Models.ProductColor", "ProductColor")
                         .WithMany()
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("ProductColorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

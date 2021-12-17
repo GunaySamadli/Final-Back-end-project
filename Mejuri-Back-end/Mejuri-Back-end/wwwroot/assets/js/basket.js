@@ -1,17 +1,15 @@
 ﻿$(document).ready(function () {
 
-
     $(document).on("click", ".add-basket", function (e) {
         e.preventDefault();
 
         var id = $(this).attr("data-id");
 
-
         fetch('https://localhost:44318/product/addtobasket/' + id)
             .then(response => response.text())
             .then(data => {
 
-                $(".basket-body").html(data)
+                $(".basket").html(data)
                 var count = $("#favorite").data("favorite-count")
                 $("#favorite-count").text(count)
             });
@@ -28,7 +26,7 @@
             .then(data => {
 
                 console.log(data);
-                $(".cart-block").html(data)
+                $(".basket").html(data)
                 var count = $("#favorite").data("favorite-count")
                 $("#favorite-count").text(count)
             });

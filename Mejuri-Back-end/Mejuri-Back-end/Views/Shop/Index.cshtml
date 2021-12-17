@@ -3,7 +3,6 @@
     ViewData["Title"] = "Index";
 }
 
-
     <main class="row">
         <div class="col-lg-2 left-side">
             <aside>
@@ -249,100 +248,35 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="favory-item">
-                                <div class="card-image">
-                                    <div class="img-product">
-                                        <div class="content-colors" id="2">
-                                            <div class="content-color" id="color-white">
-                                                <a href="./detail.html">
-                                                    <img src="~/assets/images/single-2.jpg" class="img-responsive">
-                                                    <img src="~/assets/images/single-hov-2.jpg" class="img-responsive-hov">
-                                                </a>
-                                            </div>
-                                            <div class="content-color active" id="color-blue">
-                                                <a href="./detail.html">
-                                                    <img src="~/assets/images/single-2.blue.jpg" class="img-responsive">
-                                                    <img src="~/assets/images/single-2-hov-blue.jpg" class="img-responsive-hov">
-                                                </a>
-                                            </div>
-                                            <div class="content-color" id="color-green">
-                                                <a href="./detail.html">
-                                                    <img src="~/assets/images/single-2-green.jpg" class="img-responsive">
-                                                    <img src="~/assets/images/single-2-hov-green.jpg" class="img-responsive-hov">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="hover-btns">
-                                        <a class="single-btn add-basket">
-                                            <i class="fas fa-shopping-basket"></i>
-                                        </a>
-                                        <a href="wishlist.html" class="single-btn">
-                                            <i class="far fa-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="fav-info">
-                                <a href="">
-                                    <h2 class="basket-head">Single Colored Mini Hoop</h2>
-                                </a>
-                                <p>
-                                    <span>$</span>
-                                    60
-                                </p>
-                            </div>
-                            <div class="fav-color">
-                                <div class="color-items" data-id="2">
-                                    <div class="color-item">
-                                        <a class="tab-color" data-target="color-white">
-                                            <img src="~/assets/images/color/gold-white.svg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="color-item">
-                                        <a class="tab-color active" data-target="color-blue">
-                                            <img src="~/assets/images/color/gold-blue.svg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="color-item">
-                                        <a class="tab-color" data-target="color-green">
-                                            <img src="~/assets/images/color/gold-green.svg" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <p>14k Yellow Gold</p>
-                            </div>
-                        </div>
-
                         @for (int i = 0; i < Model.Products.Count; i++)
                         {
                             <div class="col-md-4">
-                                <div class="favory-item">
-                                    <div class="card-image">
-                                        <div class="img-product">
-                                            <div class="content-colors" id="@Model.Products[i].Id">
-                                                @for (int j = 0; j < Model.Products[i].ProductColors.Count; j++)
-                                                {
-                                                    <div class="content-color @(j==0?"active":"")" id="@Model.Products[i].ProductColors[j].Color.Name">
+                                <div class="favory-item" id="@Model.Products[i].Id">
+                                    @for (int j = 0; j < Model.Products[i].ProductColors.Count; j++)
+                                    {
+                                        <div class="card-image @(j==0?"active":"")" id="@Model.Products[i].ProductColors[j].Color.Name">
+                                            <div class="img-product">
+                                                <div class="content-colors">
+                                                    <div class="content-color">
                                                         <a asp-action="detail" asp-controller="product" asp-route-id="@Model.Products[i].Id">
                                                             <img src="~/uploads/product/@Model.Products[i].ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
                                                             <img src="~/uploads/product/@Model.Products[i].ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image"
                                                                  class="img-responsive-hov">
                                                         </a>
                                                     </div>
-                                                }
+                                                </div>
+                                            </div>
+                                            <div class="hover-btns">
+                                                <a asp-action="addtobasket" asp-controller="product" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" class="single-btn add-basket">
+                                                    <i class="fas fa-shopping-basket"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="single-btn">
+                                                    <i class="far fa-heart"></i>
+                                                </a>
                                             </div>
                                         </div>
-                                        <div class="hover-btns">
-                                            <a asp-action="addtobasket" asp-controller="product" asp-route-id="@Model.Products[i].Id"  data-id="@Model.Products[i].Id" class="single-btn add-basket">
-                                                <i class="fas fa-shopping-basket"></i>
-                                            </a>
-                                            <a href="wishlist.html" class="single-btn">
-                                                <i class="far fa-heart"></i>
-                                            </a>
-                                        </div>
-                                    </div>
+                                    }
+
                                 </div>
                                 <div class="fav-info">
                                     <a href="">
@@ -355,22 +289,22 @@
                                 </div>
                                 <div class="fav-color">
                                     <div class="color-items" data-id="@Model.Products[i].Id">
-                                        @for (int d = 0; d < Model.Products[i].ProductColors.Count; d++)
+                                        @for (int j = 0; j < Model.Products[i].ProductColors.Count; j++)
                                         {
                                             <div class="color-item">
-                                                <a class="tab-color @(d==0?"active":"")"
-                                                   data-target="@Model.Products[i].ProductColors[d].Color.Name">
-                                                    <img src="./assets/images/color/@Model.Products[i].ProductColors[d].Color.Image" alt="">
+                                                <a class="tab-color @(j==0?"active":"")"
+                                                   data-target="@Model.Products[i].ProductColors[j].Color.Name">
+                                                    <img src="./assets/images/color/@Model.Products[i].ProductColors[j].Color.Image" alt="">
                                                 </a>
                                             </div>
+                                         }
 
-                                        }
                                     </div>
+
                                     @*<p>@Model.Products[i].ProductColors[d].Color.Desc</p>*@
                                 </div>
                             </div>
-
-                        }
+                         }
                     </div>
                 </div>
             </section>

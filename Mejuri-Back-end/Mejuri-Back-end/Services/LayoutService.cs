@@ -47,12 +47,12 @@ namespace Mejuri_Back_end.Services
 
                     foreach (var item in items)
                     {
-                        Product product = _context.Products.Include(c => c.ProductColors).ThenInclude(c=>c.ProductColorImages).FirstOrDefault(x => x.Id == item.ProductId);
+                        ProductColor product = _context.ProductColors.Include(x=>x.Product).Include(c=>c.ProductColorImages).FirstOrDefault(x => x.Id == item.ProductColorId);
                         if (product != null)
                         {
-                            item.Name = product.Name;
-                            item.Price = product.SalePrice;
-                            item.Image = product.ProductColors.FirstOrDefault().ProductColorImages.FirstOrDefault(x => x.PosterStatus == true)?.Image;
+                            item.Name = product.Product.Name;
+                            item.Price = product.Product.SalePrice;
+                            item.Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true)?.Image;
 
                         }
                     }
@@ -60,14 +60,14 @@ namespace Mejuri_Back_end.Services
             }
             else
             {
-                List<BasketItem> basketItems = _context.BasketItems.Include(x => x.Product).ThenInclude(x => x.ProductColors).ThenInclude(x=>x.ProductColorImages).Where(x => x.AppUserId == member.Id).ToList();
+                List<BasketItem> basketItems = _context.BasketItems.Include(x => x.ProductColor).ThenInclude(x=>x.ProductColorImages).Where(x => x.AppUserId == member.Id).ToList();
                 items = basketItems.Select(x => new BasketItemViewModel
                 {
-                    ProductId = x.ProductId,
+                    ProductColorId = x.ProductColorId,
                     Count = x.Count,
-                    Image = x.Product.ProductColors.FirstOrDefault().ProductColorImages.FirstOrDefault(bi => bi.PosterStatus == true)?.Image,
-                    Name = x.Product.Name,
-                    Price = x.Product.SalePrice
+                    Image = x.ProductColor.ProductColorImages.FirstOrDefault(bi => bi.PosterStatus == true)?.Image,
+                    Name = x.ProductColor.Product.Name,
+                    Price = x.ProductColor.Product.SalePrice
                 }).ToList();
             }
 

@@ -5900,23 +5900,7 @@ ul {
 a {
   text-decoration: none;
   color: black; }
-.dropdown{
-    cursor:pointer;
-    position:relative;
-}
-.nav-drop-menu {
-    animation: 0.5s ease 0s 1 normal forwards running jBcSpD;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(218, 218, 218);
-    margin: 0px;
-    padding: 30px 50px;
-    position: absolute;
-    right: -65px;
-    text-align: left;
-    top: 97%;
-    z-index: 5;
-    display: none;
-}
+
 section {
   padding-bottom: 3rem; }
 
@@ -5996,11 +5980,8 @@ header {
     background-color: white;
     border-left: 1px solid rgba(0, 0, 0, 0.5);
     overflow: auto;
-    transition: opacity 0.3s ease 0s, transform 0.35s ease 0s;
-    transform: translateX(0 px);
-    opacity: 1;
-    pointer-events: all;
-    transform: translateX(500px); }
+    display:none;
+    pointer-events: all;}
     header #basket .basket {
       height: 100%;
       position: relative;
@@ -6122,7 +6103,7 @@ header {
         justify-content: center;
         position: absolute;
         top: 35px;
-        right: 24%;
+        right: 30%;
         width: 20px;
         height: 20px;
         border-radius: 100%;
@@ -6326,6 +6307,24 @@ footer {
         align-items: center;
         padding-top: 2rem; } }
 
+.dropdown {
+    cursor: pointer;
+    position: relative;
+}
+
+.nav-drop-menu {
+    animation: 0.5s ease 0s 1 normal forwards running jBcSpD;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(218, 218, 218);
+    margin: 0px;
+    padding: 30px 50px;
+    position: absolute;
+    right: -65px;
+    text-align: left;
+    top: 97%;
+    z-index: 5;
+    display: none;
+}
 /* The Modal (background) */
 .ebcf_modal {
   display: none;
@@ -7348,11 +7347,8 @@ aside {
   #favory .col-md-4 .img-product .content-colors {
     position: relative; }
     #favory .col-md-4 .img-product .content-colors .content-color {
-      display: none;
       position: relative;
       width: 100%; }
-    #favory .col-md-4 .img-product .content-colors .content-color.active {
-      display: block; }
 
 #detail-home .detail-right {
   width: 65%;
@@ -8383,3 +8379,10 @@ aside {
     font-weight: 300; }
 
 
+.card-image{
+    display:none;
+}
+
+.card-image.active {
+    display: block;
+}
