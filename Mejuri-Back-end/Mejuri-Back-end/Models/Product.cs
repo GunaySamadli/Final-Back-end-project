@@ -32,7 +32,6 @@ namespace Mejuri_Back_end.Models
         public List<ProductMaterial> ProductMaterials { get; set; } = new List<ProductMaterial>();
 
         public List<Company> Companies { get; set; }
-
         public List<Review> Reviews { get; set; }
 
         [NotMapped]

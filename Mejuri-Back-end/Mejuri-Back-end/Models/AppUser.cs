@@ -11,6 +11,10 @@ namespace Mejuri_Back_end.Models
     {
         public string FullName { get; set; }
         public bool IsAdmin { get; set; }
+
+        public List<BasketItem> BasketItems { get; set; }
         public List<Review> Reviews { get; set; }
+
+
     }
 }

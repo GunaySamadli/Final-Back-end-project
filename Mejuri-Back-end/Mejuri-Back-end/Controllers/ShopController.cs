@@ -63,5 +63,32 @@ namespace Mejuri_Back_end.Controllers
 
             return Redirect(HttpContext.Request.Headers["Referer"].ToString());
         }
+
+
+
+        //[Authorize(Roles = "Member")]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Question(int id, Question question)
+        //{
+        //    var product = _context.Products.FirstOrDefault(x => x.Id == id);
+
+        //    Question newQuestion = new Question
+        //    {
+        //        Email = question.Email,
+        //        Username = question.Username,
+        //        Date = DateTime.UtcNow,
+        //        Text = question.Text,
+        //        Answer = question.Answer,
+        //        Accept = false,
+        //        AppUserId = (await _userManager.FindByNameAsync(User.Identity.Name)).Id
+
+        //    };
+        //    _context.Questions.Add(newQuestion);
+        //    _context.SaveChanges();
+
+
+        //    return Redirect(HttpContext.Request.Headers["Referer"].ToString());
+        //}
     }
 }

@@ -25,7 +25,7 @@ namespace Mejuri_Back_end.Controllers
         {
             return View();
         }
-        public IActionResult Detail(int id, Review review)
+        public IActionResult Detail(int id, Review review/*,Question question*/)
         {
             Product product = _context.Products
                 .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages)
@@ -34,7 +34,8 @@ namespace Mejuri_Back_end.Controllers
             ShopViewModel shopVM = new ShopViewModel
             {
                 Product = product,
-                Reviews = _context.Reviews.Include(x => x.AppUser).Where(x => x.ProductId == id).ToList()
+                Reviews = _context.Reviews.Include(x => x.AppUser).Where(x => x.ProductId == id).ToList(),
+                //Questions=_context.Questions.Include(x=>x.AppUser).Where(x=>x.ProductId==id).ToList()
             };
 
             return View(shopVM);
@@ -107,7 +108,7 @@ namespace Mejuri_Back_end.Controllers
                 }
 
                 _context.SaveChanges();
-                products = _context.BasketItems.Select(x =>
+                products = _context.BasketItems.Where(x=>x.AppUserId == member.Id).Select(x =>
                   new BasketItemViewModel
                   {
                       ProductColorId = x.ProductColorId,

@@ -17,6 +17,10 @@ namespace Mejuri_Back_end.Models
 
         public List<ProductColorImage> ProductColorImages { get; set; }
 
+        public List<OrderItem> OrderItems { get; set; }
+        public List<BasketItem> BasketItems { get; set; }
+
+
         [NotMapped]
         public IFormFile PosterFile { get; set; }
         [NotMapped]

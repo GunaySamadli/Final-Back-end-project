@@ -17,7 +17,5 @@ namespace Mejuri_Back_end.ViewModels
         public List<Review> Reviews { get; set; }
         public Review Review { get; set; }
 
-
-
     }
 }

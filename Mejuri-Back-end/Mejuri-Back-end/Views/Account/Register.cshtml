@@ -18,34 +18,35 @@
                             <div class="name-surname">
                                 <div class="fieldset">
                                     <label for="">FullName</label>
-                                    <input type="text" placeholder="Enter Your FullName">
+                                    <input type="text" asp-for="FullName" placeholder="Enter Your FullName">
+                                    <span class="text-danger" asp-validation-for="FullName"></span>
+
                                 </div>
                                 <div class="fieldset">
                                     <label for="">UserName</label>
                                     <input type="text" asp-for="UserName" placeholder="Enter Your UserName">
                                     <span class="text-danger" asp-validation-for="UserName"></span>
-
                                 </div>
                             </div>
                             <div class="fieldset">
                                 <label for="">Email</label>
                                 <input type="email" asp-for="Email" placeholder="Enter Your Email">
                                 <span class="text-danger" asp-validation-for="Email"></span>
-
                             </div>
                             <div class="name-surname">
                                 <div class="fieldset">
                                     <label for="">Password</label>
-                                    <input type="text" asp-for="Password" placeholder="Enter Your Password">
+                                    <input type="password" asp-for="Password" placeholder="Enter Your Password">
                                     <span class="text-danger" asp-validation-for="Password"></span>
                                 </div>
                                 <div class="fieldset">
                                     <label for="">Repeat Password</label>
-                                    <input type="text" asp-for="ConfirmPassword" placeholder="Repeat Password">
+                                    <input type="password" asp-for="ConfirmPassword" placeholder="Repeat Password">
                                     <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
 
                                 </div>
                             </div>
+                            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                             <button class="button button-secondary regis" type="submit">Create Account</button>
                         </form>
 

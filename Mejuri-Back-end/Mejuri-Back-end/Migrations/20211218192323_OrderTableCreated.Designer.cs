@@ -4,14 +4,16 @@ using Mejuri_Back_end.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mejuri_Back_end.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211218192323_OrderTableCreated")]
+    partial class OrderTableCreated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -252,47 +254,6 @@ namespace Mejuri_Back_end.Migrations
                     b.HasIndex("AppUserId");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("Mejuri_Back_end.Models.OrderItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ColorName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("CostPrice")
-                        .HasColumnType("float");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<double>("DiscountPrice")
-                        .HasColumnType("float");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductColorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
-                    b.Property<double>("SalePrice")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductColorId");
-
-                    b.ToTable("OrderItem");
                 });
 
             modelBuilder.Entity("Mejuri_Back_end.Models.Product", b =>
@@ -719,19 +680,6 @@ namespace Mejuri_Back_end.Migrations
                     b.HasOne("Mejuri_Back_end.Models.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("AppUserId");
-                });
-
-            modelBuilder.Entity("Mejuri_Back_end.Models.OrderItem", b =>
-                {
-                    b.HasOne("Mejuri_Back_end.Models.Order", "Order")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Mejuri_Back_end.Models.ProductColor", "ProductColor")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("ProductColorId");
                 });
 
             modelBuilder.Entity("Mejuri_Back_end.Models.Product", b =>

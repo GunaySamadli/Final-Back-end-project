@@ -55,6 +55,15 @@
                             <td>
                                 <a asp-action="edit" asp-route-id="@product.Id" class="pd-setting-ed" style="background:orange;"><i class="fas fa-edit"></i></a>
                                 <a asp-action="deletefetch" asp-route-id="@product.Id" style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed btn-item-delete" data-original-title="Trash"><i class="fas fa-trash-alt "></i></a>
+                                @if (product.Reviews != null)
+                                {
+                                    @foreach (var item in product.Reviews)
+                                    {
+                                        <a asp-controller="review" asp-action="index" asp-route-id="@item.ProductId" class="btn btn-sm bg-teal">
+                                            <i class="fas fa-comments"></i>
+                                        </a>
+                                    }
+                                }
                             </td>
                         </tr>
                         if (product.ProductColors.Count() != 0)
@@ -94,7 +103,6 @@
                                                         <td>
                                                             <a asp-action="addimage" asp-route-productId="@product.Id" asp-route-colorId="@productColor.Color.Id" class="pd-setting-ed" style="background:orange;"><i class="fas fa-edit"></i></a>
                                                             <a asp-action="deletecolorfetch" asp-route-productId="@product.Id" asp-route-colorId="@productColor.Color.Id"  style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed btn-item-delete" data-original-title="Trash"><i class="fas fa-trash-alt "></i></a>
-
                                                         </td>
                                                     </tr>
                                                 }

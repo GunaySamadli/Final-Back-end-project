@@ -1,0 +1,64 @@
+﻿
+@model List<Review>
+@{
+    ViewData["Title"] = "Index";
+    int order = 0;
+
+}
+<div class="content-wrapper" style="min-height: 1604.71px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Projects</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Projects</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-head">
+                <h4>Reviews List</h4>
+            </div>
+            <table class="table table-striped projects" style="position:relative;">
+                <tbody>
+                    <tr class="nem">
+                        <th>#</th>
+                        <th>Text</th>
+                        <th>UserName</th>
+                        <th>Setting</th>
+                    </tr>
+                        @foreach (var review in Model)
+                        {
+                            order++;
+                            <tr>
+                                <th scope="row">@order</th>
+                                <td>@review.Text</td>
+                                <td>@review.AppUser.UserName</td>
+                                <td>
+                                    <a asp-action="detail" asp-route-id="@review.Id" class="btn btn-primary">Detail</a>
+                                </td>
+                            </tr>
+                        }
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+</div>
+

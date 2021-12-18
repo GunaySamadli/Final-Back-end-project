@@ -26,7 +26,6 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         }
         public IActionResult Index(int page = 1)
         {
-            
             var query = _context.Products.AsQueryable();
 
             List<Product> products = query
@@ -34,6 +33,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                 .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages)
                 .Include(x => x.ProductColors).ThenInclude(x => x.Color)
                 .Include(x => x.ProductMaterials).ThenInclude(x => x.Material)
+                .Include(x=>x.Reviews)
                 .ToList();
 
             var pagenatedSlider = PagenatedList<Product>.Create(query, 4, page);
@@ -356,6 +356,11 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             }
 
             return Json(new { status = 200 });
+        }
+
+        public IActionResult ReviewAndQuestion()
+        {
+            return View();
         }
     }
 }
