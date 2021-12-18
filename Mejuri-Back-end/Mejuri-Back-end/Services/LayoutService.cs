@@ -60,7 +60,7 @@ namespace Mejuri_Back_end.Services
             }
             else
             {
-                List<BasketItem> basketItems = _context.BasketItems.Include(x => x.ProductColor).ThenInclude(x=>x.ProductColorImages).Where(x => x.AppUserId == member.Id).ToList();
+                List<BasketItem> basketItems = _context.BasketItems.Include(x => x.ProductColor).ThenInclude(x=>x.ProductColorImages).Include(x => x.ProductColor).ThenInclude(x => x.Product).Where(x => x.AppUserId == member.Id).ToList();
                 items = basketItems.Select(x => new BasketItemViewModel
                 {
                     ProductColorId = x.ProductColorId,

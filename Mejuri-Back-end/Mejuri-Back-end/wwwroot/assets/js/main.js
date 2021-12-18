@@ -95,13 +95,15 @@ basketIcon.addEventListener("click", function (e) {
     basket.style.display = "block"
 })
 
-const CloseBasket = document.querySelector(".close-basket")
-CloseBasket.addEventListener("click", function (e) {
-    e.preventDefault();
-    const basket = document.getElementById("basket");
-    basket.style.display = "none"
-})
 
+
+//ask
+const ask = document.querySelector(".ask")
+ask.addEventListener("click", function (e) {
+    e.preventDefault();
+    const ques = document.querySelector(".user-question");
+    ques.classList.toggle("active");
+})
 
 
 

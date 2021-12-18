@@ -6075,40 +6075,46 @@ header {
           transition: all 0.25s ease 0s;
           white-space: nowrap;
           line-height: 1.5;
-          font-size: 1.2rem; }
+          font-size: 15px; }
           header nav .nav-items li a span {
             padding-left: 8px; }
           header nav .nav-items li a:hover {
             color: #807c7c;
             outline: none; }
           header nav .nav-items li a i {
-            font-size: 2rem; }
-      header nav .nav-items .basket-number-sum {
-        color: black;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        top: 38px;
-        right: 13px;
-        width: 20px;
-        height: 20px;
-        border-radius: 100%;
-        background-color: #dadada;
-        font-size: 12px; }
-      header nav .nav-items .fav-number-sum {
-        color: black;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        top: 35px;
-        right: 30%;
-        width: 20px;
-        height: 20px;
-        border-radius: 100%;
-        background-color: #dadada;
-        font-size: 12px; }
+            font-size: 30px; }
+header nav .nav-items .basket-number-sum {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 38px;
+    right: 13px;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    background-color: #B4876E;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+}
+header nav .nav-items .fav-number-sum {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 36px;
+    right: 26%;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    font-size: 12px;
+    background: brown;
+    color: white;
+    font-size: 15px;
+}
   header #search {
     display: none;
     position: sticky;
@@ -8386,3 +8392,187 @@ aside {
 .card-image.active {
     display: block;
 }
+
+.user-review {
+    margin-bottom: 30px !important;
+}
+
+    .user-review form {
+        padding: 50px;
+        background-color: #202020;
+        color: white;
+    }
+
+        .user-review form h4 {
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 15px;
+            font-size: 25px;
+        }
+
+        .user-review form .add-a-review {
+            display: flex;
+            margin-bottom: 30px !important;
+        }
+
+            .user-review form .add-a-review h6 {
+                font-size: 20px;
+            }
+
+            .user-review form .add-a-review .rate-pr {
+                display: flex;
+                font-size: 20px;
+            }
+
+                .user-review form .add-a-review .rate-pr li {
+                    padding: 0 3px;
+                }
+
+                    .user-review form .add-a-review .rate-pr li a {
+                        color: #B4876E;
+                    }
+
+        .user-review form textarea {
+            background-color: white;
+            height: 65px;
+            box-shadow: none;
+            padding-left: 20px;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 30px;
+            border-radius: 0;
+            padding: 15px 20px;
+            min-height: 150px;
+            border: white;
+        }
+
+            .user-review form textarea:focus {
+                border: white;
+                outline-offset: 0px;
+                outline: none;
+            }
+
+        .user-review form .input-item input {
+            background-color: white;
+            height: 65px;
+            box-shadow: none;
+            padding-left: 20px;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 30px;
+            border-radius: 0;
+            border: white;
+        }
+
+            .user-review form .input-item input:focus {
+                border: white;
+                outline-offset: 0px;
+                outline: none;
+            }
+
+        .user-review form .save-info {
+            display: flex;
+            text-align: center;
+        }
+
+            .user-review form .save-info input {
+                margin-right: 10px;
+            }
+
+        .user-review form .btn-wrapper {
+            margin-top: 20px;
+        }
+
+            .user-review form .btn-wrapper button:hover {
+                background-color: #737373;
+            }
+
+.user-question {
+    display: none;
+    font-style: normal !important;
+    font-size: 14px;
+    line-height: 17px;
+    color: #6A6C77;
+    border: none;
+}
+
+    .user-question h2 {
+        font-size: 13px;
+        color: #6A6C77;
+        padding: 20px 7px 15px 0px;
+        min-width: 100px;
+        width: auto;
+        text-align: start;
+        display: inline-block;
+        font-weight: normal;
+        float: none;
+    }
+
+    .user-question form {
+        margin: 0 auto;
+    }
+
+        .user-question form .form-group {
+            width: 100%;
+        }
+
+            .user-question form .form-group .form-element {
+                display: flex;
+                flex-direction: column;
+            }
+
+                .user-question form .form-group .form-element label {
+                    font-size: 13px;
+                }
+
+                    .user-question form .form-group .form-element label span {
+                        color: #990000 !important;
+                        margin-right: 4px;
+                    }
+
+                .user-question form .form-group .form-element textarea {
+                    margin: 15px 0 20px;
+                    height: 68px;
+                    min-width: 148px;
+                    width: 100%;
+                }
+
+                    .user-question form .form-group .form-element textarea:focus {
+                        outline-offset: 0px;
+                        outline: none;
+                    }
+
+                .user-question form .form-group .form-element input {
+                    height: 32px;
+                    min-width: 148px;
+                    width: 98%;
+                }
+
+                    .user-question form .form-group .form-element input:focus {
+                        outline-offset: 0px;
+                        outline: none;
+                    }
+
+        .user-question form .user-nam-em {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-question form .submit-button {
+            float: right;
+            margin-top: 26px;
+        }
+
+            .user-question form .submit-button .pp {
+                font-size: 12px;
+            }
+
+                .user-question form .submit-button .pp:hover {
+                    color: black;
+                    background-color: #B4876E;
+                }
+
+    .user-question.active {
+        display: block;
+    }

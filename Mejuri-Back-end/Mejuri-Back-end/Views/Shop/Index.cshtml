@@ -91,6 +91,11 @@
                                 <h1>Shop it all</h1>
                             </div>
                             <div class="filters">
+                                <div class="filter-item-search">
+                                    <div class="search__container">
+                                        <input class="search__input" type="text" placeholder="Search">
+                                    </div>
+                                </div>
                                 <div class="filter-item">
                                     <h3>Filters</h3>
                                     <i class="fas fa-plus filter-open"></i>
@@ -270,7 +275,7 @@
                                                 <a asp-action="addtobasket" asp-controller="product" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" class="single-btn add-basket">
                                                     <i class="fas fa-shopping-basket"></i>
                                                 </a>
-                                                <a href="wishlist.html" class="single-btn">
+                                                <a  class="single-btn add-fav">
                                                     <i class="far fa-heart"></i>
                                                 </a>
                                             </div>

@@ -25,19 +25,18 @@ namespace Mejuri_Back_end.Controllers
         {
             return View();
         }
-        public IActionResult Detail(int id)
+        public IActionResult Detail(int id, Review review)
         {
+            Product product = _context.Products
+                .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages)
+                .Include(x => x.ProductColors).ThenInclude(x => x.Color).FirstOrDefault(x => x.Id == id);
+
             ShopViewModel shopVM = new ShopViewModel
             {
-
-                Product = _context.Products
-                .Include(x=>x.ProductColors).ThenInclude(x=>x.ProductColorImages)
-                .Include(x=>x.ProductColors).ThenInclude(x=>x.Color)
-                .Include(x => x.ProductMaterials).ThenInclude(x => x.Material).Where(x=>x.Id==id).FirstOrDefault()
-
-
+                Product = product,
+                Reviews = _context.Reviews.Include(x => x.AppUser).Where(x => x.ProductId == id).ToList()
             };
-           
+
             return View(shopVM);
         }
 
@@ -193,5 +192,9 @@ namespace Mejuri_Back_end.Controllers
             }
             return PartialView("_BasketPartial",products );
         }
+
+
+
+
     }
 }
