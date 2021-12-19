@@ -1,0 +1,180 @@
+﻿@model ProfileViewModel
+@{
+    ViewData["Title"] = "Profile";
+    int index = 0;
+    int orderItemIndex = 0;
+}
+
+@if (TempData["Success"] != null)
+{
+    @if ((bool)TempData["Success"] == true)
+    {
+        <input type="hidden" id="success" />
+    }
+    else
+    {
+        <input type="hidden" id="error" />
+
+    }
+}
+<main>
+    <section id="checkout">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 col-xs-12 user-col">
+                    <div class="user-info">
+                        <h1>Shipping Address</h1>
+                        <form action="" method="post">
+                            <div class="fieldset">
+                                <label asp-for="FullName">Full Name*</label>
+                                <input asp-for="FullName" type="text" placeholder="Full Name">
+                                <span asp-validation-for="FullName" class="text-danger"></span>
+                            </div>
+                            <div class="fieldset">
+                                <label asp-for="UserName">UserName*</label>
+                                <input asp-for="UserName" type="text" placeholder="User Name">
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            </div>
+                            <div class="name-surname">
+                                <div class="fieldset">
+                                    <label asp-for="Email">Email Address*</label>
+                                    <input asp-for="Email" type="email" placeholder="Email Address">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="fieldset">
+                                    <label asp-for="PhoneNumber">Phone no*</label>
+                                    <input asp-for="PhoneNumber" placeholder="Phone number">
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="fieldset">
+                                <label asp-for="NewPassword">NewPassword</label>
+                                <input asp-for="NewPassword" id="NewPassword" placeholder="Enter your new password">
+                                <span class="text-danger" asp-validation-for="NewPassword"></span>
+                            </div>
+                            <div class="fieldset">
+                                <label asp-for="ConfirmNewPassword">Repeat Password</label>
+                                <input asp-for="ConfirmNewPassword"  id="ConfirmNewPassword" placeholder="Repeat your new password">
+                                <span class="text-danger" asp-validation-for="ConfirmNewPassword"></span>
+                            </div>
+                            <div class="fieldset">
+                                <label asp-for="CurrentPassword">Current Password</label>
+                                <input asp-for="CurrentPassword"  id="CurrentPassword" placeholder="Enter your current password">
+                                <span class="text-danger" asp-validation-for="CurrentPassword"></span>
+                            </div>
+                            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                            <button class="button button-secondary order" type="submit">Place Order</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    @*<div class="panel-body">
+                            <table>
+                                <tbody>
+                                    <tr class="table-info">
+                                        <td>#</td>
+                                        <td></td>
+                                        <td>Total count</td>
+                                        <td>Total Amount</td>
+                                        <td>Date</td>
+                                        <td>Status</td>
+                                    </tr>
+
+                                    @foreach (var order in Model.Orders)
+                                    {
+                                        index++;
+                                        orderItemIndex = 0;
+                                        <tr class="table-img">
+                                            <td>1</td>
+                                            <td>
+                                                <i class="fas fa-caret-down order-drop"></i>
+                                            </td>
+                                            <td>@order.OrderItems.Count</td>
+                                            <td>@order.TotalAmount$</td>
+                                            <td>@order.CreatedAt.AddHours(4).ToString("HH:mm dd MMM yyyy")</td>
+                                            <td>
+                                                @if (order.Status == Mejuri_Back_end.Models.Enums.OrderStatus.Accepted)
+                                                {
+                                                    <i style="color: green;" class="fas fa-check-circle"></i>
+                                                }
+                                                else if (order.Status == Mejuri_Back_end.Models.Enums.OrderStatus.Rejected)
+                                                {
+                                                    <i style="color:brown" class="fas fa-times-circle"></i>
+
+                                                }
+                                                else
+                                                {
+                                                    <i style="color: wheat;" class="fas fa-pause-circle"></i>
+                                                }
+                                            </td>
+                                        </tr>
+                                        <tr class="order-open">
+                                            <td colspan="7">
+                                                <div class="fold-content">
+                                                    <table style="width: 100%;">
+                                                        <thead>
+                                                            <tr class="table-info">
+                                                                <td>#</td>
+                                                                <td>Product name</td>
+                                                                <td>Color name</td>
+                                                                <td>Count</td>
+                                                                <td>Price</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var orderItem in order.OrderItems)
+                                                            {
+                                                                orderItemIndex++;
+                                                                <tr>
+                                                                    <td>@orderItemIndex</td>
+                                                                    <td>@orderItem.ProductName</td>
+                                                                    <td>@orderItem.ColorName</td>
+                                                                    <td>@orderItem.Count</td>
+                                                                    <td>@(orderItem.SalePrice-orderItem.DiscountPrice)</td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            if ($("#success").length) {
+               toastr["success"]("Your info has been changed successfully!")
+            }
+            else if ($("#error").length) {
+                toastr["error"]("Something went wrong!")
+            }
+
+        })
+    </script>
+}
