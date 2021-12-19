@@ -1,0 +1,88 @@
+﻿@model List<Order>
+@{
+    ViewData["Title"] = "Index";
+    int index = 0;
+}
+
+<div class="content-wrapper" style="min-height: 1604.71px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Projects</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Projects</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-head">
+                <h4>Products List</h4>
+                <a href="product-edit.html">Add Gender</a>
+            </div>
+
+            <table class="table table-striped projects">
+                <tbody>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Item count</th>
+                        <th scope="col">Total Amount</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Setting</th>
+                    </tr>
+                    @foreach (var order in Model)
+                    {
+                        index++;
+                <tr>
+                    <th scope="row">@index</th>
+                    <td>@order.FullName</td>
+                    <td>@order.Email</td>
+                    <td>@order.OrderItems.Count</td>
+                    <td>@order.TotalAmount</td>
+                    <td>@order.CreatedAt.AddHours(4).ToString("HH:mm dd MMM yyyy")</td>
+                    <td>
+                        <h5>
+                            <span class="badge badge-@(order.Status== Mejuri_Back_end.Models.Enums.OrderStatus.Accepted?"success":order.Status == Mejuri_Back_end.Models.Enums.OrderStatus.Rejected?"danger":"info")">
+                                @(order.Status== Mejuri_Back_end.Models.Enums.OrderStatus.Accepted?"accepted":order.Status == Mejuri_Back_end.Models.Enums.OrderStatus.Rejected?"rejected":"pending")
+                            </span>
+                        </h5>
+                    </td>
+                    <td>
+                        <a asp-action="edit" asp-route-id="@order.Id" class="pd-setting-ed" style="background:orange;"><i class="fas fa-edit"></i></a>
+                        <a asp-action="deletefetch" asp-route-id="@order.Id" style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed btn-item-delete" data-original-title="Trash"><i class="fas fa-trash-alt "></i></a>
+                    </td>
+                </tr>
+                    }
+            </table>
+
+            <div class="custom-pagination">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+</div>
+

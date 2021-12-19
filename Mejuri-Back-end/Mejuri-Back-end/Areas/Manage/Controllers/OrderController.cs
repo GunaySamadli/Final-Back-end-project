@@ -25,5 +25,37 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
 
             return View(orders);
         }
+
+        public IActionResult Edit(int id)
+        {
+            Order order = _context.Orders.Include(x => x.OrderItems).FirstOrDefault(x => x.Id == id);
+
+            if (order == null) return NotFound();
+
+            return View(order);
+        }
+
+        public IActionResult Accept(int id)
+        {
+            Order order = _context.Orders.FirstOrDefault(x => x.Id == id);
+            if (order == null) return NotFound();
+
+            order.Status = Models.Enums.OrderStatus.Accepted;
+            _context.SaveChanges();
+
+            return RedirectToAction("index");
+        }
+
+
+        public IActionResult Reject(int id)
+        {
+            Order order = _context.Orders.FirstOrDefault(x => x.Id == id);
+            if (order == null) return NotFound();
+
+            order.Status = Models.Enums.OrderStatus.Rejected;
+            _context.SaveChanges();
+
+            return RedirectToAction("index");
+        }
     }
 }
