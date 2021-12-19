@@ -41,6 +41,7 @@ namespace Mejuri_Back_end
             }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>();
 
             services.AddScoped<LayoutService>();
+            services.AddScoped<IEmailService, EmailService>();
             services.AddHttpContextAccessor();
         }
 

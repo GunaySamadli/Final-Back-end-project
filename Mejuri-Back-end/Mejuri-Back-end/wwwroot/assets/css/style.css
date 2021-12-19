@@ -8609,4 +8609,19 @@ aside {
                 display: table-row;
             }
 
-        .order-container .panel-body table .table-info {
+.fieldset span{
+    font-size:16px;
+    margin-top:10px;
+}
+.fieldset label {
+    font-size: 25px;
+}
+.fieldset input {
+    font-size: 20px;
+}
+.validation-summary-errors ul li{
+    font-size:20px;
+}
+.toast-message{
+    font-size:18px;
+}
