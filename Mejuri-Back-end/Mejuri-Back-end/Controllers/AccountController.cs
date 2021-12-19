@@ -1,4 +1,5 @@
 ﻿using Mejuri_Back_end.Models;
+using Mejuri_Back_end.Services;
 using Mejuri_Back_end.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,11 +18,14 @@ namespace Mejuri_Back_end.Controllers
         private readonly AppDbContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        public AccountController(AppDbContext context, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        private readonly IEmailService _emailService;
+
+        public AccountController(AppDbContext context, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,IEmailService emailService)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailService = emailService;
         }
         public IActionResult Register()
         {
@@ -182,7 +187,70 @@ namespace Mejuri_Back_end.Controllers
             return RedirectToAction("profile");
         }
 
-       
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel forgotPasswordVM)
+        {
+            AppUser user = await _userManager.FindByEmailAsync(forgotPasswordVM.Email);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("Email", "Email is not valid!");
+                return View();
+            }
+
+
+            string token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            string callback = Url.Action("resetpassword", "account", new { token, email = user.Email }, Request.Scheme);
+            string body = string.Empty;
+
+            using(StreamReader reader=new StreamReader("wwwroot/templates/forgotpassword.html"))
+            {
+                body = reader.ReadToEnd();
+            }
+            body = body.Replace("{{url}}",callback);
+
+            _emailService.Send(user.Email, "Reset password",body);
+
+            return RedirectToAction("login");
+        }
+
+        public async Task<IActionResult> ResetPassword(string token,string email)
+        {
+            ResetPasswordViewModel resetPasswordVM = new ResetPasswordViewModel
+            {
+                Token = token,
+                Email = email
+            };
+            return View(resetPasswordVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel resetPasswordVM)
+        {
+            if (!ModelState.IsValid) return View();
+
+            AppUser user = await _userManager.FindByEmailAsync(resetPasswordVM.Email);
+            if (user == null) return NotFound();
+
+            var resetResult = await _userManager.ResetPasswordAsync(user, resetPasswordVM.Token, resetPasswordVM.Password);
+
+            if (!resetResult.Succeeded)
+            {
+                foreach (var item in resetResult.Errors)
+                {
+                    ModelState.AddModelError("", item.Description);
+                }
+                return View();
+            }
+           
+            return RedirectToAction("login");
+        }
     }
 }
