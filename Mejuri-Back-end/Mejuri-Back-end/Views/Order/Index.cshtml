@@ -1,0 +1,124 @@
+﻿@inject UserManager<AppUser> userManager
+@model List<Order>
+@{
+    ViewData["Title"] = "Index";
+    int index = 0;
+    int orderItemIndex = 0;
+    AppUser member = User.Identity.IsAuthenticated ? userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name && !x.IsAdmin) : null;
+}
+
+<main>
+    <div class="container order-container">
+        <div class="row d-flex align-items-center">
+            <div class="col-md-3 profile-left">
+                <aside class="left-aside">
+                    <div class="sidebar">
+                        <div class="container">
+                            <div class="row">
+                                <div class="sidebar-items">
+                                    <div class="sidebar-item">
+                                        <ul>
+                                            <li><a href="./profile.html">My Profile</a></li>
+                                            <li><a href="./order.html">My Orders</a></li>
+                                            <li><a href="./wish-list.html">My Wish List</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+            <!--Order-->
+            <div class="col-lg-9 col-md-12 col-order">
+                <div class="container">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="order-info">
+                                <h1>Thanks for your Order,<span>@member.FullName</span> !</h1>
+                                <div class="order-info-mejuri">
+                                    <i class="far fa-gem"></i>
+                                    <p>Jewellery For Everyone</p>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <table>
+                                    <tbody>
+                                        <tr class="table-info">
+                                            <td>#</td>
+                                            <td></td>
+                                            <td>Total count</td>
+                                            <td>Total Amount</td>
+                                            <td>Date</td>
+                                            <td>Status</td>
+                                        </tr>
+
+                                        @foreach (var order in Model)
+                                        {
+                                            index++;
+                                            orderItemIndex = 0;
+                                            <tr class="table-img">
+                                                <td>1</td>
+                                                <td>
+                                                    <i class="fas fa-caret-down order-drop"></i>
+                                                </td>
+                                                <td>@order.OrderItems.Count</td>
+                                                <td>@order.TotalAmount$</td>
+                                                <td>@order.CreatedAt.AddHours(4).ToString("HH:mm dd MMM yyyy")</td>
+                                                <td>
+                                                    @if (order.Status == Mejuri_Back_end.Models.Enums.OrderStatus.Accepted)
+                                                    {
+                                                        <i style="color: green;" class="fas fa-check-circle"></i>
+                                                    }
+                                                    else if (order.Status == Mejuri_Back_end.Models.Enums.OrderStatus.Rejected)
+                                                    {
+                                                        <i style="color:brown" class="fas fa-times-circle"></i>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <i style="color: wheat;" class="fas fa-pause-circle"></i>
+                                                    }
+                                                </td>
+                                            </tr>
+                                            <tr class="order-open">
+                                                <td colspan="7">
+                                                    <div class="fold-content">
+                                                        <table style="width: 100%;">
+                                                            <thead>
+                                                                <tr class="table-info">
+                                                                    <td>#</td>
+                                                                    <td>Product name</td>
+                                                                    <td>Color name</td>
+                                                                    <td>Count</td>
+                                                                    <td>Price</td>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach (var orderItem in order.OrderItems)
+                                                                {
+                                                                    orderItemIndex++;
+                                                                <tr>
+                                                                    <td>@orderItemIndex</td>
+                                                                    <td>@orderItem.ProductName</td>
+                                                                    <td>@orderItem.ColorName</td>
+                                                                    <td>@orderItem.Count</td>
+                                                                    <td>@(orderItem.SalePrice-orderItem.DiscountPrice)</td>
+                                                                </tr>
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

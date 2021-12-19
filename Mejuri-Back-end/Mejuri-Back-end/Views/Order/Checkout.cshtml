@@ -1,0 +1,128 @@
+﻿
+@model CheckoutViewModel
+@{
+    ViewData["Title"] = "Checkout";
+    double totalPrice = 0;
+}
+
+
+<main>
+    <section id="checkout">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 col-xs-12 user-col">
+                    <div class="user-info">
+                        <h1>Shipping Address</h1>
+                        <div id="billing-form" class="mb-40">
+                            <h4 class="checkout-title">Billi
+
+                        </div>
+                        <form action="" method="post">
+                            <div class="fieldset">
+                                <label asp-for="FullName">Full Name*</label>
+                                <input asp-for="FullName" type="text" placeholder="Full Name">
+                                <span asp-validation-for="FullName" class="text-danger"></span>
+                            </div>
+                            <div class="fieldset">
+                                <label asp-for="City">Country</label>
+                                <select required="">
+                                    <option value="" disabled=""></option>
+                                    <option value="214">Azerbaijan</option>
+                                    <option value="214">United States of America</option>
+                                    <option value="213">United Kingdom</option>
+                                    <option value="212">United Arab Emirates</option>
+                                    <option value="200">Thailand</option>
+                                    <option value="197">Taiwan</option>
+                                    <option value="194">Sweden</option>
+                                    <option value="188">Spain</option>
+                                    <option value="106">South Korea</option>
+                                    <option value="183">Slovakia</option>
+                                    <option value="182">Singapore</option>
+                                    <option value="178">Saudi Arabia</option>
+                                    <option value="165">Qatar</option>
+                                    <option value="164">Puerto Rico</option>
+                                    <option value="162">Poland</option>
+                                    <option value="160">Philippines</option>
+                                    <option value="152">Norway</option>
+                                    <option value="145">New Zealand</option>
+                                    <option value="142">Netherlands</option>
+                                    <option value="122">Malaysia</option>
+                                    <option value="100">Japan</option>
+                                    <option value="98">Italy</option>
+                                    <option value="96">Ireland</option>
+                                    <option value="93">Indonesia</option>
+                                    <option value="90">Hungary</option>
+                                    <option value="89">Hong Kong</option>
+                                    <option value="74">Germany</option>
+                                    <option value="68">France</option>
+                                    <option value="67">Finland</option>
+                                    <option value="53">Denmark</option>
+                                    <option value="52">Czech Republic</option>
+                                    <option value="35">Canada</option>
+                                    <option value="20">Belgium</option>
+                                    <option value="13">Austria</option>
+                                    <option value="12">Australia</option>
+                                </select>
+                                <span asp-validation-for="City" class="text-danger"></span>
+                            </div>
+                            <div class="fieldset">
+                                <label asp-for="Address">Address*</label>
+                                <input asp-for="Address" type="text" placeholder="Address line 1">
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                            <div class="name-surname">
+                                <div class="fieldset">
+                                    <label asp-for="Email">Email Address*</label>
+                                    <input asp-for="Email" type="email" placeholder="Email Address">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="fieldset">
+                                    <label asp-for="Phone">Phone no*</label>
+                                    <input asp-for="Phone" placeholder="Phone number">
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="fieldset">
+                                <label asp-for="ZipCode">Zip Code*</label>
+                                <input asp-for="ZipCode" type="text" placeholder="Zip Code">
+                                <span asp-validation-for="ZipCode" class="text-danger"></span>
+                            </div>
+                            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                            <button class="button button-secondary order" type="submit">Place Order</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="user-order">
+                        @foreach (var item in Model.BasketItemViewModels)
+                         {
+                            double price = item.Count * item.Price;
+                            totalPrice += price;
+                            <div class="order-item">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <img src="~/uploads/product/@item.Image" alt="">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="order-item-info">
+                                                <div class="count-name">
+                                                    <span>@item.Count</span>X <span>@item.Name</span>
+                                                </div>
+                                                <p>$@price</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         }
+                        <div class="total-price">
+                            <h2>Order total</h2>
+                            <p>$@totalPrice</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

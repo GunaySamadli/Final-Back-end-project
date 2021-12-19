@@ -8576,3 +8576,37 @@ aside {
     .user-question.active {
         display: block;
     }
+
+
+.order-container .panel-body {
+    box-shadow: 1px 1px 3px 0px #70738b;
+}
+
+    .order-container .panel-body table {
+        position: relative;
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #212529;
+    }
+
+        .order-container .panel-body table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 15px;
+        }
+
+            .order-container .panel-body table td i {
+                font-size: 20px;
+                cursor: pointer;
+            }
+
+        .order-container .panel-body table .order-open {
+            display: none;
+        }
+
+            .order-container .panel-body table .order-open.active {
+                display: table-row;
+            }
+
+        .order-container .panel-body table .table-info {

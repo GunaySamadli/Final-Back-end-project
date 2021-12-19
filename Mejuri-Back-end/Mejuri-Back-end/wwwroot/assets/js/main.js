@@ -229,7 +229,12 @@ tabDetail.forEach(tabBrand => {
 })
 
 
-
+//order
+$(function () {
+    $(".table-img").on("click", function () {
+        $(this).toggleClass("active").next(".order-open").toggleClass("active");
+    });
+});
 
 //ask
 const ask = document.querySelector(".ask")
