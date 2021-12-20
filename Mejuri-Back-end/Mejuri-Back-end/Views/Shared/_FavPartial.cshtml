@@ -1,0 +1,49 @@
+﻿@model List<FavoryItemViewModel>
+
+@{
+    Layout = null;
+
+}
+<h1>
+    What you love.
+</h1>
+<div class="container">
+    <div class="row" id="favorite-fav" data-fav-count="@Model.Count">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 col-sm-6">
+                <div class="favory-item">
+                    <div class="card-image" style="display:block">
+                        <div class="img-product">
+                            <div class="content-colors">
+                                <div class="content-color">
+                                    <a href="./detail.html">
+                                        <img src="~/uploads/product/@item.Image"
+                                             class="img-responsive">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hover-btns">
+                            <a class="single-btn add-basket">
+                                <i class="fas fa-shopping-basket"></i>
+                            </a>
+                            <a class="single-btn delete-fav" asp-action="deletefromfav" asp-controller="product" asp-route-id="@item.ProductColorId" data-id="@item.ProductColorId" title="Wishlist" style="background-color: #B4876E;color:white;">
+                                <i onMouseOver="this.style.color='#FFFFFF'" class="far fa-heart"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="fav-info">
+                    <h2>
+                        <a>@item.Name</a>
+                    </h2>
+                    <span>
+                        $@item.Price
+                    </span>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>

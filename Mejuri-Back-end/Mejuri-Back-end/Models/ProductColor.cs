@@ -19,6 +19,8 @@ namespace Mejuri_Back_end.Models
 
         public List<OrderItem> OrderItems { get; set; }
         public List<BasketItem> BasketItems { get; set; }
+        public List<FavoryItem> FavoryItems { get; set; }
+
 
 
         [NotMapped]

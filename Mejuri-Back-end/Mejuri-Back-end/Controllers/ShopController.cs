@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,15 @@ namespace Mejuri_Back_end.Controllers
         }
         public IActionResult Index()
         {
+            string strPr = HttpContext.Request.Cookies["Favory"];
+            ViewBag.Favorites = null;
+            if (strPr != null)
+            {
+                ViewBag.Favorites = JsonConvert.DeserializeObject<List<FavoryItemViewModel>>(strPr);
+
+            }
+
+
             List<Product> products = _context.Products
                .Include(x => x.ProductColors).ThenInclude(x => x.Color)
                .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages).ToList();

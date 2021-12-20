@@ -1,6 +1,7 @@
 ﻿@model ShopViewModel
 @{
     ViewData["Title"] = "Index";
+    List<FavoryItemViewModel> favs = ViewBag.Favorites;
 }
 
     <main class="row">
@@ -275,9 +276,28 @@
                                                 <a asp-action="addtobasket" asp-controller="product" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" class="single-btn add-basket">
                                                     <i class="fas fa-shopping-basket"></i>
                                                 </a>
-                                                <a  class="single-btn add-fav">
-                                                    <i class="far fa-heart"></i>
-                                                </a>
+                                                @if (favs != null)
+                                                {
+                                                    @if (!favs.Any(f => f.ProductColorId == Model.Products[i].ProductColors[j].Id))
+                                                    {
+                                                        <a class="single-btn add-fav fav" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" asp-action="addtofav" asp-controller="product" title="Wishlist" style="background-color:white">
+                                                            <i class="far fa-heart"></i>
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="single-btn delete-fav fav"asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id"  asp-action="deletefromfav" asp-controller="product" title="Wishlist" style="background-color: #B4876E; color: white;">
+                                                            <i onMouseOver="this.style.color='#FFFFFF'" class="far fa-heart"></i>
+                                                        </a>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <a class="single-btn add-fav fav" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" asp-action="addtofav" asp-controller="product" title="Wishlist" style="background-color:white">
+                                                        <i class="far fa-heart"></i>
+                                                    </a>
+                                                }
+
                                             </div>
                                         </div>
                                     }

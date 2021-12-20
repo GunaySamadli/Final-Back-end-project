@@ -195,7 +195,134 @@ namespace Mejuri_Back_end.Controllers
         }
 
 
+        public IActionResult AddToFav(int id)
+        {
+            ProductColor product = _context.ProductColors.Include(x => x.Product).Include(x => x.ProductColorImages)
+                .FirstOrDefault(x => x.Id == id);
+            FavoryItemViewModel favItem = null;
 
+            if (product == null) return NotFound();
+
+            AppUser member = null;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                member = _userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name && !x.IsAdmin);
+
+            }
+
+            List<FavoryItemViewModel> products = new List<FavoryItemViewModel>();
+
+            if (member == null)
+            {
+                string ProductStr;
+
+                if (HttpContext.Request.Cookies["Favory"] != null)
+                {
+                    ProductStr = HttpContext.Request.Cookies["Favory"];
+                    products = JsonConvert.DeserializeObject<List<FavoryItemViewModel>>(ProductStr);
+
+                    favItem = products.FirstOrDefault(x => x.ProductColorId == id);
+                }
+
+                if (favItem == null)
+                {
+                    favItem = new FavoryItemViewModel
+                    {
+                        ProductColorId = product.Id,
+                        Name = product.Product.Name,
+                        Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true).Image,
+                        Price = product.Product.SalePrice
+                    };
+                    products.Add(favItem);
+                }
+
+                ProductStr = JsonConvert.SerializeObject(products);
+                HttpContext.Response.Cookies.Append("Favory", ProductStr);
+
+            }
+            else
+            {
+                FavoryItem memberFavItem = _context.FavoryItems
+                                        .FirstOrDefault(x => x.AppUserId == member.Id && x.ProductColorId == id);
+                if (memberFavItem == null)
+                {
+                    memberFavItem = new FavoryItem
+                    {
+                        AppUserId = member.Id,
+                        ProductColorId = id,
+                        Count=1
+                    };
+                    _context.FavoryItems.Add(memberFavItem);
+                }
+
+                _context.SaveChanges();
+                products = _context.FavoryItems.Select(x =>
+                  new FavoryItemViewModel
+                  {
+                      ProductColorId = x.ProductColorId,
+                      Name = x.ProductColor.Product.Name,
+                      Price = x.ProductColor.Product.SalePrice,
+                      Image = x.ProductColor.ProductColorImages
+                                .FirstOrDefault(bi => bi.PosterStatus == true).Image
+                  }).ToList();
+            }
+            return RedirectToAction("index", "favory", products);
+
+
+        }
+
+
+        public IActionResult DeleteFromFav(int id)
+        {
+
+            ProductColor product = _context.ProductColors.Include(x => x.ProductColorImages).Include(x => x.Product).FirstOrDefault(x => x.Id == id);
+            FavoryItemViewModel favItem = null;
+
+            if (product == null) return RedirectToAction("index", "error");
+
+            AppUser member = null;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                member = _userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name && !x.IsAdmin);
+
+            }
+
+            List<FavoryItemViewModel> products = new List<FavoryItemViewModel>();
+
+
+            if (member == null)
+            {
+                string ProductStr = HttpContext.Request.Cookies["Favory"];
+                products = JsonConvert.DeserializeObject<List<FavoryItemViewModel>>(ProductStr);
+
+                favItem = products.FirstOrDefault(x => x.ProductColorId == id);
+
+
+
+                products.Remove(favItem);
+
+
+                ProductStr = JsonConvert.SerializeObject(products);
+                HttpContext.Response.Cookies.Append("Favory", ProductStr);
+            }
+            else
+            {
+                FavoryItem memberFavItem = _context.FavoryItems.Include(x => x.ProductColor).ThenInclude(bi => bi.ProductColorImages).Include(x => x.ProductColor).ThenInclude(bi => bi.Product).FirstOrDefault(x => x.AppUserId == member.Id && x.ProductColorId == id);
+
+                _context.FavoryItems.Remove(memberFavItem);
+
+                _context.SaveChanges();
+
+                products = _context.FavoryItems.Include(x => x.ProductColor).ThenInclude(bi => bi.ProductColorImages).Include(x => x.ProductColor).ThenInclude(bi => bi.Product).Where(x => x.AppUserId == member.Id)
+                   .Select(x => new FavoryItemViewModel { ProductColorId = x.ProductColorId, Name = x.ProductColor.Product.Name, Price = x.ProductColor.Product.SalePrice, Image = x.ProductColor.ProductColorImages.FirstOrDefault(b => b.PosterStatus == true).Image }).ToList();
+
+            }
+
+            return PartialView("_FavPartial", products);
+
+        }
 
     }
 }

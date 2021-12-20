@@ -77,7 +77,55 @@ namespace Mejuri_Back_end.Services
             return items;
         }
 
+        public List<FavoryItemViewModel> GetFavItems()
+        {
+            List<FavoryItemViewModel> itemsFav = new List<FavoryItemViewModel>();
 
+            AppUser member = null;
+            if (_contextAccessor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                member = _userManager.Users.FirstOrDefault(x => x.UserName == _contextAccessor.HttpContext.User.Identity.Name && !x.IsAdmin);
+            }
+
+
+            if (member == null)
+            {
+                var itemsStr = _contextAccessor.HttpContext.Request.Cookies["Favory"];
+
+                if (itemsStr != null)
+                {
+                    itemsFav = JsonConvert.DeserializeObject<List<FavoryItemViewModel>>(itemsStr);
+
+                    foreach (var item in itemsFav)
+                    {
+                        ProductColor product = _context.ProductColors.Include(x => x.Product).Include(c => c.ProductColorImages).FirstOrDefault(x => x.Id == item.ProductColorId);
+                        if (product != null)
+                        {
+                            item.Name = product.Product.Name;
+                            item.Price = product.Product.SalePrice;
+                            item.Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true)?.Image;
+
+                        }
+                    }
+                }
+            }
+            else
+            {
+                List<FavoryItem> basketItems = _context.FavoryItems
+                    .Include(x => x.ProductColor).ThenInclude(x => x.ProductColorImages)
+                    .Include(x => x.ProductColor).ThenInclude(x => x.Product)
+                    .Where(x => x.AppUserId == member.Id).ToList();
+                itemsFav = basketItems.Select(x => new FavoryItemViewModel
+                {
+                    ProductColorId = x.ProductColorId,
+                    Image = x.ProductColor.ProductColorImages.FirstOrDefault(bi => bi.PosterStatus == true)?.Image,
+                    Name = x.ProductColor.Product.Name,
+                    Price = x.ProductColor.Product.SalePrice
+                }).ToList();
+            }
+
+            return itemsFav;
+        }
     }
 
 }

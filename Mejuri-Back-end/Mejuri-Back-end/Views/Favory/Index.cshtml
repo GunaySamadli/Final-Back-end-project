@@ -1,0 +1,38 @@
+﻿@model List<FavoryItemViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+    <main>
+        <!--Wish-->
+        <section id="wish">
+            <div class="container">
+                <div class="row d-flex">
+                    <div class="col-md-3 profile-left">
+                        <aside class="left-aside">
+                            <div class="sidebar">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="sidebar-items">
+                                            <div class="sidebar-item">
+                                                <ul>
+                                                    <li><a href="./profile.html">My Profile</a></li>
+                                                    <li><a href="./order.html">My Orders</a></li>
+                                                    <li><a href="./wish-list.html">My Wish List</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
+                    </div>
+                    <div class="col-md-9 fav-container">
+                        @await Html.PartialAsync("_FavPartial",Model)
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>

@@ -14,6 +14,8 @@ namespace Mejuri_Back_end.Models
 
         public List<BasketItem> BasketItems { get; set; }
         public List<Review> Reviews { get; set; }
+        public List<FavoryItem> FavoryItems { get; set; }
+
 
 
     }

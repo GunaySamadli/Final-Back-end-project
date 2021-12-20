@@ -43,6 +43,43 @@
         })
     });
 
-   
+    $(document).on("click", ".add-fav", function (e) {
+        e.preventDefault();
+
+        var id = $(this).attr("data-id");
+        fetch('https://localhost:44318/product/addtofav/' + id)
+            .then(response => response.text())
+            .then(data => {
+                $(this).removeClass('add-fav').addClass('delete-fav');
+                $(".fav-container").html(data)
+                var count = $("#favorite-fav").data("fav-count")
+                $("#fav-count").text(count)
+                $(this).css('background', '#B4876E')
+
+            });
+    });
+
+    $(document).on("click", ".delete-fav", function (e) {
+        e.preventDefault();
+        var id = $(this).attr("data-id");
+
+        fetch('https://localhost:44318/product/deletefromfav/' + id)
+            .then(response => response.text())
+            .then(data => {
+
+                $('.fav').each(function () {
+                    if ($(this).attr('data-id') == id) {
+                        $(this).removeClass('delete-fav').addClass('add-fav');
+                        $(this).css('background', '#FFFFFF');
+                    }
+                })
+
+                $(".fav-container").html(data)
+                var count = $("#favorite-fav").data("fav-count")
+                $("#fav-count").text(count)
+
+            });
+    })
+
 
 })

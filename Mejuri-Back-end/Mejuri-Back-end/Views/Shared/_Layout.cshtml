@@ -5,6 +5,7 @@
 
 @{
     List<BasketItemViewModel> basketItems = service.GetBasketItems();
+    List<FavoryItemViewModel> favItems = service.GetFavItems();
     double totalCount = 0;
     totalCount = basketItems.Sum(x => x.Price * x.Count);
     AppUser member = User.Identity.IsAuthenticated ? userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name && !x.IsAdmin) : null;
@@ -49,15 +50,10 @@
                                     <a class="nav-item" asp-controller="shop" asp-action="index">Shop</a>
                                 </li>
                                 <li class="nav-item"><a asp-controller="company" asp-action="index">Company</a></li>
-
-                                <li class="search-bar">
-                                    <a>
-                                        <svg class="search" width="15" height="15" xmlns="http://www.w3.org/2000/svg"
-                                             viewBox="0 0 512 512">
-                                            <path d="M213.194 34.713c98.705 0 179 81.461 179 181.575 0 100.113-80.295 181.574-179 181.574-98.681 0-178.977-81.46-178.977-181.574 0-100.114 80.296-181.575 178.977-181.575m0 397.863c54.497 0 104.111-21.013 141.864-55.264L487.797 512 512 487.446l-133.241-135.15c29.746-37.19 47.653-84.493 47.653-136.008C426.412 97.036 330.74 0 213.194 0 95.648 0 0 97.036 0 216.288c0 119.275 95.648 216.288 213.194 216.288"
-                                                  fill-rule="evenodd"></path>
-                                        </svg>
-                                        <span>Search</span>
+                                <li class="nav-item">
+                                    <a asp-controller="favory" asp-action="index">
+                                        <i class="far fa-heart"></i>
+                                        <div class="fav-number-sum" id="fav-count">@favItems.Count()</div>
                                     </a>
                                 </li>
                                 <li class="mejuri-li">
@@ -75,10 +71,14 @@
                                         </svg>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="./wish-list.html">
-                                        <i class="far fa-heart"></i>
-                                        <div class="fav-number-sum">3</div>
+                                <li class="search-bar">
+                                    <a>
+                                        <svg class="search" width="15" height="15" xmlns="http://www.w3.org/2000/svg"
+                                             viewBox="0 0 512 512">
+                                            <path d="M213.194 34.713c98.705 0 179 81.461 179 181.575 0 100.113-80.295 181.574-179 181.574-98.681 0-178.977-81.46-178.977-181.574 0-100.114 80.296-181.575 178.977-181.575m0 397.863c54.497 0 104.111-21.013 141.864-55.264L487.797 512 512 487.446l-133.241-135.15c29.746-37.19 47.653-84.493 47.653-136.008C426.412 97.036 330.74 0 213.194 0 95.648 0 0 97.036 0 216.288c0 119.275 95.648 216.288 213.194 216.288"
+                                                  fill-rule="evenodd"></path>
+                                        </svg>
+                                        <span>Search</span>
                                     </a>
                                 </li>
                                 @if (member != null)
@@ -101,7 +101,7 @@
                                                 <a asp-controller="order" asp-action="index">My Orders</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a href="./payroll.html">My Wishlist</a>
+                                                <a asp-controller="favory" asp-action="index">My Wishlist</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a asp-controller="account" asp-action="logout" data-h="header-user-menu-btn">

@@ -29,6 +29,8 @@ namespace Mejuri_Back_end.Models
         public DbSet<BasketItem> BasketItems { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<FavoryItem> FavoryItems { get; set; }
+
 
 
     }
