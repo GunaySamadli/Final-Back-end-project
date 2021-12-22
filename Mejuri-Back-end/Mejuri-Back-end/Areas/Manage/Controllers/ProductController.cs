@@ -33,7 +33,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                 .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages)
                 .Include(x => x.ProductColors).ThenInclude(x => x.Color)
                 .Include(x => x.ProductMaterials).ThenInclude(x => x.Material)
-                .Include(x=>x.Reviews)
+                .Include(x=>x.Reviews).Include(x=>x.Questions)
                 .ToList();
 
             var pagenatedSlider = PagenatedList<Product>.Create(query, 4, page);

@@ -79,14 +79,13 @@ namespace Mejuri_Back_end.Services
 
         public List<FavoryItemViewModel> GetFavItems()
         {
-            List<FavoryItemViewModel> itemsFav = new List<FavoryItemViewModel>();
 
             AppUser member = null;
             if (_contextAccessor.HttpContext.User.Identity.IsAuthenticated)
             {
                 member = _userManager.Users.FirstOrDefault(x => x.UserName == _contextAccessor.HttpContext.User.Identity.Name && !x.IsAdmin);
             }
-
+            List<FavoryItemViewModel> items = new List<FavoryItemViewModel>();
 
             if (member == null)
             {
@@ -94,9 +93,9 @@ namespace Mejuri_Back_end.Services
 
                 if (itemsStr != null)
                 {
-                    itemsFav = JsonConvert.DeserializeObject<List<FavoryItemViewModel>>(itemsStr);
+                    items = JsonConvert.DeserializeObject<List<FavoryItemViewModel>>(itemsStr);
 
-                    foreach (var item in itemsFav)
+                    foreach (var item in items)
                     {
                         ProductColor product = _context.ProductColors.Include(x => x.Product).Include(c => c.ProductColorImages).FirstOrDefault(x => x.Id == item.ProductColorId);
                         if (product != null)
@@ -115,7 +114,8 @@ namespace Mejuri_Back_end.Services
                     .Include(x => x.ProductColor).ThenInclude(x => x.ProductColorImages)
                     .Include(x => x.ProductColor).ThenInclude(x => x.Product)
                     .Where(x => x.AppUserId == member.Id).ToList();
-                itemsFav = basketItems.Select(x => new FavoryItemViewModel
+
+                items = basketItems.Select(x => new FavoryItemViewModel
                 {
                     ProductColorId = x.ProductColorId,
                     Image = x.ProductColor.ProductColorImages.FirstOrDefault(bi => bi.PosterStatus == true)?.Image,
@@ -124,7 +124,7 @@ namespace Mejuri_Back_end.Services
                 }).ToList();
             }
 
-            return itemsFav;
+            return items;
         }
     }
 

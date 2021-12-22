@@ -1,4 +1,4 @@
-﻿@model Review
+﻿@model Question
 @{
     ViewData["Title"] = "Detail";
 }
@@ -58,8 +58,8 @@
                                     </p>
                                 </div>
                                 <div class="text-center mt-5 mb-3">
-                                    <a asp-controller="review" asp-action="accept" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">Accepted</a>
-                                    <a asp-controller="review" asp-action="deletefetch" asp-route-id="@Model.Id" class="btn btn-sm btn-warning btn-item-delete">Delete</a>
+                                    <a asp-controller="question" asp-action="accept" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">Accepted</a>
+                                    <a asp-controller="question" asp-action="deletefetch" asp-route-id="@Model.Id" class="btn btn-sm btn-warning btn-item-delete">Delete</a>
                                 </div>
                             </div>
                         </div>

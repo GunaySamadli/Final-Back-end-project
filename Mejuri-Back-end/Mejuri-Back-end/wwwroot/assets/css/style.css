@@ -6103,8 +6103,8 @@ header nav .nav-items .fav-number-sum {
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 33px;
-    left: 28%;
+    bottom: 11px;
+    left: 63%;
     width: 25px;
     height: 25px;
     border-radius: 50%;

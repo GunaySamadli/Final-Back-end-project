@@ -33,6 +33,7 @@ namespace Mejuri_Back_end.Models
 
         public List<Company> Companies { get; set; }
         public List<Review> Reviews { get; set; }
+        public List<Question> Questions { get; set; }
 
         [NotMapped]
         public IFormFile PosterFile { get; set; }

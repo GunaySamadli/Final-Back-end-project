@@ -64,6 +64,15 @@
                                         </a>
                                     }
                                 }
+                                @if (product.Questions != null)
+                                {
+                                    @foreach (var item in product.Questions)
+                                    {
+                                        <a asp-controller="question" asp-action="index" asp-route-id="@item.ProductId" class="btn btn-info">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    }
+                                }
                             </td>
                         </tr>
                         if (product.ProductColors.Count() != 0)

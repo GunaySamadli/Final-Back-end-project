@@ -1,9 +1,10 @@
-﻿@model List<Company>
+﻿
+@model List<Question>
 @{
     ViewData["Title"] = "Index";
     int order = 0;
-}
 
+}
 <div class="content-wrapper" style="min-height: 1604.71px;">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -28,35 +29,27 @@
         <!-- Default box -->
         <div class="card">
             <div class="card-head">
-                <h4>Products List</h4>
-                <a asp-action="Create">Add Company</a>
+                <h4>Reviews List</h4>
             </div>
-
-            <table class="table table-striped projects">
+            <table class="table table-striped projects" style="position:relative;">
                 <tbody>
-                    <tr>
+                    <tr class="nem">
                         <th>#</th>
-                        <th>Title</th>
-                        <th>Percent</th>
-                        <th>Product Name</th>
-                        <th>Company Category Name</th>
+                        <th>Text</th>
+                        <th>UserName</th>
                         <th>Setting</th>
                     </tr>
-                    @foreach (var company in Model)
+                    @foreach (var question in Model)
                     {
                         order++;
-                <tr>
-                    <td>@order</td>
-                    <td>@company.Title</td>
-                    <td>@company.Percent%</td>
-                    <td>@company.Product.Name</td>
-                    <td>@company.CompanyCategory.Name</td>
-                    <td>
-                        <a asp-action="edit" asp-route-id="@company.Id" class="pd-setting-ed" style="background:orange;"><i class="fas fa-edit"></i></a>
-                        <a asp-action="deletefetch" asp-route-id="@company.Id" style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed btn-item-delete" data-original-title="Trash"><i class="fas fa-trash-alt "></i></a>
-                    </td>
-                </tr>
-
+                        <tr>
+                            <th scope="row">@order</th>
+                            <td>@question.Text</td>
+                            <td>@question.AppUser.UserName</td>
+                            <td>
+                                <a asp-action="detail" asp-route-id="@question.Id" class="btn btn-primary">Detail</a>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>
@@ -68,6 +61,4 @@
     </section>
     <!-- /.content -->
 </div>
-
-
 

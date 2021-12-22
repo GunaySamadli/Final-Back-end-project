@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "Detail";
     AppUser member = User.Identity.IsAuthenticated ? userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name && !x.IsAdmin) : null;
-
+    List<Answer> answers = ViewBag.Answers;
 }
 <main>
     <section id="detail-home">
@@ -212,18 +212,19 @@
                             </div>
                         </div>
                     </div>
-                    @*<div class="user-question">
-                        <h2>ASK A QUESTION</h2>
-                        @if (!Model.Questions.Any(x => x.ProductId == Model.Product.Id ) && member != null)
+                    <div class="user-question">
+                        @if (!Model.Questions.Any(x => x.ProductId == Model.Product.Id) && member != null)
                         {
+                            <h2>ASK A QUESTION</h2>
                             <form asp-controller="shop" asp-action="question" asp-route-id="@Model.Product.Id" method="post">
+                                <input type="hidden" name="productId" value="@Model.Product.Id" />
                                 <div class="form-group">
                                     <div class="form-element">
                                         <label for="yotpo_input_question_content">
                                             <span>
                                                 *
                                             </span>Question: <span class="form-input-error yotpo-hidden"></span>
-                                        </label>>
+                                        </label>
                                         <textarea id="yotpo_input_question_content" asp-for="Question.Text"
                                                   maxlength="1000" aria-required="true" placeholder=""></textarea>
                                     </div>
@@ -258,7 +259,7 @@
                             </form>
 
                         }
-                    </div>*@
+                    </div>
                     <div class="review-down-body">
                         <div class="container">
                             <div class="row">
@@ -288,39 +289,40 @@
                                     <div class="content-reviewes">
                                         <!--Review content-->
                                         <div class="content-review active" id="review-text">
-                                        @foreach (var review in Model.Reviews.Where(x => x.Accept == true))
-                                        {
-                                            <div class="content-review-body">
-                                                <div class="name-date">
-                                                    <span class="name">@review.AppUser.FullName</span>
-                                                    <span class="date">@review.Date.ToString("MMMM dd yyyy")</span>
-                                                </div>
-                                                <div class="content-stars">
-                                                    @for (int i = 1; i <= 5; i++)
-                                                    {
-                                                        if (i <= Model.Product.Rate)
+                                            @foreach (var review in Model.Reviews.Where(x => x.Accept == true))
+                                            {
+                                                <div class="content-review-body">
+                                                    <div class="name-date">
+                                                        <span class="name">@review.AppUser.FullName</span>
+                                                        <span class="date">@review.Date.ToString("MMMM dd yyyy")</span>
+                                                    </div>
+                                                    <div class="content-stars">
+                                                        @for (int i = 1; i <= 5; i++)
                                                         {
-                                                            <i class="fas fa-star"></i>
+                                                            if (i <= Model.Product.Rate)
+                                                            {
+                                                                <i class="fas fa-star"></i>
 
-                                                        }
-                                                        else
-                                                        {
-                                                            <i class="fas fa-star"></i>
+                                                            }
+                                                            else
+                                                            {
+                                                                <i class="fas fa-star"></i>
 
+                                                            }
                                                         }
-                                                    }
+                                                    </div>
+                                                    <p class="content-user-review">
+                                                        @review.Text
+                                                    </p>
                                                 </div>
-                                                <p class="content-user-review">
-                                                    @review.Text
-                                                </p>
-                                            </div>
-                                        }
+                                            }
 
                                         </div>
                                         <!--Question content-->
-                                        @*<div class="content-review" id="question">
+                                        <div class="content-review" id="question">
                                             @foreach (var question in Model.Questions.Where(x => x.Accept == true))
                                             {
+                                                Answer answer = answers.FirstOrDefault(x => x.QuestionId == question.Id);
                                                 <div class="content-question-body">
                                                     <div class="question">
                                                         <div class="question-user-name-date">
@@ -337,18 +339,17 @@
                                                     <div class="answer">
                                                         <div class="answer-admin-name-date">
                                                             <span class="answer-admin-name">Mejuri.</span>
-                                                            <span class="answer-admin-date">10/15/21</span>
+                                                            <span class="answer-admin-date">@answer.Date.ToString("MMMM dd yyyy")</span>
                                                         </div>
                                                         <p>
                                                             <span>
-                                                                A:
+                                                                A:@answer.Text
                                                             </span>
-                                                            @question.Answer
                                                         </p>
                                                     </div>
                                                 </div>
                                             }
-                                        </div>*@
+                                        </div>
                                     </div>
                                 </div>
                             </div>

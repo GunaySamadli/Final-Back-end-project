@@ -1,0 +1,59 @@
+﻿
+@model Question
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="content-wrapper" style="min-height: 1604.71px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Project Add</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Project Add</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">General</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            <div class="form-group col-md-4">
+                                <label asp-for="Text">Question</label>
+                                <input asp-for="Text" readonly class="form-control">
+                                <span class="text-danger" asp-validation-for="Text"></span>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label asp-for="Answer">Answer</label>
+                                <input asp-for="Answer" class="form-control">
+                                <span class="text-danger" asp-validation-for="Answer"></span>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success float-right">Answer the Question</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>

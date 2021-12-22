@@ -30,6 +30,10 @@ namespace Mejuri_Back_end.Models
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<FavoryItem> FavoryItems { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
+
+
 
 
 

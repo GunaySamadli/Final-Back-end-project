@@ -19,13 +19,15 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         }
         public IActionResult Index()
         {
-            List<Company> companies = _context.Companies.Include(x=>x.CompanyCategory).ToList();
+            List<Company> companies = _context.Companies.Include(x=>x.Product).Include(x=>x.CompanyCategory).ToList();
             return View(companies);
         }
 
         public IActionResult Create()
         {
             ViewBag.CompanyCategory = _context.CompanyCategories.ToList();
+            ViewBag.Product = _context.Products.ToList();
+
 
             return View();
         }
@@ -34,10 +36,14 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         public IActionResult Create(Company company)
         {
             ViewBag.CompanyCategory = _context.CompanyCategories.ToList();
+            ViewBag.Product = _context.Products.ToList();
+
 
             if (!ModelState.IsValid) return View();
 
             if (!_context.CompanyCategories.Any(x => x.Id == company.CompanyCategoryId)) ModelState.AddModelError("CompanyCategoryId", "Company Category not found!");
+            if (!_context.Products.Any(x => x.Id == company.ProductId)) ModelState.AddModelError("ProductId", "Product not found!");
+
 
             _context.Companies.Add(company);
             _context.SaveChanges();
@@ -47,9 +53,11 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
 
         public IActionResult Edit(int id)
         {
-            Company company = _context.Companies.Include(x=>x.CompanyCategory).FirstOrDefault(x => x.Id == id);
+            Company company = _context.Companies.Include(x=>x.Product).Include(x=>x.CompanyCategory).FirstOrDefault(x => x.Id == id);
 
             ViewBag.CompanyCategory = _context.CompanyCategories.ToList();
+            ViewBag.Product = _context.Products.ToList();
+
 
             if (company == null) return NotFound();
 
@@ -61,6 +69,8 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         public IActionResult Edit(Company company)
         {
             if (!_context.CompanyCategories.Any(x => x.Id == company.CompanyCategoryId)) ModelState.AddModelError("CompanyCategoryId", "Company Category not found!");
+            if (!_context.Products.Any(x => x.Id == company.ProductId)) ModelState.AddModelError("ProductId", "Product not found!");
+
 
             if (!ModelState.IsValid) return View();
 
@@ -70,6 +80,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             if (existCompany == null) return NotFound();
 
             existCompany.CompanyCategoryId = company.CompanyCategoryId;
+            existCompany.ProductId = company.ProductId;
             existCompany.Title = company.Title;
             existCompany.Percent = company.Percent;
             existCompany.StartTime = company.StartTime;

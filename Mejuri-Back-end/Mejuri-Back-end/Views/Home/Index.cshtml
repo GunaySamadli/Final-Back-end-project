@@ -105,30 +105,30 @@
                 <div class="edit-item company-slider">
                     @foreach (var company in Model.Companies)
                     {
-                            <div class="col-md-3 company-slider-item">
-                                <a href="">
-                                    <div class="img-product">
-                                        @foreach (var item in company.Product.ProductColors)
-                                        {
-                                            <a href="./detail.html">
-                                                <img src="~/assets/images/@item.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
-                                                <img src="~/assets/images/@item.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image" class="img-responsive-hov">
-                                            </a>
-                                        }
-                                    </div>
-                                    <a href="">
-                                        <p>@company.Title</p>
-                                    </a>
-                                </a>
-                                <div class="hover-btns">
-                                    <a class="single-btn add-basket">
-                                        <i class="fas fa-shopping-basket"></i>
-                                    </a>
-                                    <a href="wishlist.html" class="single-btn">
-                                        <i class="far fa-heart"></i>
-                                    </a>
+                        <div class="col-md-3 company-slider-item">
+                            <a href="">
+                                <div class="img-product">
+                                    @foreach (var item in company.Product.ProductColors)
+                                    {
+                                        <a href="./detail.html">
+                                            <img src="~/uploads/product/@item.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
+                                            <img src="~/uploads/product/@item.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image" class="img-responsive-hov">
+                                        </a>
+                                    }
                                 </div>
-                            </div>
+                                <a href="">
+                                    <p>@company.Title</p>
+                                </a>
+                            </a>
+                            @*<div class="hover-btns">
+                                <a asp-action="addtobasket" asp-controller="product" asp-route-id="@company.Product.Id" data-id="@company.Product.Id" class="single-btn add-basket">
+                                    <i class="fas fa-shopping-basket"></i>
+                                </a>
+                                <a href="wishlist.html" class="single-btn">
+                                    <i class="far fa-heart"></i>
+                                </a>
+                            </div>*@
+                        </div>
                     }
                 </div>
             </div>
