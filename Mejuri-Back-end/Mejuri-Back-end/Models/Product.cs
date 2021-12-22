@@ -20,12 +20,11 @@ namespace Mejuri_Back_end.Models
         [StringLength(maximumLength: 1000)]
         public string Desc { get; set; }
         [Required]
-        public int SalePrice { get; set; }
+        [Column(TypeName = "decimal(9,2)")]
+        public double SalePrice { get; set; }
         [Required]
         public int Rate { get; set; }
         public bool IsStock { get; set; }
-        public int? ShippingPrice { get; set; }
-
         public Category Category { get; set; }
         public Gender Gender { get; set; }
         public List<ProductColor> ProductColors { get; set; } = new List<ProductColor>();

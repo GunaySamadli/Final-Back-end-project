@@ -1,0 +1,178 @@
+﻿@model Setting
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="content-wrapper" style="min-height: 1604.71px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Project Edit</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Project Edit</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <form method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">General</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label asp-for="HomePageInfo">HomePageInfo</label>
+                                    <input asp-for="HomePageInfo" class="form-control">
+                                    <span class="text-danger" asp-validation-for="HomePageInfo"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="LocationTitle">LocationTitle</label>
+                                    <input asp-for="LocationTitle" class="form-control">
+                                    <span class="text-danger" asp-validation-for="LocationTitle"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="LocationSubTitle">LocationSubTitle</label>
+                                    <input asp-for="LocationSubTitle" class="form-control">
+                                    <span class="text-danger" asp-validation-for="LocationSubTitle"></span>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label asp-for="Fb">Fb</label>
+                                    <input asp-for="Fb" class="form-control">
+                                    <span class="text-danger" asp-validation-for="Fb"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="Insta">Insta</label>
+                                    <input asp-for="Insta" class="form-control">
+                                    <span class="text-danger" asp-validation-for="Insta"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="Twitter">Twitter</label>
+                                    <input asp-for="Twitter" class="form-control">
+                                    <span class="text-danger" asp-validation-for="Twitter"></span>
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <label asp-for="FbUrl">FacebookUrl</label>
+                                    <input asp-for="FbUrl" class="form-control">
+                                    <span class="text-danger" asp-validation-for="FbUrl"></span>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label asp-for="TwitterUrl">TwitterUrl</label>
+                                    <input asp-for="TwitterUrl" class="form-control">
+                                    <span class="text-danger" asp-validation-for="TwitterUrl"></span>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label asp-for="InstaUrl">InstagramUrl</label>
+                                    <input asp-for="InstaUrl" class="form-control">
+                                    <span class="text-danger" asp-validation-for="InstaUrl"></span>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label asp-for="PinterestUrl">PinterestUrl</label>
+                                    <input asp-for="PinterestUrl" class="form-control">
+                                    <span class="text-danger" asp-validation-for="PinterestUrl"></span>
+                                </div>
+                            </div>
+                            <div class="form-row">
+
+                                <div class="form-group col-md-4">
+                                    <label asp-for="CopyRight">CopyRight</label>
+                                    <input asp-for="CopyRight" class="form-control">
+                                    <span class="text-danger" asp-validation-for="CopyRight"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="Pinterest">Pinterest</label>
+                                    <input asp-for="Pinterest" class="form-control">
+                                    <span class="text-danger" asp-validation-for="Pinterest"></span>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label asp-for="HomePageImgFile">HomePageImgFile</label>
+                                    <input asp-for="HomePageImgFile" class="form-control">
+                                    <span class="text-danger" asp-validation-for="HomePageImgFile"></span>
+                                    <div class="img-box" style=" display: flex; flex-direction: column; position: relative;margin-top:20px;">
+                                        <input type="hidden" asp-for="HomePageImg" value="@Model.HomePageImg"/>
+                                        <img style="max-width:200px" src="~/uploads/setting/@Model.HomePageImg" alt="Alternate Text" />
+                                        <div style="max-width:200px" class="btn-group btn-group-sm remove-img-box">
+                                            <a class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="LocationImgFile">LocationImgFile</label>
+                                    <input asp-for="LocationImgFile" class="form-control">
+                                    <span class="text-danger" asp-validation-for="LocationImgFile"></span>
+                                    <div class="img-box" style=" display: flex; flex-direction: column; position: relative; margin-top: 20px;">
+                                        <input type="hidden" asp-for="LocationImg" value="@Model.LocationImg" />
+                                        <img style="max-width:200px" src="~/uploads/setting/@Model.LocationImg" alt="Alternate Text" />
+                                        <div style="max-width:200px" class="btn-group btn-group-sm remove-img-box">
+                                            <a class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label asp-for="ShopImgFile">ShopImgFile</label>
+                                    <input asp-for="ShopImgFile" class="form-control">
+                                    <span class="text-danger" asp-validation-for="ShopImgFile"></span>
+                                    <div class="img-box" style=" display: flex; flex-direction: column; position: relative; margin-top: 20px;">
+                                        <input type="hidden" asp-for="ShopImg" value="@Model.ShopImg" />
+                                        <img style="max-width:200px" src="~/uploads/setting/@Model.ShopImg" alt="Alternate Text" />
+                                        <div style="max-width:200px" class="btn-group btn-group-sm remove-img-box">
+                                            <a class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="CompanyImgFile">FooterImgFile</label>
+                                    <input asp-for="CompanyImgFile" class="form-control">
+                                    <span class="text-danger" asp-validation-for="CompanyImgFile"></span>
+                                    <div class="img-box" style=" display: flex; flex-direction: column; position: relative; margin-top: 20px;">
+                                        <input type="hidden" asp-for="CompanyImg" value="@Model.CompanyImg" />
+                                        <img style="max-width:200px" src="~/uploads/setting/@Model.CompanyImg" alt="Alternate Text" />
+                                        <div style="max-width:200px" class="btn-group btn-group-sm remove-img-box">
+                                            <a class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <a asp-action="index" class="btn btn-secondary">Cancel</a>
+                    <input type="submit" value="Save Changes" class="btn btn-success float-right">
+                </div>
+            </div>
+        </form>
+
+    </section>
+    <!-- /.content -->
+</div>
+

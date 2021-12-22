@@ -32,16 +32,6 @@
             });
     })
 
-    let ranks = document.querySelectorAll('.product-ratting .rank');
-    ranks.forEach(function (elem, index) {
-        elem.addEventListener('click', function () {
-            let rank = index + 1;
-            document.querySelector('.rate').value = rank;
-            for (let i = 0; i < rank; i++) {
-                ranks[i].style.color = '#cb3421';
-            }
-        })
-    });
 
     $(document).on("click", ".add-fav", function (e) {
         e.preventDefault();
@@ -81,5 +71,20 @@
             });
     })
 
+    let stars = document.querySelectorAll(".product-ratting .rank")
+        stars.forEach((element, index) => {
 
+            element.addEventListener("click", function () {
+                let rank = index + 1;
+                document.querySelector('.rate').value = rank;
+                for (let i = 0; i <= stars.length; i++) {
+                    if (i < rank) {
+                        stars[i].style.color = "red"
+                    }
+                    else {
+                        stars[i].style.color = "#B4876E"
+                    }
+                }
+            })
+        })
 })

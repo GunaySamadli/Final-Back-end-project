@@ -29,7 +29,10 @@ namespace Mejuri_Back_end.Controllers
                 .Include(x => x.ProductColors).ThenInclude(x=>x.ProductColorImages)
                 .ToList(),
                 Companies = _context.Companies.Include(x => x.Product).ThenInclude(x=>x.ProductColors)
-                .ThenInclude(x=>x.ProductColorImages).OrderBy(x => x.EndTime).Where(x => x.EndTime >= DateTime.Now).ToList()
+                .ThenInclude(x=>x.Color)
+                .Include(x => x.Product).ThenInclude(x => x.ProductColors)
+                .ThenInclude(x => x.ProductColorImages)
+                .OrderBy(x => x.EndTime).Where(x => x.EndTime >= DateTime.Now).ToList()
             };
 
             return View(homeVM);

@@ -90,12 +90,6 @@
                                 Add To Bag
                             </a>
                         }
-                        <div class="shipping">
-                            <div class="shipping-info">
-                                <i class="fas fa-shipping-fast"></i>
-                                <p>Free Expedited Shipping @Model.Product.ShippingPrice</p>
-                            </div>
-                        </div>
                         <div class="detail-info">
                             <div class="product-name">
                                 <span>Fair pricing</span>
@@ -146,13 +140,24 @@
                                     <div class="review-up-left">
                                         <div class="review-star">
                                             <div class="stars">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
+                                                @if (Model.Product.Reviews.Count()> 0)
+                                                {
+                                                    @for (int i = 0; i < 5; i++)
+                                                    {
+                                                        if (i <= Math.Round((decimal)(Model.Product.Reviews.Sum(x => x.Rate) / Model.Product.Reviews.Count())))
+                                                        {
+                                                            <i class="fas fa-star"></i> continue;
+
+                                                        }
+                                                        <i class="far fa-star" style="color:red"></i>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <i class="far fa-star"></i>
+                                                }
                                             </div>
-                                            <span class="font-color-gray based-on">3106 Reviews</span>
+                                            <span class="font-color-gray based-on">(@(Model.Product.Reviews.Count()>0?(((Model.Product.Reviews.Sum(x=>x.Rate)/(decimal)Model.Product.Reviews.Count()).ToString("F1"))):"0")) Reviews</span>
                                         </div>
                                         <div class="questions">
                                             <a href="#">
@@ -213,51 +218,54 @@
                         </div>
                     </div>
                     <div class="user-question">
-                        @if (!Model.Questions.Any(x => x.ProductId == Model.Product.Id) && member != null)
+                        @if (member != null)
                         {
-                            <h2>ASK A QUESTION</h2>
-                            <form asp-controller="shop" asp-action="question" asp-route-id="@Model.Product.Id" method="post">
-                                <input type="hidden" name="productId" value="@Model.Product.Id" />
-                                <div class="form-group">
-                                    <div class="form-element">
-                                        <label for="yotpo_input_question_content">
-                                            <span>
-                                                *
-                                            </span>Question: <span class="form-input-error yotpo-hidden"></span>
-                                        </label>
-                                        <textarea id="yotpo_input_question_content" asp-for="Question.Text"
-                                                  maxlength="1000" aria-required="true" placeholder=""></textarea>
-                                    </div>
-                                </div>
-                                <div class="user-nam-em">
+                            @if (!Model.Questions.Any(x => x.AppUserId == member.Id))
+                            {
+                                <h2>ASK A QUESTION</h2>
+                                <form asp-controller="shop" asp-action="question" asp-route-id="@Model.Product.Id" method="post">
+                                    <input type="hidden" name="productId" value="@Model.Product.Id" />
                                     <div class="form-group">
                                         <div class="form-element">
                                             <label for="yotpo_input_question_content">
                                                 <span>
                                                     *
-                                                </span>Use your name:: <span class="form-input-error yotpo-hidden"></span>
+                                                </span>Question: <span class="form-input-error yotpo-hidden"></span>
                                             </label>
-                                            <input type="text" asp-for="Question.Username"
-                                                   value="@(member!=null?member.UserName:"")">
+                                            <textarea id="yotpo_input_question_content" asp-for="Question.Text"
+                                                      maxlength="1000" aria-required="true" placeholder=""></textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="form-element">
-                                            <label for="yotpo_input_question_content">
-                                                <span>
-                                                    *
-                                                </span>Email: <span class="form-input-error yotpo-hidden"></span>
-                                            </label>
-                                            <input type="email" asp-for="Question.Email"
-                                                   value="@(member!=null?member.Email:"")">
+                                    <div class="user-nam-em">
+                                        <div class="form-group">
+                                            <div class="form-element">
+                                                <label for="yotpo_input_question_content">
+                                                    <span>
+                                                        *
+                                                    </span>Use your name:: <span class="form-input-error yotpo-hidden"></span>
+                                                </label>
+                                                <input type="text" asp-for="Question.Username"
+                                                       value="@(member!=null?member.UserName:"")">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-element">
+                                                <label for="yotpo_input_question_content">
+                                                    <span>
+                                                        *
+                                                    </span>Email: <span class="form-input-error yotpo-hidden"></span>
+                                                </label>
+                                                <input type="email" asp-for="Question.Email"
+                                                       value="@(member!=null?member.Email:"")">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-element submit-button">
-                                    <button type="submit" class="button button-secondary pp"> Post</button>
-                                </div>
-                            </form>
+                                    <div class="form-element submit-button">
+                                        <button type="submit" class="button button-secondary pp"> Post</button>
+                                    </div>
+                                </form>
 
+                            }
                         }
                     </div>
                     <div class="review-down-body">
@@ -297,18 +305,9 @@
                                                         <span class="date">@review.Date.ToString("MMMM dd yyyy")</span>
                                                     </div>
                                                     <div class="content-stars">
-                                                        @for (int i = 1; i <= 5; i++)
+                                                        @for (int i = 0; i < review.Rate; i++)
                                                         {
-                                                            if (i <= Model.Product.Rate)
-                                                            {
-                                                                <i class="fas fa-star"></i>
-
-                                                            }
-                                                            else
-                                                            {
-                                                                <i class="fas fa-star"></i>
-
-                                                            }
+                                                            <i class="fas fa-star"></i>
                                                         }
                                                     </div>
                                                     <p class="content-user-review">

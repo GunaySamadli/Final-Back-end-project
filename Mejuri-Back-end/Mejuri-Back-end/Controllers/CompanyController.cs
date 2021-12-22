@@ -30,8 +30,6 @@ namespace Mejuri_Back_end.Controllers
             return View(companyVM);
 
         }
-
-
     };
 
 }

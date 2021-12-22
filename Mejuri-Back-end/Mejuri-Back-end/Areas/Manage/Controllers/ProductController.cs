@@ -189,7 +189,6 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             existProudct.Desc = product.Desc;
             existProudct.Rate = product.Rate;
             existProudct.IsStock = product.IsStock;
-            existProudct.ShippingPrice = product.ShippingPrice;
 
             _context.SaveChanges();
 

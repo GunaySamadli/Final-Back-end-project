@@ -1,13 +1,14 @@
 ﻿
 @model HomeViewModel
-
+@inject LayoutService service
 @{
+    Setting setting = service.GetSetting();
     ViewData["Title"] = "Mejuri | Everyday Fine Jewelry | Online Jewelry Shop";
 }
 <main>
 
     <input value="@Model.Companies.OrderBy(x=>x.EndTime).Where(x=>x.EndTime>=DateTime.Now).FirstOrDefault().EndTime"
-           type="hidden" id="datetime"/>
+           type="hidden" id="datetime" />
 
     <!--Info-->
     <section id="info">
@@ -16,11 +17,11 @@
                 <div class="col-lg-12">
                     <div class="info">
                         <div class="info-img">
-                            <img src="~/assets/images/header.jfif" alt="">
+                            <img src="~/uploads/setting//@setting.HomePageImg" alt="">
                         </div>
                         <div class="info-text text-center">
-                            <p>THE HOLIDAY GIFT SHOP</p>
-                            <a class="button button-primary" href="">SHOP NOW</a>
+                            <p>@setting.HomePageInfo</p>
+                            <a class="button button-primary" asp-controller="shop" asp-action="index">SHOP NOW</a>
                         </div>
                     </div>
                 </div>
@@ -103,32 +104,72 @@
                     </div>
                 </div>
                 <div class="edit-item company-slider">
-                    @foreach (var company in Model.Companies)
-                    {
-                        <div class="col-md-3 company-slider-item">
-                            <a href="">
-                                <div class="img-product">
-                                    @foreach (var item in company.Product.ProductColors)
-                                    {
-                                        <a href="./detail.html">
-                                            <img src="~/uploads/product/@item.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
-                                            <img src="~/uploads/product/@item.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image" class="img-responsive-hov">
-                                        </a>
-                                    }
-                                </div>
+                    @*@foreach (var company in Model.Companies)
+                        {
+                            <div class="col-md-3 company-slider-item">
                                 <a href="">
-                                    <p>@company.Title</p>
+                                    <div class="img-product">
+                                        @foreach (var item in company.Product.ProductColors)
+                                        {
+                                            <a href="./detail.html">
+                                                <img src="~/uploads/product/@item.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
+                                                <img src="~/uploads/product/@item.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image" class="img-responsive-hov">
+                                            </a>
+                                        }
+                                    </div>
+                                    <a href="">
+                                        <p>@company.Title</p>
+                                    </a>
                                 </a>
-                            </a>
-                            @*<div class="hover-btns">
-                                <a asp-action="addtobasket" asp-controller="product" asp-route-id="@company.Product.Id" data-id="@company.Product.Id" class="single-btn add-basket">
-                                    <i class="fas fa-shopping-basket"></i>
-                                </a>
-                                <a href="wishlist.html" class="single-btn">
-                                    <i class="far fa-heart"></i>
-                                </a>
-                            </div>*@
-                        </div>
+                            </div>
+                        }*@
+                    @for (int i = 0; i < Model.Companies.Count; i++)
+                    {
+                        <section id="favory" style="width:100% !important">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-12 company-slider-item">
+                                        <div class="favory-item" id="@Model.Companies[i].Id">
+                                            @for (int j = 0; j < Model.Companies[i].Product.ProductColors.Count; j++)
+                                            {
+                                                <div class="card-image @(j==0?"active":"")" id="@Model.Companies[i].Product.ProductColors[j].Color.Name">
+                                                    <div class="img-product">
+                                                        <div class="content-colors">
+                                                            <div class="content-color">
+                                                                <a asp-action="detail" asp-controller="product" asp-route-id="@Model.Companies[i].Product.Id">
+                                                                    <img src="~/uploads/product/@Model.Companies[i].Product.ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
+                                                                    <img src="~/uploads/product/@Model.Companies[i].Product.ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image"
+                                                                         class="img-responsive-hov">
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="fav-info">
+                                            <a href="">
+                                                <h2 class="basket-head">@Model.Companies[i].Title</h2>
+                                            </a>
+                                        </div>
+                                        <div class="fav-color">
+                                            <div class="color-items" data-id="@Model.Companies[i].Id" style="display: flex; flex-direction: row; align-items: center;">
+                                                @for (int j = 0; j < Model.Companies[i].Product.ProductColors.Count; j++)
+                                                {
+                                                    <div class="color-item">
+                                                        <a class="tab-color @(j==0?"active":"")"
+                                                           data-target="@Model.Companies[i].Product.ProductColors[j].Color.Name">
+                                                            <img src="./assets/images/color/@Model.Companies[i].Product.ProductColors[j].Color.Image" alt="" style="margin: 5px 5px 0 0; display: inline-block; padding: 3px; cursor: pointer; border-radius: 50px; border-width: 1px; border-style: solid; line-height: 1; border-width: 1px; height: 22px; width: 22px; border-color: #c1c1c1;">
+                                                        </a>
+                                                    </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     }
                 </div>
             </div>
@@ -162,13 +203,13 @@
             <div class="row">
                 <div class="col-md-6 location-left">
                     <div class="location-info">
-                        <h3>Come Say Hi</h3>
-                        <p>Shop our entire lineup of fine faves in store, get styled and join the Fine Crew.</p>
-                        <a class="button button-secondary" href="">Shop New</a>
+                        <h3>@setting.LocationTitle</h3>
+                        <p>@setting.LocationSubTitle</p>
+                        <a class="button button-secondary" asp-controller="shop" asp-action="index">Shop New</a>
                     </div>
                 </div>
                 <div class="col-md-6 location-right">
-                    <img src="~/assets/images/location.jfif" alt="">
+                    <img src="~/uploads/setting/@setting.LocationImg" alt="">
                 </div>
             </div>
         </div>

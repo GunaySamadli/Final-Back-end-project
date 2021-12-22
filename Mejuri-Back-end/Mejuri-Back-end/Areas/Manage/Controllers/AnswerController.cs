@@ -57,7 +57,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                 Date = DateTime.UtcNow,
                 Text = question.Answer
             });
-            question.Accept = true;
+            existQuestion.Accept = true;
             _context.SaveChanges();
 
             return RedirectToAction("index");

@@ -8625,3 +8625,7 @@ aside {
 .toast-message{
     font-size:18px;
 }
+
+.sekil:first-child{
+    width:100%
+}

@@ -6,6 +6,7 @@
 @{
     List<BasketItemViewModel> basketItems = service.GetBasketItems();
     List<FavoryItemViewModel> favItems = service.GetFavItems();
+    Setting setting = service.GetSetting();
     double totalCount = 0;
     totalCount = basketItems.Sum(x => x.Price * x.Count);
     AppUser member = User.Identity.IsAuthenticated ? userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name && !x.IsAdmin) : null;
@@ -172,6 +173,7 @@
                         </div>
                     </nav>
                 </div>
+            </div>
         </nav>
         <!--Search-->
         <div id="search">
@@ -213,9 +215,9 @@
                     <div class="footer-item">
                         <h3>Pages</h3>
                         <ul>
-                            <li><a href="./index.html">Mejuri</a></li>
-                            <li><a href="./shop.html">Shop All</a></li>
-                            <li><a href="./company.html">Company</a></li>
+                            <li><a asp-controller="home" asp-action="index">Mejuri</a></li>
+                            <li><a asp-controller="shop" asp-action="index">Shop All</a></li>
+                            <li><a asp-controller="company" asp-action="index">Company</a></li>
                         </ul>
                     </div>
                 </div>
@@ -223,8 +225,8 @@
                     <div class="footer-item">
                         <h3>ABOUT US</h3>
                         <ul>
-                            <li><a href="./shop.html">Review</a></li>
-                            <li><a href="./shop.html">Questions</a></li>
+                            <li><a asp-controller="product" asp-action="detail">Review</a></li>
+                            <li><a asp-controller="product" asp-action="detail">Questions</a></li>
                         </ul>
                     </div>
                 </div>
@@ -245,15 +247,15 @@
                 <div class="row">
                     <div class="col-md-6 col-xs-12">
                         <ul class="foot-item">
-                            <li>© 2021 Mejuri Inc.</li>
+                            <li>@setting.CopyRight</li>
                         </ul>
                     </div>
                     <div class="col-md-6 foot-right col-xs-12">
                         <ul class="foot-item">
-                            <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href=""><i class="fab fa-instagram"></i></a></li>
-                            <li><a href=""><i class="fab fa-pinterest-p"></i></a></li>
-                            <li><a href=""><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="@setting.FbUrl"><i class="@setting.Fb"></i></a></li>
+                            <li><a href="@setting.InstaUrl"><i class="@setting.Insta"></i></a></li>
+                            <li><a href="@setting.PinterestUrl"><i class="@setting.Pinterest"></i></a></li>
+                            <li><a href="@setting.TwitterUrl"><i class="@setting.Twitter"></i></a></li>
                         </ul>
                     </div>
                 </div>

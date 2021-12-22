@@ -30,17 +30,6 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             return View(question);
         }
 
-        public IActionResult Accept(int id)
-        {
-            Question question = _context.Questions.Include(x => x.AppUser).Include(x => x.Product).FirstOrDefault(x => x.Id == id);
-            if (question == null) return NotFound();
-
-            question.Accept = true;
-            _context.SaveChanges();
-
-            return RedirectToAction("index");
-        }
-
         
         public IActionResult DeleteFetch(int id)
         {

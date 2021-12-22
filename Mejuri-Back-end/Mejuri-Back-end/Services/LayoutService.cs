@@ -24,7 +24,10 @@ namespace Mejuri_Back_end.Services
             _userManager = userManager;
         }
 
-
+        public Setting GetSetting()
+        {
+            return _context.Settings.FirstOrDefault();
+        }
 
         public List<BasketItemViewModel> GetBasketItems()
         {
@@ -50,8 +53,9 @@ namespace Mejuri_Back_end.Services
                         ProductColor product = _context.ProductColors.Include(x=>x.Product).Include(c=>c.ProductColorImages).FirstOrDefault(x => x.Id == item.ProductColorId);
                         if (product != null)
                         {
+                            Company company = _context.Companies.FirstOrDefault(x => x.ProductId != product.Id);
                             item.Name = product.Product.Name;
-                            item.Price = product.Product.SalePrice;
+                            item.Price =(company==null) ? product.Product.SalePrice : product.Product.SalePrice - ((product.Product.SalePrice / 100) * company.Percent );
                             item.Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true)?.Image;
 
                         }
@@ -60,17 +64,19 @@ namespace Mejuri_Back_end.Services
             }
             else
             {
+ 
                 List<BasketItem> basketItems = _context.BasketItems
                     .Include(x => x.ProductColor).ThenInclude(x=>x.ProductColorImages)
                     .Include(x => x.ProductColor).ThenInclude(x => x.Product)
                     .Where(x => x.AppUserId == member.Id).ToList();
                 items = basketItems.Select(x => new BasketItemViewModel
                 {
+
                     ProductColorId = x.ProductColorId,
                     Count = x.Count,
                     Image = x.ProductColor.ProductColorImages.FirstOrDefault(bi => bi.PosterStatus == true)?.Image,
                     Name = x.ProductColor.Product.Name,
-                    Price = x.ProductColor.Product.SalePrice
+                    //Price = (company == null) ? x.ProductColor.Product.SalePrice : x.ProductColor.Product.SalePrice / (company.Percent * x.ProductColor.Product.SalePrice / 100)
                 }).ToList();
             }
 

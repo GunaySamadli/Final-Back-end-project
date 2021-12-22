@@ -22,8 +22,12 @@ namespace Mejuri_Back_end.Controllers
             _context = context;
             _userManager = userManager;
         }
-        public IActionResult Index()
+        public IActionResult Index(int? minPrice, int? maxPrice)
         {
+            var query = _context.Products.AsQueryable();
+
+            if (minPrice != null) query = query.Where(x => x.SalePrice > minPrice);
+            if (maxPrice != null) query = query.Where(x => x.SalePrice < maxPrice);
             string strPr = HttpContext.Request.Cookies["Favory"];
             ViewBag.Favorites = null;
             if (strPr != null)
@@ -36,6 +40,7 @@ namespace Mejuri_Back_end.Controllers
             List<Product> products = _context.Products
                .Include(x => x.ProductColors).ThenInclude(x => x.Color)
                .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages).ToList();
+
 
             ShopViewModel shopVM = new ShopViewModel
             {
@@ -115,6 +120,7 @@ namespace Mejuri_Back_end.Controllers
                 QuestionId = id,
 
             };
+            question.Accept = true;
             _context.Answers.Add(newAnswer);
             _context.SaveChanges();
 
