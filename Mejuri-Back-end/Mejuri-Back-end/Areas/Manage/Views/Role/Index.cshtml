@@ -1,7 +1,7 @@
-﻿@model List<Gender>
+﻿@model List<IdentityRole>
 @{
     ViewData["Title"] = "Index";
-    int order = 0;
+    var order = 0;
 }
 
 <div class="content-wrapper" style="min-height: 1604.71px;">
@@ -29,29 +29,28 @@
         <div class="card">
             <div class="card-head">
                 <h4>Products List</h4>
-                <a asp-action="Create">Add Gender</a>
+                <a asp-action="create" asp-controller="role">Add Role</a>
             </div>
 
             <table class="table table-striped projects">
                 <tbody>
                     <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Setting</th>
+                        <th scope="row">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Setting</th>
                     </tr>
-                    @foreach (var gender in Model)
+                    @foreach (var role in Model)
                     {
                         order++;
                         <tr>
-                            <td>@order</td>
-                            <td>@gender.Name</td>
+                            <th scope="row">@order</th>
+                            <td>@role.Name</td>
                             <td>
-                                <a asp-action="edit" asp-route-id="@gender.Id" class="pd-setting-ed" style="background:orange;"><i class="fas fa-edit"></i></a>
-                                <a asp-action="deletefetch" asp-route-id="@gender.Id" style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed btn-item-delete" data-original-title="Trash"><i class="fas fa-trash-alt "></i></a>
+                                <a asp-action="edit" asp-controller="role" asp-route-name="@role.Name" class="btn btn-warning">Edit</a>
+                                <a asp-action="delete" asp-controller="role" asp-route-name="@role.Name" class="btn btn-danger btn-role-delete">Delete</a>
                             </td>
                         </tr>
                     }
-                </tbody>
             </table>
 
             <div class="custom-pagination">

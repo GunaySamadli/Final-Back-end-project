@@ -1,5 +1,6 @@
 ﻿using Mejuri_Back_end.Areas.Manage.ViewModels;
 using Mejuri_Back_end.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -82,7 +83,61 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         }
 
 
-        
+        [Authorize(Roles = "SuperAdmin")]
+        public IActionResult AddAdmin()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "SuperAdmin")]
+        [HttpPost]
+        public async Task<IActionResult> AddAdmin(AddAdminViewModel addAdmin)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            AppUser admin = await _userManager.FindByNameAsync(addAdmin.UserName);
+            if (admin != null)
+            {
+                ModelState.AddModelError("UserName", "UserName already taken!");
+                return View();
+            }
+
+            admin = await _userManager.FindByEmailAsync(addAdmin.Email);
+            if (admin != null)
+            {
+                ModelState.AddModelError("Email", "Email already taken!");
+                return View();
+            }
+
+
+            admin = new AppUser
+            {
+                FullName = addAdmin.FullName,
+                UserName = addAdmin.UserName,
+                Email = addAdmin.Email,
+                IsAdmin = true
+            };
+
+            var result = await _userManager.CreateAsync(admin, addAdmin.Password);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View();
+            }
+
+            var roleResult = await _userManager.AddToRoleAsync(admin, "Admin");
+            await _signInManager.SignInAsync(admin, true);
+
+            return RedirectToAction("index", "dashboard");
+        }
 
 
     }

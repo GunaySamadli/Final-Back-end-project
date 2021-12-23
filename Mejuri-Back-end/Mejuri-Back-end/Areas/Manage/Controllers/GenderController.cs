@@ -22,6 +22,71 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             return View(genders);
         }
 
-        
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Gender gender)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            _context.Genders.Add(gender);
+            _context.SaveChanges();
+
+            return RedirectToAction("index");
+        }
+
+        public IActionResult Edit(int id)
+        {
+            Gender gender = _context.Genders.FirstOrDefault(x => x.Id == id);
+
+            if (gender == null) return NotFound();
+
+            return View(gender);
+        }
+
+
+        [HttpPost]
+
+        public IActionResult Edit(Gender gender)
+        {
+            if (!ModelState.IsValid) return NotFound();
+
+            Gender existGender  = _context.Genders.FirstOrDefault(x => x.Id == gender.Id);
+
+            if (existGender == null) return NotFound();
+
+
+            existGender.Name = gender.Name;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("index");
+
+        }
+
+        public IActionResult DeleteFetch(int id)
+        {
+            Gender gender = _context.Genders.FirstOrDefault(x => x.Id == id);
+            if (gender == null) return Json(new { status = 404 });
+
+            try
+            {
+                _context.Genders.Remove(gender);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return Json(new { status = 500 });
+            }
+
+            return Json(new { status = 200 });
+        }
+
     }
 }

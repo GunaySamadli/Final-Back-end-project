@@ -1,0 +1,77 @@
+﻿@model AddAdminViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="content-wrapper" style="min-height: 1604.71px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Project Add</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Project Add</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">General</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label asp-for="FullName">FullName</label>
+                                <input asp-for="FullName" class="form-control">
+                                <span class="text-danger" asp-validation-for="FullName"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="UserName">UserName</label>
+                                <input asp-for="UserName" class="form-control">
+                                <span class="text-danger" asp-validation-for="UserName"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email">Email</label>
+                                <input asp-for="Email" class="form-control">
+                                <span class="text-danger" asp-validation-for="Email"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password">Password</label>
+                                <input asp-for="Password" class="form-control">
+                                <span class="text-danger" asp-validation-for="Password"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ConfirmPassword">ConfirmPassword</label>
+                                <input asp-for="ConfirmPassword" class="form-control">
+                                <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Add Admin</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
