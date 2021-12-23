@@ -50,11 +50,13 @@ namespace Mejuri_Back_end.Services
 
                     foreach (var item in items)
                     {
-                        ProductColor product = _context.ProductColors.Include(x=>x.Product).Include(c=>c.ProductColorImages).FirstOrDefault(x => x.Id == item.ProductColorId);
+                        ProductColor product = _context.ProductColors.Include(x=>x.Color).
+                            Include(x=>x.Product).Include(c=>c.ProductColorImages).FirstOrDefault(x => x.Id == item.ProductColorId);
                         if (product != null)
                         {
                             Company company = _context.Companies.FirstOrDefault(x => x.ProductId != product.Id);
                             item.Name = product.Product.Name;
+                            item.ColorName = product.Color.Name;
                             item.Price =(company==null) ? product.Product.SalePrice : product.Product.SalePrice - ((product.Product.SalePrice / 100) * company.Percent );
                             item.Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true)?.Image;
 
@@ -68,6 +70,7 @@ namespace Mejuri_Back_end.Services
                 List<BasketItem> basketItems = _context.BasketItems
                     .Include(x => x.ProductColor).ThenInclude(x=>x.ProductColorImages)
                     .Include(x => x.ProductColor).ThenInclude(x => x.Product)
+                    .Include(x => x.ProductColor).ThenInclude(x => x.Color)
                     .Where(x => x.AppUserId == member.Id).ToList();
                 items = basketItems.Select(x => new BasketItemViewModel
                 {
@@ -76,7 +79,8 @@ namespace Mejuri_Back_end.Services
                     Count = x.Count,
                     Image = x.ProductColor.ProductColorImages.FirstOrDefault(bi => bi.PosterStatus == true)?.Image,
                     Name = x.ProductColor.Product.Name,
-                    //Price = (company == null) ? x.ProductColor.Product.SalePrice : x.ProductColor.Product.SalePrice / (company.Percent * x.ProductColor.Product.SalePrice / 100)
+                    ColorName=x.ProductColor.Color.Name,
+                    Price = x.ProductColor.Product.SalePrice
                 }).ToList();
             }
 
@@ -103,10 +107,12 @@ namespace Mejuri_Back_end.Services
 
                     foreach (var item in items)
                     {
-                        ProductColor product = _context.ProductColors.Include(x => x.Product).Include(c => c.ProductColorImages).FirstOrDefault(x => x.Id == item.ProductColorId);
+                        ProductColor product = _context.ProductColors.Include(x => x.Product).Include(c => c.Color)
+                            .Include(x => x.Product).Include(c => c.ProductColorImages).FirstOrDefault(x => x.Id == item.ProductColorId);
                         if (product != null)
                         {
                             item.Name = product.Product.Name;
+                            item.ColorName = product.Color.Name;
                             item.Price = product.Product.SalePrice;
                             item.Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true)?.Image;
 
@@ -119,6 +125,7 @@ namespace Mejuri_Back_end.Services
                 List<FavoryItem> basketItems = _context.FavoryItems
                     .Include(x => x.ProductColor).ThenInclude(x => x.ProductColorImages)
                     .Include(x => x.ProductColor).ThenInclude(x => x.Product)
+                    .Include(x => x.ProductColor).ThenInclude(x => x.Color)
                     .Where(x => x.AppUserId == member.Id).ToList();
 
                 items = basketItems.Select(x => new FavoryItemViewModel
@@ -126,6 +133,7 @@ namespace Mejuri_Back_end.Services
                     ProductColorId = x.ProductColorId,
                     Image = x.ProductColor.ProductColorImages.FirstOrDefault(bi => bi.PosterStatus == true)?.Image,
                     Name = x.ProductColor.Product.Name,
+                    ColorName=x.ProductColor.Color.Name,
                     Price = x.ProductColor.Product.SalePrice
                 }).ToList();
             }

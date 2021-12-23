@@ -8,12 +8,6 @@
     {
         totalCount += item.Price * item.Count;
     }
-
-    double itemTotalCount = 0;
-    foreach (var item in Model)
-    {
-        itemTotalCount += item.Price * item.Count;
-    }
 }
 
 <div class="basket">
@@ -46,26 +40,18 @@
                                         <h2>
                                             @item.Name
                                         </h2>
-                                        <a class="delete" data-id="@item.ProductColorId" asp-action="deletefrombasket" asp-controller="product" asp-route-id="@item.ProductColorId">
-                                            <i class="fas fa-times"></i>
-                                        </a>
                                     </div>
+                                    <p style="padding: 0 1rem; font-size: 17px;">
+                                        @item.ColorName
+                                    </p>
                                     <div class="count-price">
                                         <div class="count">
-                                            <span>@item.Count</span>
+                                            <p style="font-size: 20px; font-weight: bold;"><span style="font-weight: 300; margin-right: 11px">@item.Count x</span>@item.Price$</p>
+
                                         </div>
-                                        <div>
-                                            <span class="price">
-                                                $ @if (item.Count == 1)
-                                                {
-                                                    @item.Price
-                                                }
-                                                else
-                                                {
-                                                    @itemTotalCount
-                                                }
-                                            </span>
-                                        </div>
+                                        <a class="delete" data-id="@item.ProductColorId" asp-action="deletefrombasket" asp-controller="product" asp-route-id="@item.ProductColorId">
+                                            <i class="fas fa-times" style="font-size:20px"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

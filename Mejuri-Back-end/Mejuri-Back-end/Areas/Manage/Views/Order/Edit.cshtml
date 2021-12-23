@@ -2,89 +2,80 @@
 @{
     ViewData["Title"] = "Edit";
 }
-<div class="content-wrapper" style="min-height: 1604.71px;">
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Project Edit</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Project Edit</li>
-                    </ol>
-                </div>
             </div>
         </div><!-- /.container-fluid -->
     </section>
 
-    <!-- Main content -->
     <section class="content">
-
-        <form method="post" enctype="multipart/form-data">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">General</h3>
-
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
+        <div class="container-fluid">
+            <form method="post" enctype="multipart/form-data">
+                <div class="col-12">
+                    <!-- Main content -->
+                    <div class="invoice p-3 mb-3">
+                        <!-- title row -->
+                        <div class="row">
+                            <div class="col-12">
+                                <h4>
+                                    <i class="fas fa-globe"></i> Admin
+                                    <small class="float-right"><span style="font-size: 20px; font-weight: bold;">Date:</span>@Model.CreatedAt.AddHours(4).ToString("HH:mm dd MMM yyyy")</small>
+                                </h4>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- info row -->
+                        <div class="row justify-content-between align-items-center" style="margin:4rem 0;">
+                            <div class="col-md-4">
+                                <p class="card-text" style="font-size: 20px; font-weight: bold; display: flex; justify-content: space-between; align-items: center ">
+                                    Full Name <span style="font-weight: 400;">@Model.FullName</span>
+                                </p>
+                                <p class="card-text" style="font-size: 20px; font-weight: bold; display: flex; justify-content: space-between; align-items: center ">
+                                    Email <span style=" font-weight: 400;">@Model.Email</span>
+                                </p>
+                                <p class="card-text" style="font-size: 20px; font-weight: bold; display: flex; justify-content: space-between; align-items: center ">
+                                    Phone number <span style=" font-weight: 400;">@Model.Phone</span>
+                                </p>
+                                <p class="card-text" style="font-size: 20px; font-weight: bold; display: flex; justify-content: space-between; align-items: center ">
+                                    Item count <span style=" font-weight: 400;">@Model.OrderItems.Count</span>
+                                </p>
+                                <p class="card-text" style="font-size: 20px; font-weight: bold; display: flex; justify-content: space-between; align-items: center ">
+                                    Total Amount <span style=" font-weight: 400;">@Model.TotalAmount</span>
+                                </p>
+                                <p class="card-text" style="font-size: 20px; font-weight: bold; display: flex; justify-content: space-between; align-items: center ">
+                                    City <span style=" font-weight: 400;">@Model.City</span>
+                                </p>
+                                <p class="card-text" style="font-size: 20px; font-weight: bold; display: flex; justify-content: space-between; align-items: center ">
+                                    Address <span style=" font-weight: 400;">@Model.Address</span>
+                                </p>
+                                <p class="card-text" style="font-size: 20px; font-weight: bold; display: flex; justify-content: space-between; align-items: center ">
+                                    ZipCode <span style=" font-weight: 400;">@Model.ZipCode</span>
+                                </p>
+                                <p class="card-text" style="font-size: 20px; font-weight: bold; display: flex; justify-content: space-between; align-items: center ">
+                                    Status <span style=" font-weight: 400;">@Model.Status</span>
+                                </p>
+                            </div>
+                            <div class="col-md-8" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                <ul class="list-group list-group-flush" style="margin-bottom:2rem;">
+                                    @foreach (var orderItem in Model.OrderItems)
+                                    {
+                                        <li class="list-group-item" style="font-size: 20px; font-weight: bold;">@orderItem.ProductName  @orderItem.Count x @(orderItem.SalePrice - orderItem.DiscountPrice)</li>
+                                    }
+                                </ul>
+                                <div class="bb" style="margin:0 auto;">
+                                    <a asp-action="accept" asp-route-id="@Model.Id" class="btn btn-success">Accept</a>
+                                    <a asp-action="reject" asp-route-id="@Model.Id" class="btn btn-danger">Reject</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <p class="card-text">
-                                Full Name - @Model.FullName
-                            </p>
-                            <p class="card-text">
-                                Email - @Model.Email
-                            </p>
-                            <p class="card-text">
-                                Phone number - @Model.Phone
-                            </p>
-                            <p class="card-text">
-                                Item count - @Model.OrderItems.Count
-                            </p>
-                            <p class="card-text">
-                                Total Amount - @Model.TotalAmount
-                            </p>
-                            <p class="card-text">
-                                City - @Model.City
-                            </p>
-                            <p class="card-text">
-                                Address - @Model.Address
-                            </p>
-                            <p class="card-text">
-                                ZipCode - @Model.ZipCode
-                            </p>
-                            <p class="card-text">
-                                Date - @Model.CreatedAt.AddHours(4).ToString("HH:mm dd MMM yyyy")
-                            </p>
-                            <p class="card-text">
-                                Status - @Model.Status
-                            </p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            @foreach (var orderItem in Model.OrderItems)
-                            {
-                                <li class="list-group-item">@orderItem.ProductName  @orderItem.Count x @(orderItem.SalePrice - orderItem.DiscountPrice)</li>
-                            }
-                        </ul>
-                        <div class="bb" style="margin:0 auto;">
-                            <a asp-action="accept" asp-route-id="@Model.Id" class="btn btn-success">Accept</a>
-                            <a asp-action="reject" asp-route-id="@Model.Id" class="btn btn-danger">Reject</a>
-                        </div>
                     </div>
-                </div>
-            </div>
-        </form>
-
+                    <!-- /.invoice -->
+                </div><!-- /.col -->
+            </form>
+        </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
 </div>
-
-

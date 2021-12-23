@@ -44,7 +44,7 @@ namespace Mejuri_Back_end.Controllers
 
         public IActionResult AddToBasket(int id)
         {
-            ProductColor product = _context.ProductColors.Include(x=>x.Product).Include(x=>x.ProductColorImages)
+            ProductColor product = _context.ProductColors.Include(x=>x.Product).Include(x=>x.ProductColorImages).Include(x=>x.Color)
                 .FirstOrDefault(x => x.Id == id);
             BasketItemViewModel basketItem = null;
 
@@ -79,6 +79,8 @@ namespace Mejuri_Back_end.Controllers
                         Name = product.Product.Name,
                         Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true).Image,
                         Price = product.Product.SalePrice,
+                        ColorName=product.Color.Name,
+                        
                         Count = 1
                     };
                     products.Add(basketItem);
@@ -116,6 +118,7 @@ namespace Mejuri_Back_end.Controllers
                       Count = x.Count,
                       Name = x.ProductColor.Product.Name,
                       Price = x.ProductColor.Product.SalePrice,
+                      ColorName=x.ProductColor.Color.Name,
                       Image = x.ProductColor.ProductColorImages.FirstOrDefault(bi => bi.PosterStatus == true).Image
                   }).ToList();
             }
@@ -133,7 +136,7 @@ namespace Mejuri_Back_end.Controllers
 
         public IActionResult DeleteFromBasket(int id)
         {
-            ProductColor product = _context.ProductColors.Include(x => x.Product).Include(x => x.ProductColorImages)
+            ProductColor product = _context.ProductColors.Include(x => x.Product).Include(x => x.ProductColorImages).Include(x=>x.Color)
                  .FirstOrDefault(x => x.Id == id);
 
             BasketItemViewModel basketItem = null;
@@ -198,7 +201,8 @@ namespace Mejuri_Back_end.Controllers
 
         public IActionResult AddToFav(int id)
         {
-            ProductColor product = _context.ProductColors.Include(x => x.Product).Include(x => x.ProductColorImages)
+            ProductColor product = _context.ProductColors.Include(x=>x.Color)
+                .Include(x => x.Product).Include(x => x.ProductColorImages)
                 .FirstOrDefault(x => x.Id == id);
             FavoryItemViewModel favItem = null;
 
@@ -233,7 +237,8 @@ namespace Mejuri_Back_end.Controllers
                         ProductColorId = product.Id,
                         Name = product.Product.Name,
                         Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true).Image,
-                        Price = product.Product.SalePrice
+                        Price = product.Product.SalePrice,
+                        ColorName=product.Color.Name
                     };
                     products.Add(favItem);
                 }
@@ -263,6 +268,7 @@ namespace Mejuri_Back_end.Controllers
                   {
                       ProductColorId = x.ProductColorId,
                       Name = x.ProductColor.Product.Name,
+                      ColorName=x.ProductColor.Color.Name,
                       Price = x.ProductColor.Product.SalePrice,
                       Image = x.ProductColor.ProductColorImages
                                 .FirstOrDefault(bi => bi.PosterStatus == true).Image
@@ -277,7 +283,8 @@ namespace Mejuri_Back_end.Controllers
         public IActionResult DeleteFromFav(int id)
         {
 
-            ProductColor product = _context.ProductColors.Include(x => x.ProductColorImages).Include(x => x.Product).FirstOrDefault(x => x.Id == id);
+            ProductColor product = _context.ProductColors.Include(x=>x.Color)
+                .Include(x => x.ProductColorImages).Include(x => x.Product).FirstOrDefault(x => x.Id == id);
             FavoryItemViewModel favItem = null;
 
             if (product == null) return RedirectToAction("index", "error");
@@ -310,13 +317,15 @@ namespace Mejuri_Back_end.Controllers
             }
             else
             {
-                FavoryItem memberFavItem = _context.FavoryItems.Include(x => x.ProductColor).ThenInclude(bi => bi.ProductColorImages).Include(x => x.ProductColor).ThenInclude(bi => bi.Product).FirstOrDefault(x => x.AppUserId == member.Id && x.ProductColorId == id);
+                FavoryItem memberFavItem = _context.FavoryItems.Include(x => x.ProductColor).ThenInclude(bi => bi.Color)
+                    .Include(x => x.ProductColor).ThenInclude(bi => bi.ProductColorImages).Include(x => x.ProductColor).ThenInclude(bi => bi.Product).FirstOrDefault(x => x.AppUserId == member.Id && x.ProductColorId == id);
 
                 _context.FavoryItems.Remove(memberFavItem);
 
                 _context.SaveChanges();
 
-                products = _context.FavoryItems.Include(x => x.ProductColor).ThenInclude(bi => bi.ProductColorImages).Include(x => x.ProductColor).ThenInclude(bi => bi.Product).Where(x => x.AppUserId == member.Id)
+                products = _context.FavoryItems.Include(x => x.ProductColor).ThenInclude(bi => bi.Color)
+                    .Include(x => x.ProductColor).ThenInclude(bi => bi.ProductColorImages).Include(x => x.ProductColor).ThenInclude(bi => bi.Product).Where(x => x.AppUserId == member.Id)
                    .Select(x => new FavoryItemViewModel { ProductColorId = x.ProductColorId, Name = x.ProductColor.Product.Name, Price = x.ProductColor.Product.SalePrice, Image = x.ProductColor.ProductColorImages.FirstOrDefault(b => b.PosterStatus == true).Image }).ToList();
 
             }

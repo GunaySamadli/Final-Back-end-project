@@ -24,10 +24,17 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         {
             var query = _context.Sliders.AsQueryable();
 
-            var pagenatedSlider = PagenatedList<Slider>.Create(query, 4, page);
+            List<Slider> sliders = query
+               .Skip((page - 1) * 4).Take(4).ToList();
 
-            return View(pagenatedSlider);
 
+
+
+            ViewBag.TotalPage = Math.Ceiling(query.Count() / 4m);
+            ViewBag.SelectedPage = page;
+
+
+            return View(sliders);
         }
 
         public IActionResult Create()

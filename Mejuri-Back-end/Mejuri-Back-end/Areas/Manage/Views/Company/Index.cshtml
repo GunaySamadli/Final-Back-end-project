@@ -1,7 +1,9 @@
 ﻿@model List<Company>
 @{
     ViewData["Title"] = "Index";
-    int order = 0;
+    int order = (ViewBag.SelectedPage - 1) * 4;
+    int selectedPage = ViewBag.SelectedPage;
+    decimal totalPage = ViewBag.TotalPage;
 }
 
 <div class="content-wrapper" style="min-height: 1604.71px;">
@@ -45,21 +47,56 @@
                     @foreach (var company in Model)
                     {
                         order++;
-                <tr>
-                    <td>@order</td>
-                    <td>@company.Title</td>
-                    <td>@company.Percent%</td>
-                    <td>@company.Product.Name</td>
-                    <td>@company.CompanyCategory.Name</td>
-                    <td>
-                        <a asp-action="edit" asp-route-id="@company.Id" class="pd-setting-ed" style="background:orange;"><i class="fas fa-edit"></i></a>
-                        <a asp-action="deletefetch" asp-route-id="@company.Id" style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed btn-item-delete" data-original-title="Trash"><i class="fas fa-trash-alt "></i></a>
-                    </td>
-                </tr>
+                        <tr>
+                            <td>@order</td>
+                            <td>@company.Title</td>
+                            <td>@company.Percent%</td>
+                            <td>@company.Product.Name</td>
+                            <td>@company.CompanyCategory.Name</td>
+                            <td>
+                                <a asp-action="edit" asp-route-id="@company.Id" class="pd-setting-ed" style="background:orange;"><i class="fas fa-edit"></i></a>
+                                <a asp-action="deletefetch" asp-route-id="@company.Id" style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed btn-item-delete" data-original-title="Trash"><i class="fas fa-trash-alt "></i></a>
+                            </td>
+                        </tr>
 
                     }
                 </tbody>
             </table>
+            <div class="d-flex justify-content-center" style="margin-top:3rem;">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination align-items-center">
+                        @if (selectedPage > 1)
+                        {
+                            <li class="page-item ">
+                                <a class="page-link-custom" asp-action="index" asp-route-page="@(selectedPage - 1)" aria-label="Previous">
+                                    <span style="outline: none; background: none; font-size: 30px; color: black;margin-right:8px; " aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                        }
+                        @{
+                            int startPage = (selectedPage == 1 || totalPage <= 3) ? 1 : selectedPage < totalPage ? selectedPage - 1 : selectedPage - 2;
+                            int endPage = totalPage > 2 ? startPage + 2 : (int)totalPage;
+                        }
+
+                        @for (int i = startPage; i <= endPage; i++)
+                        {
+                            <li style="width: 40px; height: 40px; background-color: #4f5962; border-radius: 50%; margin-right: 5px; display: flex; align-items: center; justify-content: center; " class="@(i==selectedPage?"active":"")"><a asp-action="index" asp-route-page="@i" asp-route-search="@ViewBag.CurrentSearch " class="page-item" style="color:white;font-size:18px;">@i</a></li>
+                        }
+                        @if (selectedPage < totalPage)
+                        {
+                            <li class="page-item-custom">
+                                <a class="page-link-custom" asp-action="index" asp-route-page="@(selectedPage+1)" aria-label="Next">
+                                    <span style="outline: none; background: none; font-size: 30px; color: black; margin-left:3px; " aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        }
+
+
+                    </ul>
+                </nav>
+            </div>
 
         </div>
 

@@ -32,3 +32,12 @@ option:checked {
     color:white;
 }
 
+.page-link {
+    border:none
+}
+    .page-link:hover {
+        color: white;
+        background-color: none !important;
+        border-color: none !important;
+    }
+

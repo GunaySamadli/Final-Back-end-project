@@ -49,11 +49,13 @@ namespace Mejuri_Back_end.Controllers
 
                     foreach (var item in checkoutVM.BasketItemViewModels)
                     {
-                        ProductColor product = _context.ProductColors.Include(x=>x.Product).Include(x => x.ProductColorImages).FirstOrDefault(x => x.Id == item.ProductColorId);
+                        ProductColor product = _context.ProductColors.Include(x=>x.Color)
+                            .Include(x=>x.Product).Include(x => x.ProductColorImages).FirstOrDefault(x => x.Id == item.ProductColorId);
                         if (product != null)
                         {
                             item.Name = product.Product.Name;
                             item.Price = product.Product.SalePrice;
+                            item.ColorName = product.Color.Name;
                             item.Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true)?.Image;
                         }
                     }
@@ -70,6 +72,7 @@ namespace Mejuri_Back_end.Controllers
                                                    {
                                                        ProductColorId = x.ProductColorId,
                                                        Name = x.ProductColor.Product.Name,
+                                                       ColorName=x.ProductColor.Color.Name,
                                                        Count = x.Count,
                                                        Price = x.ProductColor.Product.SalePrice
                                                    }).ToList();
@@ -124,7 +127,8 @@ namespace Mejuri_Back_end.Controllers
 
             foreach (var item in basketItemVMs)
             {
-                ProductColor productColor = _context.ProductColors.Include(x=>x.Product).FirstOrDefault(x => x.Id == item.ProductColorId);
+                ProductColor productColor = _context.ProductColors.Include(x=>x.Color)
+                    .Include(x=>x.Product).FirstOrDefault(x => x.Id == item.ProductColorId);
 
                 if (productColor == null)
                 {
@@ -165,6 +169,7 @@ namespace Mejuri_Back_end.Controllers
                 ProductColorId = productColor.Id,
                 ProductName = productColor.Product.Name,
                 SalePrice = productColor.Product.SalePrice,
+                ColorName=productColor.Color.Name,
                 Count = count,
             };
 
@@ -189,10 +194,12 @@ namespace Mejuri_Back_end.Controllers
 
                     foreach (var item in basketItems)
                     {
-                        ProductColor product = _context.ProductColors.Include(x => x.Product).Include(x => x.ProductColorImages).FirstOrDefault(x => x.Id == item.ProductColorId);
+                        ProductColor product = _context.ProductColors.Include(x=>x.Color)
+                            .Include(x => x.Product).Include(x => x.ProductColorImages).FirstOrDefault(x => x.Id == item.ProductColorId);
                         if (product != null)
                         {
                             item.Name = product.Product.Name;
+                            item.ColorName = product.Color.Name;
                             item.Price = product.Product.SalePrice;
                             item.Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true)?.Image;
                         }
@@ -202,11 +209,13 @@ namespace Mejuri_Back_end.Controllers
             else
             {
 
-                basketItems = _context.BasketItems.Include(x => x.ProductColor).ThenInclude(x => x.Product).Where(x => x.AppUserId == member.Id)
+                basketItems = _context.BasketItems.Include(x => x.ProductColor).ThenInclude(x => x.Color)
+                    .Include(x => x.ProductColor).ThenInclude(x => x.Product).Where(x => x.AppUserId == member.Id)
                                                     .Select(x => new BasketItemViewModel
                                                     {
                                                         ProductColorId = x.ProductColorId,
                                                         Name = x.ProductColor.Product.Name,
+                                                        ColorName=x.ProductColor.Color.Name,
                                                         Count = x.Count,
                                                         Price = x.ProductColor.Product.SalePrice
                                                     }).ToList();

@@ -23,9 +23,15 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             _context = context;
             _emailService = emailService;
         }
-        public IActionResult Index()
+        public IActionResult Index(int page=1)
         {
-            List<Order> orders = _context.Orders.Include(x => x.OrderItems).ToList();
+            var query = _context.Orders.Include(x => x.OrderItems).AsQueryable();
+
+            List<Order> orders = query
+               .Skip((page - 1) * 4).Take(4).ToList();
+
+            ViewBag.TotalPage = Math.Ceiling(query.Count() / 4m);
+            ViewBag.SelectedPage = page;
 
             return View(orders);
         }

@@ -256,14 +256,20 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="company" asp-action="index" class="nav-link">
+                                    <a class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
-                                            Company
+                                            Product Companies
                                             <i class="fas fa-angle-left right"></i>
                                         </p>
                                     </a>
                                     <ul class="nav nav-treeview" style="display: none;">
+                                        <li class="nav-item">
+                                            <a asp-controller="company" asp-action="index" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Company</p>
+                                            </a>
+                                        </li>
                                         <li class="nav-item">
                                             <a asp-controller="companycategory" asp-action="index" class="nav-link">
                                                 <i class="far fa-circle nav-icon"></i>

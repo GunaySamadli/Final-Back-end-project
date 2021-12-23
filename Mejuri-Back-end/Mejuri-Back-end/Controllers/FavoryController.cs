@@ -45,12 +45,14 @@ namespace Mejuri_Back_end.Controllers
 
                     foreach (var item in items)
                     {
-                        ProductColor product = _context.ProductColors.Include(c => c.ProductColorImages).Include(x=>x.Product).FirstOrDefault(x => x.Id == item.ProductColorId);
+                        ProductColor product = _context.ProductColors.Include(x=>x.Color)
+                            .Include(c => c.ProductColorImages).Include(x=>x.Product).FirstOrDefault(x => x.Id == item.ProductColorId);
 
                         if (product != null)
                         {
                             item.Name = product.Product.Name;
                             item.Price = product.Product.SalePrice;
+                            item.ColorName = product.Color.Name;
                             item.Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true)?.Image;
                         }
                     }
@@ -61,12 +63,14 @@ namespace Mejuri_Back_end.Controllers
                 List<FavoryItem> favories = _context.FavoryItems
                     .Include(x => x.ProductColor).ThenInclude(x => x.ProductColorImages)
                     .Include(x => x.ProductColor).ThenInclude(x => x.Product)
+                    .Include(x => x.ProductColor).ThenInclude(x => x.Color)
                     .Where(x => x.AppUserId == member.Id).ToList();
                 items = favories.Select(x => new FavoryItemViewModel
                 {
                     ProductColorId = x.ProductColorId,
                     Image = x.ProductColor.ProductColorImages.FirstOrDefault(bi => bi.PosterStatus == true)?.Image,
                     Name = x.ProductColor.Product.Name,
+                    ColorName = x.ProductColor.Color.Name,
                     Price = x.ProductColor.Product.SalePrice
                 }).ToList();
             }

@@ -20,50 +20,13 @@
                                 <span asp-validation-for="FullName" class="text-danger"></span>
                             </div>
                             <div class="fieldset">
-                                <label asp-for="City">Country</label>
-                                <select required="">
-                                    <option value="" disabled=""></option>
-                                    <option value="214">Azerbaijan</option>
-                                    <option value="214">United States of America</option>
-                                    <option value="213">United Kingdom</option>
-                                    <option value="212">United Arab Emirates</option>
-                                    <option value="200">Thailand</option>
-                                    <option value="197">Taiwan</option>
-                                    <option value="194">Sweden</option>
-                                    <option value="188">Spain</option>
-                                    <option value="106">South Korea</option>
-                                    <option value="183">Slovakia</option>
-                                    <option value="182">Singapore</option>
-                                    <option value="178">Saudi Arabia</option>
-                                    <option value="165">Qatar</option>
-                                    <option value="164">Puerto Rico</option>
-                                    <option value="162">Poland</option>
-                                    <option value="160">Philippines</option>
-                                    <option value="152">Norway</option>
-                                    <option value="145">New Zealand</option>
-                                    <option value="142">Netherlands</option>
-                                    <option value="122">Malaysia</option>
-                                    <option value="100">Japan</option>
-                                    <option value="98">Italy</option>
-                                    <option value="96">Ireland</option>
-                                    <option value="93">Indonesia</option>
-                                    <option value="90">Hungary</option>
-                                    <option value="89">Hong Kong</option>
-                                    <option value="74">Germany</option>
-                                    <option value="68">France</option>
-                                    <option value="67">Finland</option>
-                                    <option value="53">Denmark</option>
-                                    <option value="52">Czech Republic</option>
-                                    <option value="35">Canada</option>
-                                    <option value="20">Belgium</option>
-                                    <option value="13">Austria</option>
-                                    <option value="12">Australia</option>
-                                </select>
+                                <label asp-for="City">Town/City*</label>
+                                <input asp-for="City" type="text" placeholder="Town/City">
                                 <span asp-validation-for="City" class="text-danger"></span>
                             </div>
                             <div class="fieldset">
                                 <label asp-for="Address">Address*</label>
-                                <input asp-for="Address" type="text" placeholder="Address line 1">
+                                <input asp-for="Address" type="text" placeholder="Address">
                                 <span asp-validation-for="Address" class="text-danger"></span>
                             </div>
                             <div class="name-surname">
@@ -104,6 +67,8 @@
                                             <div class="order-item-info">
                                                 <div class="count-name">
                                                     <span>@item.Count</span>X <span>@item.Name</span>
+                                                    <span>@item.ColorName</span>
+
                                                 </div>
                                                 <p>$@price</p>
                                             </div>

@@ -17,9 +17,18 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public IActionResult Index(int page=1)
         {
-            List<Company> companies = _context.Companies.Include(x=>x.Product).Include(x=>x.CompanyCategory).ToList();
+            var query = _context.Companies.AsQueryable();
+
+            List<Company> companies = query
+                .Include(x => x.Product).Include(x => x.CompanyCategory)
+               .Skip((page - 1) * 4).Take(4).ToList();
+
+            ViewBag.TotalPage = Math.Ceiling(query.Count() / 4m);
+            ViewBag.SelectedPage = page;
+
+
             return View(companies);
         }
 

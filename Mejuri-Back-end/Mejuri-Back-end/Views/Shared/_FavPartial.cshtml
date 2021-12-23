@@ -25,7 +25,7 @@
                             </div>
                         </div>
                         <div class="hover-btns">
-                            <a class="single-btn add-basket">
+                            <a asp-action="addtobasket" asp-controller="product" asp-route-id="@item.ProductColorId" data-id="@item.ProductColorId" class="single-btn add-basket">
                                 <i class="fas fa-shopping-basket"></i>
                             </a>
                             <a class="single-btn delete-fav" asp-action="deletefromfav" asp-controller="product" asp-route-id="@item.ProductColorId" data-id="@item.ProductColorId" title="Wishlist" style="background-color: #B4876E;color:white;">
@@ -35,10 +35,10 @@
                     </div>
                 </div>
                 <div class="fav-info">
-                    <h2>
+                    <h2 style="font-size: 20px;">
                         <a>@item.Name</a>
                     </h2>
-                    <span>
+                    <span style="font-size: 17px;">
                         $@item.Price
                     </span>
                 </div>

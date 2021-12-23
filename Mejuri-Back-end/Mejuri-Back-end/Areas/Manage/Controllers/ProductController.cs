@@ -34,11 +34,13 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                 .Include(x => x.ProductColors).ThenInclude(x => x.Color)
                 .Include(x => x.ProductMaterials).ThenInclude(x => x.Material)
                 .Include(x=>x.Reviews).Include(x=>x.Questions)
-                .ToList();
+                .Skip((page - 1) * 4).Take(4).ToList();
 
-            var pagenatedSlider = PagenatedList<Product>.Create(query, 4, page);
+            ViewBag.TotalPage = Math.Ceiling(query.Count() / 4m);
+            ViewBag.SelectedPage = page;
 
-            return View(pagenatedSlider);
+
+            return View(products);
 
         }
 

@@ -20,9 +20,15 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             _context = context;
             _env = env;
         }
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            List<CompanyCategory> companyCategories = _context.CompanyCategories.ToList();
+            var query = _context.CompanyCategories.AsQueryable();
+
+            List<CompanyCategory> companyCategories = query.Skip((page - 1) * 4).Take(4).ToList();
+
+            ViewBag.TotalPage = Math.Ceiling(query.Count() / 4m);
+            ViewBag.SelectedPage = page;
+
 
             return View(companyCategories);
         }

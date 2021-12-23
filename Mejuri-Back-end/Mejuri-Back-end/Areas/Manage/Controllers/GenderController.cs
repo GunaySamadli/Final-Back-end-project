@@ -16,9 +16,16 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         {
            _context = context;
         }
-        public IActionResult Index()
+        public IActionResult Index(int page=1)
         {
-            List<Gender> genders = _context.Genders.ToList();
+            var query = _context.Genders.AsQueryable();
+
+            List<Gender> genders = query
+               .Skip((page - 1) * 4).Take(4).ToList();
+
+            ViewBag.TotalPage = Math.Ceiling(query.Count() / 4m);
+            ViewBag.SelectedPage = page;
+
             return View(genders);
         }
 
