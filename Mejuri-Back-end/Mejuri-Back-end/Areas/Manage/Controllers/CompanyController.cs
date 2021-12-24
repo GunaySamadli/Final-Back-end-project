@@ -1,4 +1,5 @@
 ﻿using Mejuri_Back_end.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Mejuri_Back_end.Areas.Manage.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Area("manage")]
     public class CompanyController : Controller
     {
@@ -17,9 +19,16 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         {
             _context = context;
         }
-        public IActionResult Index(int page=1)
+        public IActionResult Index(int page=1, string search = null)
         {
             var query = _context.Companies.AsQueryable();
+
+            ViewBag.CurrentSearch = search;
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                query = query.Where(x => x.Product.Name.Contains(search));
+            }
 
             List<Company> companies = query
                 .Include(x => x.Product).Include(x => x.CompanyCategory)

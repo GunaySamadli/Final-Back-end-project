@@ -27,9 +27,12 @@ namespace Mejuri_Back_end.Controllers
         }
         public IActionResult Detail(int id, Review review, Question question)
         {
+            
             Product product = _context.Products
                 .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages)
                 .Include(x => x.ProductColors).ThenInclude(x => x.Color).FirstOrDefault(x => x.Id == id);
+
+            if (product==null)  return RedirectToAction("index", "error");
 
             ShopViewModel shopVM = new ShopViewModel
             {
@@ -46,9 +49,10 @@ namespace Mejuri_Back_end.Controllers
         {
             ProductColor product = _context.ProductColors.Include(x=>x.Product).Include(x=>x.ProductColorImages).Include(x=>x.Color)
                 .FirstOrDefault(x => x.Id == id);
+            Company company = _context.Companies.FirstOrDefault(x => x.ProductId != product.Id);
             BasketItemViewModel basketItem = null;
 
-            if (product == null) return RedirectToAction("error","index");
+            if (product == null) return RedirectToAction("index", "error");
 
             AppUser member = null;
 
@@ -78,8 +82,8 @@ namespace Mejuri_Back_end.Controllers
                         ProductColorId = product.Id,
                         Name = product.Product.Name,
                         Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true).Image,
-                        Price = product.Product.SalePrice,
-                        ColorName=product.Color.Name,
+                        Price = (company == null) ? product.Product.SalePrice : product.Product.SalePrice - ((product.Product.SalePrice / 100) * company.Percent),
+                        ColorName =product.Color.Name,
                         
                         Count = 1
                     };
@@ -117,7 +121,7 @@ namespace Mejuri_Back_end.Controllers
                       ProductColorId = x.ProductColorId,
                       Count = x.Count,
                       Name = x.ProductColor.Product.Name,
-                      Price = x.ProductColor.Product.SalePrice,
+                      Price = (company == null) ? x.ProductColor.Product.SalePrice : x.ProductColor.Product.SalePrice - ((x.ProductColor.Product.SalePrice / 100) * company.Percent),
                       ColorName=x.ProductColor.Color.Name,
                       Image = x.ProductColor.ProductColorImages.FirstOrDefault(bi => bi.PosterStatus == true).Image
                   }).ToList();
@@ -141,7 +145,7 @@ namespace Mejuri_Back_end.Controllers
 
             BasketItemViewModel basketItem = null;
 
-            if (product == null) return RedirectToAction("error", "index");
+            if (product == null) return RedirectToAction("index", "error");
 
             AppUser member = null;
 
@@ -206,7 +210,7 @@ namespace Mejuri_Back_end.Controllers
                 .FirstOrDefault(x => x.Id == id);
             FavoryItemViewModel favItem = null;
 
-            if (product == null) return NotFound();
+            if (product == null) return RedirectToAction("index", "error");
 
             AppUser member = null;
 

@@ -1,5 +1,6 @@
 ﻿using Mejuri_Back_end.Helpers;
 using Mejuri_Back_end.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Mejuri_Back_end.Areas.Manage.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Area("manage")]
     public class CategoryController : Controller
     {
@@ -21,9 +23,16 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             _context = context;
             _env = env;
         }
-        public IActionResult Index(int page=1)
+        public IActionResult Index(int page=1, string search = null)
         {
             var query = _context.Categories.AsQueryable();
+
+            ViewBag.CurrentSearch = search;
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                query = query.Where(x => x.Name.Contains(search));
+            }
 
             List<Category> categories = query
                .Skip((page - 1) * 4).Take(4).ToList();

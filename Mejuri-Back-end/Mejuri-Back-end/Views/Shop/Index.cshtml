@@ -109,141 +109,116 @@
             <section id="filter">
                 <div class="container">
                     <div class="filter">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <div class="filter-item">
-                                        <h2>Category</h2>
-                                        <div class="form-checkbox-column">
-                                            <div class="form-checkbox-container">
-                                                <label class="label-container">
-                                                    Rings
-                                                    <input type="checkbox" class="form-checkbox" id="Rings"
-                                                           value="Rings">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="form-checkbox-container">
-                                                <label for="Necklases" class="label-container">
-                                                    NECKLASES
-                                                    <input type="checkbox" class="form-checkbox" id="Necklases"
-                                                           value="Necklases">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="form-checkbox-container">
-                                                <label class="label-container" for="Braclets">
-                                                    BRACLETS
-                                                    <input type="checkbox" class="form-checkbox" id="Braclets"
-                                                           value="Braclets">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="form-checkbox-container">
-                                                <label class="label-container" for="Earings">
-                                                    EARINGS
-                                                    <input type="checkbox" class="form-checkbox" id="Earings"
-                                                           value="Earings">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="form-checkbox-container">
-                                                <label class="label-container" for="single-earings">
-                                                    SINGLE EARINGS
-                                                    <input type="checkbox" class="form-checkbox" id="single-earings"
-                                                           value="single-earings">
-                                                    <span class="checkmark"></span>
-                                                </label>
+                        <form method="get">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="filter-item">
+                                            <h2>Category</h2>
+                                            <div class="form-checkbox-column">
+                                                @foreach (var product in Model.Categories)
+                                                {
+                                                    <div class="form-checkbox-container">
+                                                        <label class="label-container">
+                                                                @product.Name
+                                                                <input type="checkbox" class="form-checkbox" id=" @(product.Id == @ViewBag.CurrentCategoryId ? "checked" : "")">
+                                                                <span class="checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                }
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="filter-item">
-                                        <h2>Materials</h2>
-                                        <div class="form-checkbox-column">
-                                            <div class="form-checkbox-container">
-                                                <label for="gold" class="label-container">
-                                                    Gold
-                                                    <input type="checkbox" class="form-checkbox" id="gold" value="gold">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="form-checkbox-container">
-                                                <label for="silver" class="label-container">
-                                                    Silver
-                                                    <input type="checkbox" class="form-checkbox" id="silver"
-                                                           value="silver">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="form-checkbox-container">
-                                                <label class="label-container" for="diomands">
-                                                    Diomands
-                                                    <input type="checkbox" class="form-checkbox" id="diomands"
-                                                           value="diomands">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="form-checkbox-container">
-                                                <label class="label-container" for="pearls">
-                                                    Pearls
-                                                    <input type="checkbox" class="form-checkbox" id="pearls"
-                                                           value="pearls">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="filter-item">
-                                        <h2>Genders</h2>
-                                        <div class="form-checkbox-column">
-                                            <div class="form-checkbox-container">
-                                                <label for="women" class="label-container">
-                                                    Women
-                                                    <input type="checkbox" class="form-checkbox" id="women"
-                                                           value="women">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="form-checkbox-container">
-                                                <label for="men" class="label-container">
-                                                    Men
-                                                    <input type="checkbox" class="form-checkbox" id="men" value="men">
-                                                    <span class="checkmark"></span>
-                                                </label>
+                                    <div class="col-md-2">
+                                        <div class="filter-item">
+                                            <h2>Materials</h2>
+                                            <div class="form-checkbox-column">
+                                                <div class="form-checkbox-container">
+                                                    <label for="gold" class="label-container">
+                                                        Gold
+                                                        <input type="checkbox" class="form-checkbox" id="gold" value="gold">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-checkbox-container">
+                                                    <label for="silver" class="label-container">
+                                                        Silver
+                                                        <input type="checkbox" class="form-checkbox" id="silver"
+                                                               value="silver">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-checkbox-container">
+                                                    <label class="label-container" for="diomands">
+                                                        Diomands
+                                                        <input type="checkbox" class="form-checkbox" id="diomands"
+                                                               value="diomands">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-checkbox-container">
+                                                    <label class="label-container" for="pearls">
+                                                        Pearls
+                                                        <input type="checkbox" class="form-checkbox" id="pearls"
+                                                               value="pearls">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="filter-item">
-                                        <h2>Filter By Prices</h2>
-                                        <div class="fillter">
-                                            <section class="range-slider" id="facet-price-range-slider"
-                                                     data-options='{"output":{"prefix":""},"maxSymbol":""}'>
-                                                <input name="range-1" value="300" min="50" max="5000" step="1"
-                                                       type="range">
-                                                <input name="range-2" value="3500" min="50" max="5000" step="1"
-                                                       type="range">
-                                            </section>
+                                    <div class="col-md-2">
+                                        <div class="filter-item">
+                                            <h2>Genders</h2>
+                                            <div class="form-checkbox-column">
+                                                <div class="form-checkbox-container">
+                                                    <label for="women" class="label-container">
+                                                        Women
+                                                        <input type="checkbox" class="form-checkbox" id="women"
+                                                               value="women">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-checkbox-container">
+                                                    <label for="men" class="label-container">
+                                                        Men
+                                                        <input type="checkbox" class="form-checkbox" id="men" value="men">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12 filter-end">
-                                    <div class="filter-button">
-                                        <p role="button">
-                                            Clear all
-                                        </p>
-                                        <button class="button button-secondary">
-                                            Apply <span>(1)</span> filter
-                                        </button>
+                                    <div class="col-md-6">
+                                        <div class="filter-item">
+                                            <h2>Filter by price</h2>
+                                            <div class="widget--- ltn__price-filter-widget">
+                                                <div class="price_filter">
+                                                    <div class="price_slider_amount">
+                                                        <input type="submit" value="Your range:" />
+                                                        <br />
+                                                        <input type="text" class="amount w-100" name="price" placeholder="Add Your Price" />
+                                                    </div>
+                                                    <input type="hidden" id="minPrice" name="minPrice" value="10" />
+                                                    <input type="hidden" id="maxPrice" name="maxPrice" value="1000" />
+                                                    <div class="slider-range"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 filter-end">
+                                        <div class="filter-button">
+                                            <p role="button">
+                                                Clear all
+                                            </p>
+                                            <button type="submit" class="button button-secondary">
+                                                Apply <span>(1)</span> filter
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </section>
@@ -254,82 +229,82 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-                        @for (int i = 0; i < Model.Products.Count; i++)
-                        {
-                            <div class="col-md-4">
-                                <div class="favory-item" id="@Model.Products[i].Id">
-                                    @for (int j = 0; j < Model.Products[i].ProductColors.Count; j++)
-                                    {
-                                        <div class="card-image @(j==0?"active":"")" id="@Model.Products[i].ProductColors[j].Color.Name">
-                                            <div class="img-product">
-                                                <div class="content-colors">
-                                                    <div class="content-color">
-                                                        <a asp-action="detail" asp-controller="product" asp-route-id="@Model.Products[i].Id">
-                                                            <img src="~/uploads/product/@Model.Products[i].ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
-                                                            <img src="~/uploads/product/@Model.Products[i].ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image"
-                                                                 class="img-responsive-hov">
-                                                        </a>
+                            @for (int i = 0; i < Model.Products.Count; i++)
+                            {
+                                <div class="col-md-4">
+                                    <div class="favory-item" id="@Model.Products[i].Id">
+                                        @for (int j = 0; j < Model.Products[i].ProductColors.Count; j++)
+                                        {
+                                            <div class="card-image @(j==0?"active":"")" id="@Model.Products[i].ProductColors[j].Color.Name">
+                                                <div class="img-product">
+                                                    <div class="content-colors">
+                                                        <div class="content-color">
+                                                            <a asp-action="detail" asp-controller="product" asp-route-id="@Model.Products[i].Id">
+                                                                <img src="~/uploads/product/@Model.Products[i].ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
+                                                                <img src="~/uploads/product/@Model.Products[i].ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image"
+                                                                     class="img-responsive-hov">
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="hover-btns">
-                                                <a asp-action="addtobasket" asp-controller="product" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" class="single-btn add-basket">
-                                                    <i class="fas fa-shopping-basket"></i>
-                                                </a>
-                                                @if (favs != null)
-                                                {
-                                                    @if (!favs.Any(f => f.ProductColorId == Model.Products[i].ProductColors[j].Id))
+                                                <div class="hover-btns">
+                                                    <a asp-action="addtobasket" asp-controller="product" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" class="single-btn add-basket">
+                                                        <i class="fas fa-shopping-basket"></i>
+                                                    </a>
+                                                    @if (favs != null)
+                                                    {
+                                                        @if (!favs.Any(f => f.ProductColorId == Model.Products[i].ProductColors[j].Id))
+                                                        {
+                                                            <a class="single-btn add-fav fav" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" asp-action="addtofav" asp-controller="product" title="Wishlist" style="background-color:white">
+                                                                <i class="far fa-heart"></i>
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="single-btn delete-fav fav" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" asp-action="deletefromfav" asp-controller="product" title="Wishlist" style="background-color: #B4876E; color: white;">
+                                                                <i onMouseOver="this.style.color='#FFFFFF'" class="far fa-heart"></i>
+                                                            </a>
+                                                        }
+                                                    }
+                                                    else
                                                     {
                                                         <a class="single-btn add-fav fav" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" asp-action="addtofav" asp-controller="product" title="Wishlist" style="background-color:white">
                                                             <i class="far fa-heart"></i>
                                                         </a>
                                                     }
-                                                    else
-                                                    {
-                                                        <a class="single-btn delete-fav fav"asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id"  asp-action="deletefromfav" asp-controller="product" title="Wishlist" style="background-color: #B4876E; color: white;">
-                                                            <i onMouseOver="this.style.color='#FFFFFF'" class="far fa-heart"></i>
-                                                        </a>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    <a class="single-btn add-fav fav" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" asp-action="addtofav" asp-controller="product" title="Wishlist" style="background-color:white">
-                                                        <i class="far fa-heart"></i>
-                                                    </a>
-                                                }
 
+                                                </div>
                                             </div>
-                                        </div>
-                                    }
-
-                                </div>
-                                <div class="fav-info">
-                                    <a href="">
-                                        <h2 class="basket-head">@Model.Products[i].Name</h2>
-                                    </a>
-                                    <p class="basket-price">
-                                        <span>$</span>
-                                        @Model.Products[i].SalePrice
-                                    </p>
-                                </div>
-                                <div class="fav-color">
-                                    <div class="color-items" data-id="@Model.Products[i].Id">
-                                        @for (int j = 0; j < Model.Products[i].ProductColors.Count; j++)
-                                        {
-                                            <div class="color-item">
-                                                <a class="tab-color @(j==0?"active":"")"
-                                                   data-target="@Model.Products[i].ProductColors[j].Color.Name">
-                                                    <img src="./assets/images/color/@Model.Products[i].ProductColors[j].Color.Image" alt="">
-                                                </a>
-                                            </div>
-                                         }
+                                        }
 
                                     </div>
+                                    <div class="fav-info">
+                                        <a href="">
+                                            <h2 class="basket-head">@Model.Products[i].Name</h2>
+                                        </a>
+                                        <p class="basket-price">
+                                            <span>$</span>
+                                            @Model.Products[i].SalePrice
+                                        </p>
+                                    </div>
+                                    <div class="fav-color">
+                                        <div class="color-items" data-id="@Model.Products[i].Id">
+                                            @for (int j = 0; j < Model.Products[i].ProductColors.Count; j++)
+                                            {
+                                                <div class="color-item">
+                                                    <a class="tab-color @(j==0?"active":"")"
+                                                       data-target="@Model.Products[i].ProductColors[j].Color.Name">
+                                                        <img src="~/uploads/color/@Model.Products[i].ProductColors[j].Color.Image" alt="">
+                                                    </a>
+                                                </div>
+                                            }
 
-                                    @*<p>@Model.Products[i].ProductColors[d].Color.Desc</p>*@
+                                        </div>
+
+                                        @*<p>@Model.Products[i].ProductColors[d].Color.Desc</p>*@
+                                    </div>
                                 </div>
-                            </div>
-                         }
+                            }
                     </div>
                 </div>
             </section>

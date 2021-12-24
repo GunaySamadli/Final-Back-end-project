@@ -1,6 +1,8 @@
-﻿using Mejuri_Back_end.Extentions;
+﻿using Mejuri_Back_end.Areas.Manage.ViewModels;
+using Mejuri_Back_end.Extentions;
 using Mejuri_Back_end.Helpers;
 using Mejuri_Back_end.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace Mejuri_Back_end.Areas.Manage.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Area("manage")]
     public class ProductController : Controller
     {
@@ -24,9 +27,16 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             _context = context;
             _env = env;
         }
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int page = 1, string search = null)
         {
             var query = _context.Products.AsQueryable();
+
+            ViewBag.CurrentSearch = search;
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                query = query.Where(x => x.Name.Contains(search));
+            }
 
             List<Product> products = query
                 .Include(x=>x.Category).Include(x=>x.Gender)
@@ -359,9 +369,22 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             return Json(new { status = 200 });
         }
 
-        public IActionResult ReviewAndQuestion()
+        public IActionResult Review(int id)
         {
-            return View();
+            List<Review> reviews = _context.Reviews.Include(x => x.AppUser).Where(x => x.ProductId == id).ToList();
+
+            if (reviews==null) return RedirectToAction("index", "error");
+
+            return View(reviews);
+        }
+
+        public IActionResult Question(int id)
+        {
+            List<Question> questions = _context.Questions.Include(x => x.AppUser).Where(x => x.ProductId == id).ToList();
+
+            if (questions == null) return RedirectToAction("index", "error");
+
+            return View(questions);
         }
     }
 }

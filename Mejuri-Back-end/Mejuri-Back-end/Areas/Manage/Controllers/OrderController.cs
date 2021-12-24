@@ -23,9 +23,16 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             _context = context;
             _emailService = emailService;
         }
-        public IActionResult Index(int page=1)
+        public IActionResult Index(int page = 1, string search = null)
         {
             var query = _context.Orders.Include(x => x.OrderItems).AsQueryable();
+
+            ViewBag.CurrentSearch = search;
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                query = query.Where(x => x.FullName.Contains(search));
+            }
 
             List<Order> orders = query
                .Skip((page - 1) * 4).Take(4).ToList();

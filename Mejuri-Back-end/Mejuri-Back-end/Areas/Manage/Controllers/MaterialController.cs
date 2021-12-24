@@ -1,4 +1,5 @@
 ﻿using Mejuri_Back_end.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Mejuri_Back_end.Areas.Manage.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Area("manage")]
     public class MaterialController : Controller
     {
@@ -16,9 +18,16 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         {
             _context = context;
         }
-        public IActionResult Index(int page=1)
+        public IActionResult Index(int page=1, string search = null)
         {
             var query = _context.Materials.AsQueryable();
+
+            ViewBag.CurrentSearch = search;
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                query = query.Where(x => x.Name.Contains(search));
+            }
 
             List<Material> materials = query
                .Skip((page - 1) * 4).Take(4).ToList();

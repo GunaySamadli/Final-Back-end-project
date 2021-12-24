@@ -1,5 +1,5 @@
 ﻿
-@model List<Review>
+@model List<Question>
 @{
     ViewData["Title"] = "Index";
     int order = 0;
@@ -29,7 +29,7 @@
         <!-- Default box -->
         <div class="card">
             <div class="card-head">
-                <h4>Reviews List</h4>
+                <h4>Question List</h4>
             </div>
             <table class="table table-striped projects" style="position:relative;">
                 <tbody>
@@ -39,18 +39,18 @@
                         <th>UserName</th>
                         <th>Setting</th>
                     </tr>
-                        @foreach (var review in Model)
-                        {
-                            order++;
-                            <tr>
-                                <th scope="row">@order</th>
-                                <td>@review.Text</td>
-                                <td>@review.AppUser.UserName</td>
-                                <td>
-                                    <a asp-action="detail" asp-route-id="@review.Id" class="btn btn-primary">Detail</a>
-                                </td>
-                            </tr>
-                        }
+                    @foreach (var question in Model)
+                    {
+                        order++;
+                        <tr>
+                            <th scope="row">@order</th>
+                            <td>@question.Text</td>
+                            <td>@question.AppUser.UserName</td>
+                            <td>
+                                <a asp-controller="question" asp-action="detail" asp-route-id="@question.Id" class="btn btn-primary">Detail</a>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
 

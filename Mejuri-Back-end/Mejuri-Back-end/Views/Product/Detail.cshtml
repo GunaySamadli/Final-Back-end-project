@@ -60,7 +60,7 @@
                                 {
                                     <div class="color-item">
                                         <a class="tab-color-detail @(i==0?"active":"")" data-target="@Model.Product.ProductColors[i].Id">
-                                            <img src="~/assets/images/color/@Model.Product.ProductColors[i].Color.Image" alt="">
+                                            <img src="~/uploads/color/@Model.Product.ProductColors[i].Color.Image" alt="">
                                         </a>
                                     </div>
                                 }
@@ -140,24 +140,35 @@
                                     <div class="review-up-left">
                                         <div class="review-star">
                                             <div class="stars">
-                                                @if (Model.Product.Reviews.Count()> 0)
+                                                @if (Model.Reviews.Count() > 0)
                                                 {
-                                                    @for (int i = 0; i < 5; i++)
+                                                    @for (int i = 1; i <= 5; i++)
                                                     {
-                                                        if (i <= Math.Round((decimal)(Model.Product.Reviews.Sum(x => x.Rate) / Model.Product.Reviews.Count())))
+                                                        if (i <= Math.Ceiling((double)(Model.Reviews.Average(x => x.Rate))))
                                                         {
-                                                            <i class="fas fa-star"></i> continue;
+                                                            <i class="fas fa-star"></i>
 
                                                         }
-                                                        <i class="far fa-star" style="color:red"></i>
+                                                        else
+                                                        {
+                                                            <i class="far fa-star"></i>
+
+                                                        }
                                                     }
+                                                    <span class="font-color-gray based-on" style="padding-left: 10px;">(@(Model.Product.Reviews.Count()>0?(((Model.Product.Reviews.Sum(x=>x.Rate)/(decimal)Model.Product.Reviews.Count()).ToString("F1"))):"0")) Reviews</span>
+
                                                 }
                                                 else
                                                 {
                                                     <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <i class="far fa-star"></i>
+
+                                                    <span class="font-color-gray based-on" style="padding-left: 10px;">0 Reviews</span>
                                                 }
                                             </div>
-                                            <span class="font-color-gray based-on">(@(Model.Product.Reviews.Count()>0?(((Model.Product.Reviews.Sum(x=>x.Rate)/(decimal)Model.Product.Reviews.Count()).ToString("F1"))):"0")) Reviews</span>
                                         </div>
                                         <div class="questions">
                                             <a href="#">
@@ -170,46 +181,6 @@
                                 <div class="col-md-9">
                                     <div class="review-up-right">
                                         <div class="review-up-right-star">
-                                            <div class="right-star">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <span>(2649)</span>
-                                            </div>
-                                            <div class="right-star">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <span>(2649)</span>
-                                            </div>
-                                            <div class="right-star">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <span>(2649)</span>
-                                            </div>
-                                            <div class="right-star">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <span>(2649)</span>
-                                            </div>
-                                            <div class="right-star">
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <span>(2649)</span>
-                                            </div>
                                         </div>
                                         <a class="button button-secondary ask">ASK Question</a>
                                     </div>

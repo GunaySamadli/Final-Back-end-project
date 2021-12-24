@@ -19,6 +19,7 @@ namespace Mejuri_Back_end.ViewModels
 
         public List<Question> Questions { get; set; }
         public Question Question { get; set; }
+        public List<Company> Companies { get; set; }
 
     }
 }

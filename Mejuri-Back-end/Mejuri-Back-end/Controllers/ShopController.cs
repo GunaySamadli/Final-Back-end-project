@@ -22,12 +22,36 @@ namespace Mejuri_Back_end.Controllers
             _context = context;
             _userManager = userManager;
         }
-        public IActionResult Index(int? minPrice, int? maxPrice)
+        public IActionResult Index(int? minPrice, int? maxPrice, string search = null, int? categoryId = null, int? materailId = null, int? genderId = null)
         {
-            var query = _context.Products.AsQueryable();
+            var query = _context.Products.Include(x=>x.ProductMaterials).ThenInclude(x=>x.Material)
+                .AsQueryable();
 
             if (minPrice != null) query = query.Where(x => x.SalePrice > minPrice);
             if (maxPrice != null) query = query.Where(x => x.SalePrice < maxPrice);
+
+            ViewBag.CurrentCategoryId = categoryId;
+            ViewBag.CurrentMaterialId = materailId;
+            ViewBag.CurrentSearch = search;
+            ViewBag.CurrentGenderId = genderId;
+
+            if (!string.IsNullOrWhiteSpace(search))
+                query = query.Where(x => x.Name.Contains(search));
+
+            if (categoryId != null)
+                query = query.Where(x => x.CategoryId == categoryId);
+
+
+            //if (materailId != null)
+            //    query = query.Where(x => x.ProductMaterials == materailId);
+
+            if (genderId != null)
+                query = query.Where(x => x.GenderId == genderId);
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                query = query.Where(x => x.Name.Contains(search));
+            }
             string strPr = HttpContext.Request.Cookies["Favory"];
             ViewBag.Favorites = null;
             if (strPr != null)
@@ -37,7 +61,7 @@ namespace Mejuri_Back_end.Controllers
             }
 
 
-            List<Product> products = _context.Products
+            List<Product> products = query
                .Include(x => x.ProductColors).ThenInclude(x => x.Color)
                .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages).ToList();
 
@@ -48,7 +72,6 @@ namespace Mejuri_Back_end.Controllers
                 Categories=_context.Categories.ToList(),
                 Genders = _context.Genders.ToList(),
                 ProductMaterials=_context.ProductMaterials.Include(x=>x.Material).ToList()
-
             };
             return View(shopVM);
         }

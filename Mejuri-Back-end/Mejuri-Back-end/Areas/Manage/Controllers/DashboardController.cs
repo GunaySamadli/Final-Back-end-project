@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Mejuri_Back_end.Areas.Manage.Controllers
 {
+    [Area("manage")]
+    [Authorize(Roles = "Admin , SuperAdmin")]
     public class DashboardController : Controller
     {
-        [Area("manage")]
-        [Authorize(Roles ="Admin , SuperAdmin")]
         public IActionResult Index()
         {
             return View();

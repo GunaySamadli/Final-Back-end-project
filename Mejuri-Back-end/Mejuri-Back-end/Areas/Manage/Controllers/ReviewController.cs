@@ -1,4 +1,5 @@
 ﻿using Mejuri_Back_end.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Mejuri_Back_end.Areas.Manage.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Area("manage")]
     public class ReviewController : Controller
     {
@@ -15,13 +17,6 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         public ReviewController(AppDbContext context)
         {
             _context = context;
-        }
-
-        public IActionResult Index(int id)
-        {
-            List<Review> reviews = _context.Reviews.Include(x => x.AppUser).Where(x=>x.ProductId==id).ToList();
-
-            return View(reviews);
         }
         public IActionResult Detail(int id)
         {

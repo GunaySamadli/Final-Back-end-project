@@ -1,4 +1,5 @@
 ﻿using Mejuri_Back_end.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Mejuri_Back_end.Areas.Manage.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Area("manage")]
     public class SliderController : Controller
     {
@@ -20,15 +22,19 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             _context = context;
             _env = env;
         }
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int page = 1, string search = null)
         {
             var query = _context.Sliders.AsQueryable();
 
+            ViewBag.CurrentSearch = search;
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                query = query.Where(x => x.Title.Contains(search));
+            }
+
             List<Slider> sliders = query
                .Skip((page - 1) * 4).Take(4).ToList();
-
-
-
 
             ViewBag.TotalPage = Math.Ceiling(query.Count() / 4m);
             ViewBag.SelectedPage = page;

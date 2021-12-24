@@ -1,4 +1,5 @@
 ﻿using Mejuri_Back_end.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Mejuri_Back_end.Areas.Manage.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Area("manage")]
     public class QuestionController : Controller
     {
@@ -17,12 +19,6 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             _context = context;
         }
 
-        public IActionResult Index(int id)
-        {
-            List<Question> questions = _context.Questions.Include(x => x.AppUser).Where(x => x.ProductId == id).ToList();
-
-            return View(questions);
-        }
         public IActionResult Detail(int id)
         {
             Question question = _context.Questions.Include(x => x.AppUser).Include(x => x.Product).FirstOrDefault(x => x.Id == id);

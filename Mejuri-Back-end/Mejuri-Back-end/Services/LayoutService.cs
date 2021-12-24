@@ -59,7 +59,6 @@ namespace Mejuri_Back_end.Services
                             item.ColorName = product.Color.Name;
                             item.Price =(company==null) ? product.Product.SalePrice : product.Product.SalePrice - ((product.Product.SalePrice / 100) * company.Percent );
                             item.Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true)?.Image;
-
                         }
                     }
                 }
@@ -72,14 +71,15 @@ namespace Mejuri_Back_end.Services
                     .Include(x => x.ProductColor).ThenInclude(x => x.Product)
                     .Include(x => x.ProductColor).ThenInclude(x => x.Color)
                     .Where(x => x.AppUserId == member.Id).ToList();
+
                 items = basketItems.Select(x => new BasketItemViewModel
                 {
-
                     ProductColorId = x.ProductColorId,
                     Count = x.Count,
                     Image = x.ProductColor.ProductColorImages.FirstOrDefault(bi => bi.PosterStatus == true)?.Image,
                     Name = x.ProductColor.Product.Name,
                     ColorName=x.ProductColor.Color.Name,
+                    //Price = (company == null) ? x.ProductColor.Product.SalePrice : x.ProductColor.Product.SalePrice / (company.Percent * x.ProductColor.Product.SalePrice / 100)
                     Price = x.ProductColor.Product.SalePrice
                 }).ToList();
             }
