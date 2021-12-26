@@ -40,10 +40,10 @@
         fetch('https://localhost:44318/product/addtofav/' + id)
             .then(response => response.text())
             .then(data => {
-                $(this).removeClass('add-fav').addClass('delete-fav');
                 $(".fav-container").html(data)
                 var count = $("#favorite-fav").data("fav-count")
                 $("#fav-count").text(count)
+                $(this).removeClass('add-fav').addClass('delete-fav');
                 $(this).css('background', '#B4876E')
 
             });
@@ -87,4 +87,16 @@
                 }
             })
         })
+
+
+    $('#search-input').keyup(function () {
+        let search = $(this).val();
+        $.ajax({
+            url: 'https://localhost:44318/product/search?search=' + search,
+            method: 'get',
+            success: function (resp) {
+                $('.search-list').html(resp);
+            }
+        })
+    })
 })

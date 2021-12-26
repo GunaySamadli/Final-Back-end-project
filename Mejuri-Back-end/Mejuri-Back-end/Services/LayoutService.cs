@@ -71,7 +71,6 @@ namespace Mejuri_Back_end.Services
                     .Include(x => x.ProductColor).ThenInclude(x => x.Product)
                     .Include(x => x.ProductColor).ThenInclude(x => x.Color)
                     .Where(x => x.AppUserId == member.Id).ToList();
-
                 items = basketItems.Select(x => new BasketItemViewModel
                 {
                     ProductColorId = x.ProductColorId,

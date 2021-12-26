@@ -30,8 +30,14 @@ namespace Mejuri_Back_end.Controllers
             
             Product product = _context.Products
                 .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages)
-                .Include(x => x.ProductColors).ThenInclude(x => x.Color).FirstOrDefault(x => x.Id == id);
+                .Include(x => x.ProductColors).ThenInclude(x => x.Color)
+                .Include(x => x.ProductMaterials).ThenInclude(x=>x.Material)
+                .FirstOrDefault(x => x.Id == id);
 
+            ViewBag.RelatedProducts = _context.Products.Include(x => x.ProductColors).ThenInclude(x=>x.ProductColorImages)
+                .Include(x => x.ProductColors).ThenInclude(x => x.Color).Include(x => x.Category)
+                .Include(x => x.ProductMaterials).ThenInclude(x => x.Material)
+                .ToList();
             if (product==null)  return RedirectToAction("index", "error");
 
             ShopViewModel shopVM = new ShopViewModel
@@ -48,7 +54,7 @@ namespace Mejuri_Back_end.Controllers
         public IActionResult AddToBasket(int id)
         {
             ProductColor product = _context.ProductColors.Include(x=>x.Product).Include(x=>x.ProductColorImages).Include(x=>x.Color)
-                .FirstOrDefault(x => x.Id == id);
+               .FirstOrDefault(x => x.Id == id);
             Company company = _context.Companies.FirstOrDefault(x => x.ProductId != product.Id);
             BasketItemViewModel basketItem = null;
 
@@ -336,6 +342,21 @@ namespace Mejuri_Back_end.Controllers
 
             return PartialView("_FavPartial", products);
 
+        }
+
+
+        public IActionResult Search(string search)
+        {
+            var query = _context.Products.Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages)
+                                         .Include(x => x.ProductColors).ThenInclude(x => x.Color)
+                                         .Include(x => x.Category)
+                                         .Include(x => x.Gender)
+                                         .Include(x => x.ProductMaterials).ThenInclude(x => x.Material)
+                                         .AsQueryable()
+                                            .Where(x => x.Name.Contains(search));
+            List<Product> products = query.OrderByDescending(x => x.Id).Take(5).ToList();
+
+            return PartialView("_SearchPartial", products);
         }
 
     }

@@ -6122,24 +6122,25 @@ header nav .nav-items .fav-number-sum {
     z-index: 2;
     background-color: white;
     height: 70vh; }
+
     header #search .search-input-button {
       display: flex;
       justify-content: space-between;
       align-items: center; }
-      header #search .search-input-button .search-input {
-        border-top: none;
-        border-right: none;
-        border-left: none;
-        border-image: initial;
-        border-bottom: 1px solid #d9d9d9;
-        font-size: 20px;
-        height: 48px;
-        padding: 5px 40px 5px 5px;
-        width: 100%;
-        border-radius: 0px; }
+        header #search .search-input-button .search-input {
+            border-top: none;
+            border-right: none;
+            border-left: none;
+            border-image: initial;
+            border-bottom: 3px solid #B4876E;
+            font-size: 20px;
+            height: 48px;
+            padding: 5px 40px 5px 5px;
+            width: 100%;
+            border-radius: 0px;
+        }
         header #search .search-input-button .search-input:focus-visible {
-          outline: none;
-          border: 3px solid firebrick; }
+          outline: none;}
       header #search .search-input-button .search-button {
         background: transparent;
         border: none;
@@ -6151,6 +6152,7 @@ header nav .nav-items .fav-number-sum {
       line-height: 24px; }
     header #search button {
       cursor: pointer; }
+
   header .openMenu {
     display: none;
     padding-left: 16px;
@@ -7355,6 +7357,40 @@ aside {
     #favory .col-md-4 .img-product .content-colors .content-color {
       position: relative;
       width: 100%; }
+
+#favory .ltn__pagination-area {
+    margin: 30px 0;
+}
+
+    #favory .ltn__pagination-area .pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        #favory .ltn__pagination-area .pagination li a {
+            height: 40px;
+            width: 40px;
+            line-height: 36px;
+            border: 2px solid #ededed;
+            text-align: center;
+            display: block;
+            font-weight: 700;
+            border-radius: 100%;
+            margin-right: 13px;
+            font-size: 14px;
+        }
+#favory .ltn__pagination ul li:hover a, .ltn__pagination ul li.active a {
+    border: 2px solid #B4876E;
+    background-color: #B4876E;
+    color: white;
+}
+
+            #favory .ltn__pagination-area .pagination li a:hover, #favory .ltn__pagination-area .pagination li a:focus-visible {
+                border: 2px solid #B4876E;
+                background-color: #B4876E;
+                color: white;
+            }
 
 #detail-home .detail-right {
   width: 65%;

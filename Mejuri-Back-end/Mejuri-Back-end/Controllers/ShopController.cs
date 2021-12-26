@@ -22,7 +22,7 @@ namespace Mejuri_Back_end.Controllers
             _context = context;
             _userManager = userManager;
         }
-        public IActionResult Index(int? minPrice, int? maxPrice, string search = null, int? categoryId = null, int? materailId = null, int? genderId = null)
+        public IActionResult Index(int? minPrice, int? maxPrice, string search = null, int? categoryId = null, int? materailId = null, int? genderId = null, int page = 1)
         {
             var query = _context.Products.Include(x=>x.ProductMaterials).ThenInclude(x=>x.Material)
                 .AsQueryable();
@@ -52,6 +52,8 @@ namespace Mejuri_Back_end.Controllers
             {
                 query = query.Where(x => x.Name.Contains(search));
             }
+
+
             string strPr = HttpContext.Request.Cookies["Favory"];
             ViewBag.Favorites = null;
             if (strPr != null)
@@ -63,7 +65,7 @@ namespace Mejuri_Back_end.Controllers
 
             List<Product> products = query
                .Include(x => x.ProductColors).ThenInclude(x => x.Color)
-               .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages).ToList();
+               .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages).Skip((page - 1) * 6).Take(6).ToList();
 
 
             ShopViewModel shopVM = new ShopViewModel
@@ -71,8 +73,11 @@ namespace Mejuri_Back_end.Controllers
                 Products=products,
                 Categories=_context.Categories.ToList(),
                 Genders = _context.Genders.ToList(),
-                ProductMaterials=_context.ProductMaterials.Include(x=>x.Material).ToList()
+                ProductMaterials=_context.ProductMaterials.Include(x=>x.Material).ToList(),
+                Companies=_context.Companies.Include(x=>x.Product).ToList()
             };
+            ViewBag.TotalPage = Math.Ceiling(query.Count() / 6m);
+            ViewBag.SelectedPage = page;
             return View(shopVM);
         }
 

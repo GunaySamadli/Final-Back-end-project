@@ -182,9 +182,18 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="search-input-button">
-                                <input placeholder="Find what you're looking for" class="search-input" value=""
-                                       aria-label="search">
+                            <div class="search-input-button" style="height: max-content">
+                                <form id="#" method="get" action="#" style="position:relative;width:50%" >
+                                    <div >
+                                        <input autocomplete="off" type="text" id="search-input" name="search" placeholder="Find what you're looking for" class="search-input" value=""
+                                               aria-label="search" style="display:block">
+                                        <ul class="list-group search-list">
+                                        </ul>
+                                    </div>
+                                    <button type="submit" style="background: none; border: none; background: none;position: absolute; top: 16px; right: 0;">
+                                        <i class="fas fa-search" style="font-size: 20px;"></i>
+                                    </button>
+                                </form>
                                 <button data-h="main-search-close-btn" data-testid="main-search-close-btn"
                                         class="search-button">
                                     <svg width="16" height="16" viewBox="0 0 16 16"
@@ -274,6 +283,8 @@
     <script src="~/assets/js/slider-range.js"></script>
     <script src="~/assets/js/main.js"></script>
     <script src="~/assets/js/slider.js"></script>
+    <script src="~/assets/js/timer.js"></script>
+
 
     @RenderSection("Scripts", required: false);
 </body>

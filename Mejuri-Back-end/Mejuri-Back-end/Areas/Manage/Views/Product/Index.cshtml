@@ -47,39 +47,37 @@
                         <th>Name</th>
                         <th>Sale Price</th>
                         <th>Category</th>
-                        <th>IsStock</th>
                         <th>Setting</th>
                         <th>Review and Question</th>
                     </tr>
                     @foreach (var product in Model)
                     {
                         order++;
-                        <tr class="table-img">
-                            <td>@order</td>
-                            <td class="product-imgs"><i style="font-size: 2rem; color: #B4876E; cursor: pointer; " class="far fa-images"></i></td>
-                            <td>@product.Name</td>
-                            <td>@product.SalePrice</td>
-                            <td>@product.Category.Name</td>
-                            <td>@product.IsStock</td>
-                            <td>
-                                <a asp-action="edit" asp-route-id="@product.Id" class="pd-setting-ed" style="background:orange;"><i class="fas fa-edit"></i></a>
-                                <a asp-action="deletefetch" asp-route-id="@product.Id" style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed btn-item-delete" data-original-title="Trash"><i class="fas fa-trash-alt "></i></a>
-                            </td>
-                            <td>
-                                @if (product.Reviews != null)
-                                {
-                                    <a asp-action="review" asp-route-id="@product.Id" class="btn btn-sm bg-teal" style=" padding: 6px 10px;">
-                                        <i class="fas fa-comments"></i>
-                                    </a>
-                                }
-                                @if (product.Questions != null)
-                                {
-                                    <a asp-action="question" asp-route-id="@product.Id" class="btn btn-info" style="padding: 4px 8px;">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                }
-                            </td>
-                        </tr>
+                <tr class="table-img">
+                    <td>@order</td>
+                    <td class="product-imgs"><i style="font-size: 2rem; color: #B4876E; cursor: pointer; " class="far fa-images"></i></td>
+                    <td>@product.Name</td>
+                    <td>@product.SalePrice</td>
+                    <td>@product.Category.Name</td>
+                    <td>
+                        <a asp-action="edit" asp-route-id="@product.Id" class="pd-setting-ed" style="background:orange;"><i class="fas fa-edit"></i></a>
+                        <a asp-action="deletefetch" asp-route-id="@product.Id" style="background:brown;" data-toggle="tooltip" title="" class="pd-setting-ed btn-item-delete" data-original-title="Trash"><i class="fas fa-trash-alt "></i></a>
+                    </td>
+                    <td>
+                        @if (product.Reviews != null)
+                        {
+                            <a asp-action="review" asp-route-id="@product.Id" class="btn btn-sm bg-teal" style=" padding: 6px 10px;">
+                                <i class="fas fa-comments"></i>
+                            </a>
+                        }
+                        @if (product.Questions != null)
+                        {
+                            <a asp-action="question" asp-route-id="@product.Id" class="btn btn-info" style="padding: 4px 8px;">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        }
+                    </td>
+                </tr>
                         if (product.ProductColors.Count() != 0)
                         {
                             int productColorCounter = 0;

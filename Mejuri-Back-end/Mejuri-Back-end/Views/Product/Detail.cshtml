@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Detail";
+    List<Product> relatedProducts = ViewBag.RelatedProducts;
     AppUser member = User.Identity.IsAuthenticated ? userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name && !x.IsAdmin) : null;
     List<Answer> answers = ViewBag.Answers;
 }
@@ -383,42 +384,24 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="category-img">
-                        <div class="img">
-                            <a href="">
-                                <img src="./assets/images/same-4.jpg" alt="">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="category-img">
-                        <div class="img">
-                            <a href="">
-                                <img src="./assets/images/same-2.jpg" alt="">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="category-img">
-                        <div class="img">
-                            <a href="">
-                                <img src="./assets/images/same-3.jpg" alt="">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="category-img">
-                        <div class="img">
-                            <a href="">
-                                <img src="./assets/images/same-4.jpg" alt="">
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                @if (Model.Product.Category.Name == "rings")
+                {
+                    @foreach (var item in relatedProducts.Where(x => x.Category.Name == "rings").Take(4))
+                    {
+                        @for (int i = 0; i < item.ProductColors.Count; i++)
+                        {
+                            <div class="col-md-3 col-sm-6">
+                                <div class="category-img">
+                                    <div class="img">
+                                        <a asp-action="detail" asp-controller="product" asp-route-id="@item.Id">
+                                            <img src="~/uploads/product/@item.ProductColors[i].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" alt="">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
             </div>
         </div>
     </section>
