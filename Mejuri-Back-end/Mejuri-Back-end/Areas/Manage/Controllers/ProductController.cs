@@ -49,7 +49,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             ViewBag.TotalPage = Math.Ceiling(query.Count() / 4m);
             ViewBag.SelectedPage = page;
 
-
+            
             return View(products);
 
         }
@@ -112,7 +112,18 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                 };
                 product.ProductColors.Add(productColor);
             }
-           
+
+            if (product.SalePrice < 0)
+            {
+                ModelState.AddModelError("SalePrice", "Sale Price can not be less than 0");
+                return View();
+            }
+
+            if (_context.Products.Any(x => x.Name.ToLower() == product.Name.ToLower()))
+            {
+                ModelState.AddModelError("Name", "The name is already available");
+                return View();
+            }
 
             _context.Products.Add(product);
             _context.SaveChanges();
@@ -129,6 +140,8 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                 .Include(x => x.ProductMaterials).ThenInclude(x => x.Material)
                 .FirstOrDefault(x => x.Id == id);
 
+            if (product == null) return RedirectToAction("index", "error");
+
             ViewBag.Category = _context.Categories.ToList();
             ViewBag.Gender = _context.Genders.ToList();
             ViewBag.Company = _context.Companies.ToList();
@@ -139,7 +152,6 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             product.MaterialIds = product.ProductMaterials.Select(x => x.MaterialId).ToList();
             product.ColorIds = product.ProductColors.Select(x => x.ColorId).ToList();
 
-            if (product == null) return NotFound();
 
             return View(product);
         }
@@ -149,6 +161,15 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         {
             if (!_context.Genders.Any(x => x.Id == product.GenderId)) ModelState.AddModelError("GenderId", "Gender not found!");
             if (!_context.Categories.Any(x => x.Id == product.CategoryId)) ModelState.AddModelError("CategoryId", "Category not found!");
+
+            if (product == null) return RedirectToAction("index", "error");
+
+            ViewBag.Category = _context.Categories.ToList();
+            ViewBag.Gender = _context.Genders.ToList();
+            ViewBag.Company = _context.Companies.ToList();
+            ViewBag.Color = _context.Colors.ToList();
+            ViewBag.Material = _context.Materials.ToList();
+            ViewBag.ProductColorImage = _context.ProductColorImages.ToList();
 
             if (!ModelState.IsValid) return View();
 
@@ -192,7 +213,17 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             }
 
 
+            if (product.SalePrice < 0)
+            {
+                ModelState.AddModelError("SalePrice", "Sale Price can not be less than 0");
+                return View();
+            }
 
+            if (_context.Products.Any(x => x.Name.ToLower() == product.Name.ToLower()))
+            {
+                ModelState.AddModelError("Name", "The name is already available");
+                return View();
+            }
 
             existProudct.Name = product.Name;
             existProudct.CategoryId = product.CategoryId;

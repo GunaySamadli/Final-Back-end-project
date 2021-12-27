@@ -1,0 +1,43 @@
+﻿@model List<Contact>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<main>
+    <section id="contact">
+        <div class="contact-info">
+            <img src="./assets/images/contact.jfif" alt="">
+            <h1>CONTACT US</h1>
+        </div>
+        <div class="contact-body">
+            <div class="contact-body-info">
+                <div class="container">
+                    <p>
+                        Feel free to check out our FAQs or send us an email or text.
+                    </p>
+                    <h5>
+                        Due to an intermittent system outage, we are experiencing higher than normal volume & our
+                        Customer Happiness team may take up to 5 business days to respond.
+                    </h5>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-4">
+                            <div class="contact-content">
+                                <i class="@item.Icon"></i>
+                                <h5>@item.Title</h5>
+                                <p data-isolate="true">@item.SubTitle.</p>
+                                <a href="@item.RedirectUrl">
+                                    <span>@item.RedirectUrlText</span>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

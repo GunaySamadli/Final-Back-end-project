@@ -62,6 +62,11 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             if (!_context.CompanyCategories.Any(x => x.Id == company.CompanyCategoryId)) ModelState.AddModelError("CompanyCategoryId", "Company Category not found!");
             if (!_context.Products.Any(x => x.Id == company.ProductId)) ModelState.AddModelError("ProductId", "Product not found!");
 
+            if (company.EndTime < company.StartTime)
+            {
+                ModelState.AddModelError("EndTime", "EndTime can not be smaller than StartTime");
+                return View();
+            }
 
             _context.Companies.Add(company);
             _context.SaveChanges();
@@ -77,7 +82,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             ViewBag.Product = _context.Products.ToList();
 
 
-            if (company == null) return NotFound();
+            if (company == null) return RedirectToAction("index", "error");
 
             return View(company);
            
@@ -86,6 +91,10 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         [HttpPost]
         public IActionResult Edit(Company company)
         {
+
+            ViewBag.CompanyCategory = _context.CompanyCategories.ToList();
+            ViewBag.Product = _context.Products.ToList();
+
             if (!_context.CompanyCategories.Any(x => x.Id == company.CompanyCategoryId)) ModelState.AddModelError("CompanyCategoryId", "Company Category not found!");
             if (!_context.Products.Any(x => x.Id == company.ProductId)) ModelState.AddModelError("ProductId", "Product not found!");
 
@@ -95,7 +104,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             Company existCompany = _context.Companies.FirstOrDefault(x => x.Id == company.Id);
 
 
-            if (existCompany == null) return NotFound();
+            if (existCompany == null) return RedirectToAction("index", "error");
 
             existCompany.CompanyCategoryId = company.CompanyCategoryId;
             existCompany.ProductId = company.ProductId;
@@ -104,6 +113,11 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             existCompany.StartTime = company.StartTime;
             existCompany.EndTime = company.EndTime;
 
+            if (company.EndTime < company.StartTime )
+            {
+                ModelState.AddModelError("EndTime", "EndTime can not be smaller than StartTime");
+                return View();
+            }
 
             _context.SaveChanges();
 

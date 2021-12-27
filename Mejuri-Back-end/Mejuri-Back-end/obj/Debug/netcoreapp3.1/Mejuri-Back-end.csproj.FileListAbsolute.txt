@@ -197,7 +197,6 @@ C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\o
 C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Areas\Manage\Views\Question\Detail.cshtml.g.cs
 C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Areas\Manage\Views\Answer\Text.cshtml.g.cs
 C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Areas\Manage\Views\Answer\Index.cshtml.g.cs
-C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Mejuri-Back-end.csproj.AssemblyReference.cache
 C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Areas\Manage\Views\Setting\Edit.cshtml.g.cs
 C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Areas\Manage\Views\Gender\Create.cshtml.g.cs
 C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Areas\Manage\Views\Gender\Edit.cshtml.g.cs
@@ -211,3 +210,8 @@ C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\o
 C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Areas\Manage\Views\Color\Create.cshtml.g.cs
 C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Areas\Manage\Views\Color\Edit.cshtml.g.cs
 C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_SearchPartial.cshtml.g.cs
+C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Mejuri-Back-end.csproj.AssemblyReference.cache
+C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Views\Contact\Index.cshtml.g.cs
+C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Areas\Manage\Views\Contact\Index.cshtml.g.cs
+C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Areas\Manage\Views\Contact\Create.cshtml.g.cs
+C:\Users\LENOVO\Desktop\Final-Back-end-project\Mejuri-Back-end\Mejuri-Back-end\obj\Debug\netcoreapp3.1\Razor\Areas\Manage\Views\Contact\Edit.cshtml.g.cs

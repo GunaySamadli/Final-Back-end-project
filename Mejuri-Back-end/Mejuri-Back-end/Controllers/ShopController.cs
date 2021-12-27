@@ -65,16 +65,16 @@ namespace Mejuri_Back_end.Controllers
 
             List<Product> products = query
                .Include(x => x.ProductColors).ThenInclude(x => x.Color)
-               .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages).Skip((page - 1) * 6).Take(6).ToList();
-
+               .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages)
+               //.Include(x=>x.Companies).Where(x=>x.Companies==null)
+               .Skip((page - 1) * 6).Take(6).ToList();
 
             ShopViewModel shopVM = new ShopViewModel
             {
-                Products=products,
-                Categories=_context.Categories.ToList(),
+                Products = products,
+                Categories = _context.Categories.ToList(),
                 Genders = _context.Genders.ToList(),
-                ProductMaterials=_context.ProductMaterials.Include(x=>x.Material).ToList(),
-                Companies=_context.Companies.Include(x=>x.Product).ToList()
+                ProductMaterials = _context.ProductMaterials.Include(x => x.Material).ToList()
             };
             ViewBag.TotalPage = Math.Ceiling(query.Count() / 6m);
             ViewBag.SelectedPage = page;

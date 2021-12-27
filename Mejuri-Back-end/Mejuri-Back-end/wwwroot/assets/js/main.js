@@ -206,12 +206,17 @@ tabColors.forEach(tabREw => {
 
 const tabDetail = Array.from(document.querySelectorAll(" .tab-color-detail"));
 const tabContentsColor = Array.from(document.querySelectorAll(".content-detail-colors .content-detail-color"));
+const tabBTn = Array.from(document.querySelectorAll(".stock-btn"));
+
 
 const clearActivesFromDetail = function () {
     tabDetail.forEach(tabBrand => {
         tabBrand.classList.remove("active");
     });
     tabContentsColor.forEach(tabContent => {
+        tabContent.classList.remove("active");
+    });
+    tabBTn.forEach(tabContent => {
         tabContent.classList.remove("active");
     });
 }
@@ -223,8 +228,12 @@ tabDetail.forEach(tabBrand => {
         clearActivesFromDetail();
         const targetId = tabBrand.getAttribute("data-target");
         const targetContent = document.getElementById(targetId);
+        const targetBtn = document.querySelector(".stock-btn");
         tabBrand.classList.add("active");
         targetContent.classList.add("active")
+        targetBtn.classList.add("active");
+        console.log(targetBtn)
+
     }
 })
 

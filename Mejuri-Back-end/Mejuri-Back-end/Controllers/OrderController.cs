@@ -51,10 +51,11 @@ namespace Mejuri_Back_end.Controllers
                     {
                         ProductColor product = _context.ProductColors.Include(x=>x.Color)
                             .Include(x=>x.Product).Include(x => x.ProductColorImages).FirstOrDefault(x => x.Id == item.ProductColorId);
+                        Company company = _context.Companies.FirstOrDefault(x => x.ProductId == product.ProductId);
                         if (product != null)
                         {
                             item.Name = product.Product.Name;
-                            item.Price = product.Product.SalePrice;
+                            item.Price = (company != null) ? ((100 - company.Percent) * product.Product.SalePrice) / 100 : product.Product.SalePrice;
                             item.ColorName = product.Color.Name;
                             item.Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true)?.Image;
                         }
@@ -74,7 +75,10 @@ namespace Mejuri_Back_end.Controllers
                                                        Name = x.ProductColor.Product.Name,
                                                        ColorName=x.ProductColor.Color.Name,
                                                        Count = x.Count,
-                                                       Price = x.ProductColor.Product.SalePrice
+                                                       Image = x.ProductColor.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true).Image,
+                                                       Price = _context.Companies.Any(c => c.ProductId == x.ProductColor.ProductId) ?
+                    ((100 - (_context.Companies.FirstOrDefault(c => c.ProductId == x.ProductColor.ProductId).Percent)) * x.ProductColor.Product.SalePrice) / 100 :
+                    x.ProductColor.Product.SalePrice
                                                    }).ToList();
 
             }
@@ -168,7 +172,9 @@ namespace Mejuri_Back_end.Controllers
             {
                 ProductColorId = productColor.Id,
                 ProductName = productColor.Product.Name,
-                SalePrice = productColor.Product.SalePrice,
+                SalePrice = _context.Companies.Any(c => c.ProductId ==productColor.ProductId) ?
+                    ((100 - (_context.Companies.FirstOrDefault(c => c.ProductId == productColor.ProductId).Percent)) * productColor.Product.SalePrice) / 100 :
+                    productColor.Product.SalePrice,
                 ColorName=productColor.Color.Name,
                 Count = count,
             };
@@ -196,11 +202,13 @@ namespace Mejuri_Back_end.Controllers
                     {
                         ProductColor product = _context.ProductColors.Include(x=>x.Color)
                             .Include(x => x.Product).Include(x => x.ProductColorImages).FirstOrDefault(x => x.Id == item.ProductColorId);
+                        Company company = _context.Companies.FirstOrDefault(x => x.ProductId == product.ProductId);
+
                         if (product != null)
                         {
                             item.Name = product.Product.Name;
                             item.ColorName = product.Color.Name;
-                            item.Price = product.Product.SalePrice;
+                            item.Price = (company != null) ? ((100 - company.Percent) * product.Product.SalePrice) / 100 : product.Product.SalePrice;
                             item.Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true)?.Image;
                         }
                     }
@@ -217,7 +225,10 @@ namespace Mejuri_Back_end.Controllers
                                                         Name = x.ProductColor.Product.Name,
                                                         ColorName=x.ProductColor.Color.Name,
                                                         Count = x.Count,
-                                                        Price = x.ProductColor.Product.SalePrice
+                                                        Image=x.ProductColor.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true).Image,
+                                                        Price = _context.Companies.Any(c => c.ProductId == x.ProductColor.ProductId) ?
+                    ((100 - (_context.Companies.FirstOrDefault(c => c.ProductId == x.ProductColor.ProductId).Percent)) * x.ProductColor.Product.SalePrice) / 100 :
+                    x.ProductColor.Product.SalePrice
                                                     }).ToList();
 
             }

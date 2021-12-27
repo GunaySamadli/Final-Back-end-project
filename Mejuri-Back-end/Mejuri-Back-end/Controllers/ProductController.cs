@@ -53,9 +53,12 @@ namespace Mejuri_Back_end.Controllers
 
         public IActionResult AddToBasket(int id)
         {
-            ProductColor product = _context.ProductColors.Include(x=>x.Product).Include(x=>x.ProductColorImages).Include(x=>x.Color)
+            ProductColor product = _context.ProductColors.Include(x=>x.Product)
+                .Include(x=>x.ProductColorImages).Include(x=>x.Color)
                .FirstOrDefault(x => x.Id == id);
-            Company company = _context.Companies.FirstOrDefault(x => x.ProductId != product.Id);
+
+            Company company = _context.Companies.FirstOrDefault(x => x.ProductId == product.ProductId);
+
             BasketItemViewModel basketItem = null;
 
             if (product == null) return RedirectToAction("index", "error");
@@ -72,7 +75,6 @@ namespace Mejuri_Back_end.Controllers
             if (member == null)
             {
                 string productsStr;
-
                 if (HttpContext.Request.Cookies["Products"] != null)
                 {
                     productsStr = HttpContext.Request.Cookies["Products"];
@@ -88,9 +90,8 @@ namespace Mejuri_Back_end.Controllers
                         ProductColorId = product.Id,
                         Name = product.Product.Name,
                         Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true).Image,
-                        Price = (company == null) ? product.Product.SalePrice : product.Product.SalePrice - ((product.Product.SalePrice / 100) * company.Percent),
+                        Price = (company != null) ? ((100-company.Percent)* product.Product.SalePrice) / 100 : product.Product.SalePrice,
                         ColorName =product.Color.Name,
-                        
                         Count = 1
                     };
                     products.Add(basketItem);
@@ -127,8 +128,10 @@ namespace Mejuri_Back_end.Controllers
                       ProductColorId = x.ProductColorId,
                       Count = x.Count,
                       Name = x.ProductColor.Product.Name,
-                      Price = (company == null) ? x.ProductColor.Product.SalePrice : x.ProductColor.Product.SalePrice - ((x.ProductColor.Product.SalePrice / 100) * company.Percent),
-                      ColorName=x.ProductColor.Color.Name,
+                      Price = _context.Companies.Any(c => c.ProductId == x.ProductColor.ProductId) ?
+                    ((100 - (_context.Companies.FirstOrDefault(c => c.ProductId == x.ProductColor.ProductId).Percent)) * x.ProductColor.Product.SalePrice) / 100 :
+                    x.ProductColor.Product.SalePrice,
+                      ColorName =x.ProductColor.Color.Name,
                       Image = x.ProductColor.ProductColorImages.FirstOrDefault(bi => bi.PosterStatus == true).Image
                   }).ToList();
             }
@@ -202,7 +205,9 @@ namespace Mejuri_Back_end.Controllers
                 _context.SaveChanges();
 
                 products = _context.BasketItems.Include(x => x.ProductColor).ThenInclude(bi => bi.ProductColorImages).Where(x => x.AppUserId == member.Id)
-                    .Select(x => new BasketItemViewModel { ProductColorId = x.ProductColorId, Count = x.Count, Name = x.ProductColor.Product.Name, Price = x.ProductColor.Product.SalePrice, Image = x.ProductColor.ProductColorImages.FirstOrDefault(b => b.PosterStatus == true).Image }).ToList();
+                    .Select(x => new BasketItemViewModel { ProductColorId = x.ProductColorId, Count = x.Count, Name = x.ProductColor.Product.Name, Price = _context.Companies.Any(c => c.ProductId == x.ProductColor.ProductId) ?
+                    ((100 - (_context.Companies.FirstOrDefault(c => c.ProductId == x.ProductColor.ProductId).Percent)) * x.ProductColor.Product.SalePrice) / 100 :
+                    x.ProductColor.Product.SalePrice, Image = x.ProductColor.ProductColorImages.FirstOrDefault(b => b.PosterStatus == true).Image }).ToList();
 
             }
             return PartialView("_BasketPartial",products );

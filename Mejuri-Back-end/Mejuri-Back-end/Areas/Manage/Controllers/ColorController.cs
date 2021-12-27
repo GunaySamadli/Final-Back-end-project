@@ -88,13 +88,20 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             _context.Colors.Add(color);
             _context.SaveChanges();
 
+            if (_context.Colors.Any(x => x.Name.ToLower() == color.Name.ToLower()))
+            {
+                ModelState.AddModelError("Name", "The name is already available");
+                return View();
+            }
+
             return RedirectToAction("index");
         }
 
         public IActionResult Edit(int id)
         {
             Color color = _context.Colors.FirstOrDefault(x => x.Id == id);
-            if (color == null) return NotFound();
+            if (color == null)  return RedirectToAction("index", "error");
+            ;
 
             return View(color);
         }
@@ -105,7 +112,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
 
             Color existColor = _context.Colors.FirstOrDefault(x => x.Id == color.Id);
 
-            if (existColor == null) return NotFound();
+            if (existColor == null) return RedirectToAction("index", "error");
 
             if (color.ImageFile != null)
             {
@@ -160,6 +167,11 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             existColor.Name = color.Name;
             existColor.Desc = color.Desc;
 
+            if (_context.Colors.Any(x => x.Name.ToLower() == color.Name.ToLower()))
+            {
+                ModelState.AddModelError("Name", "The name is already available");
+                return View();
+            }
 
             _context.SaveChanges();
 

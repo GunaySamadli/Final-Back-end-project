@@ -85,6 +85,11 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                 category.Image = newFileName;
             }
 
+            if (_context.Categories.Any(x => x.Name.ToLower() == category.Name.ToLower()))
+            {
+                ModelState.AddModelError("Name", "The name is already available");
+                return View();
+            }
             _context.Categories.Add(category);
             _context.SaveChanges();
 
@@ -96,20 +101,20 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         {
             Category category = _context.Categories.FirstOrDefault(x => x.Id == id);
 
-            if (category == null) return NotFound();
+            if (category == null) return RedirectToAction("index", "error");
 
             return View(category);
         }
 
         [HttpPost]
 
-        public IActionResult Edit(Category category)
+        public IActionResult Edit(int? id,Category category)
         {
             if (!ModelState.IsValid) return NotFound();
 
             Category existCategory = _context.Categories.FirstOrDefault(x => x.Id == category.Id);
 
-            if (existCategory == null) return NotFound();
+            if (existCategory == null) return RedirectToAction("index", "error");
 
             if (category.ImageFile != null)
             {
@@ -162,6 +167,12 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             }
 
             existCategory.Name = category.Name;
+
+            if (_context.Categories.Any(x => x.Name.ToLower() == category.Name.ToLower() && x.Id != id))
+            {
+                ModelState.AddModelError("Name", "Bu category artiq movcuddur");
+                return View();
+            }
 
             _context.SaveChanges();
 

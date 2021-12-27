@@ -1,125 +1,119 @@
 ﻿@model ShopViewModel
+@inject LayoutService service
 @{
     ViewData["Title"] = "Index";
     List<FavoryItemViewModel> favs = ViewBag.Favorites;
     int selectedPage = ViewBag.SelectedPage;
     decimal totalPage = ViewBag.TotalPage;
+    Setting setting = service.GetSetting();
 }
 
-    <main class="row">
-        <div class="col-lg-2 left-side">
-            <aside>
-                <div class="sidebar">
-                    <div class="container">
-                        <div class="row">
-                            <div class="sidebar-items">
-                                <div class="sidebar-item">
-                                    <ul>
-                                        <li><a href="">New Arrivals</a></li>
-                                        <li><a href="">Best Seller</a></li>
-                                    </ul>
-                                </div>
-                                <div class="sidebar-item middle">
-                                    <ul>
-                                        <li><a href="">Shop All</a></li>
-                                        <li><a href="">Earings</a></li>
-                                        <li><a href="">Necklases</a></li>
-                                        <li><a href="">Rings</a></li>
-                                        <li><a href="">Mans</a></li>
-                                        <li><a href="">Braclets</a></li>
-                                        <li><a href="">Single Earings</a></li>
-                                    </ul>
-                                </div>
-                                <div class="sidebar-item">
-                                    <ul>
-                                        <li><a href="">Leather</a></li>
-                                        <li><a href="">Earings</a></li>
-                                        <li><a href="">Necklases</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-        </div>
-        <div class="col-lg-10 col-md-12">
-            <!--Dropdown-->
-            <section id="dropdown">
+<main class="row">
+    <div class="col-lg-2 left-side">
+        <aside>
+            <div class="sidebar">
                 <div class="container">
                     <div class="row">
-                        <div class="company-category">
-                            <div class="company-category-head">
-                                <h5>Shopes</h5>
-                                <img src="./assets/images/arrow-down.svg" alt="">
-                            </div>
-                            <ul class="drop-menu" style="display: none;">
-                                <li><a href="">New Arrivals</a></li>
-                                <li><a href="">Best Seller</a></li>
-                                <li><a href="">Shop All</a></li>
-                                <li><a href="">Earings</a></li>
-                                <li><a href="">Necklases</a></li>
-                                <li><a href="">Rings</a></li>
-                                <li><a href="">Mans</a></li>
-                                <li><a href="">Braclets</a></li>
-                                <li><a href="">Single Earings</a></li>
-                                <li><a href="">Leather</a></li>
-                                <li><a href="">Earings</a></li>
-                                <li><a href="">Necklases</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!--Info-->
-            <section id="info">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="info">
-                                <div class="info-img">
-                                    <img src="./assets/images/shop-info.jpg" alt="">
-                                </div>
+                        <div class="sidebar-items">
+                            <div class="sidebar-item">
+                                <ul>
+                                    @foreach (var product in Model.Categories)
+                                    {
+                                        <li><a asp-action="index" asp-controller="shop" asp-route-categoryId="@product.Id">@product.Name</a></li>
+                                    }
+
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-            <!--Shop-Text-->
-            <section id="shop-text">
-                <div class="container">
-                    <div class="row">
-                        <div class="shop-texts">
-                            <div class="description">
-                                <h1>Shop it all</h1>
+            </div>
+        </aside>
+    </div>
+    <div class="col-lg-10 col-md-12">
+        <!--Dropdown-->
+        <section id="dropdown">
+            <div class="container">
+                <div class="row">
+                    <div class="company-category">
+                        <div class="company-category-head">
+                            <h5>Shopes</h5>
+                            <img src="./assets/images/arrow-down.svg" alt="">
+                        </div>
+                        <ul class="drop-menu" style="display: none;">
+                            <li><a href="">New Arrivals</a></li>
+                            <li><a href="">Best Seller</a></li>
+                            <li><a href="">Shop All</a></li>
+                            <li><a href="">Earings</a></li>
+                            <li><a href="">Necklases</a></li>
+                            <li><a href="">Rings</a></li>
+                            <li><a href="">Mans</a></li>
+                            <li><a href="">Braclets</a></li>
+                            <li><a href="">Single Earings</a></li>
+                            <li><a href="">Leather</a></li>
+                            <li><a href="">Earings</a></li>
+                            <li><a href="">Necklases</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Info-->
+        <section id="info">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="info">
+                            <div class="info-img">
+                                <img src="~/uploads/setting/@setting.ShopImg" alt="">
                             </div>
-                            <div class="filters">
-                                <div class="filter-item-search">
-                                    <div class="search__container">
-                                        <input class="search__input" type="text" placeholder="Search">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Shop-Text-->
+        <section id="shop-text">
+            <div class="container">
+                <div class="row">
+                    <div class="shop-texts">
+                        <div class="description">
+                            <h1>Shop it all</h1>
+                        </div>
+                        <div class="filters">
+                            <div class="filter-item-search">
+                                <form method="get">
+                                    <div class="input-group">
+                                        <input type="text" name="search" class="form-control form-control-lg" placeholder="Type your keywords here">
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-lg btn-default">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="filter-item">
-                                    <h3>Filters</h3>
-                                    <i class="fas fa-plus filter-open"></i>
-                                </div>
+                                </form>
+                            </div>
+                            <div class="filter-item">
+                                <h3>Filters</h3>
+                                <i class="fas fa-plus filter-open"></i>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-            <section id="filter">
-                <div class="container">
-                    <div class="filter">
-                        <form method="get">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="filter-item">
-                                            <h2>Category</h2>
-                                            <div class="form-checkbox-column">
-                                                @foreach (var product in Model.Categories)
-                                                {
+            </div>
+        </section>
+        <section id="filter">
+            <div class="container">
+                <div class="filter">
+                    <form method="get">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="filter-item">
+                                        <h2>Category</h2>
+                                        <div class="form-checkbox-column">
+                                            @foreach (var product in Model.Categories)
+                                            {
                                                 <div class="form-checkbox-container">
                                                     <label class="label-container">
                                                         <a asp-action="index" asp-controller="shop" asp-route-categoryId="@product.Id">
@@ -129,215 +123,215 @@
                                                         </a>
                                                     </label>
                                                 </div>
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="filter-item">
-                                            <h2>Materials</h2>
-                                            <div class="form-checkbox-column">
-                                                <div class="form-checkbox-container">
-                                                    <label for="gold" class="label-container">
-                                                        Gold
-                                                        <input type="checkbox" class="form-checkbox" id="gold" value="gold">
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </div>
-                                                <div class="form-checkbox-container">
-                                                    <label for="silver" class="label-container">
-                                                        Silver
-                                                        <input type="checkbox" class="form-checkbox" id="silver"
-                                                               value="silver">
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </div>
-                                                <div class="form-checkbox-container">
-                                                    <label class="label-container" for="diomands">
-                                                        Diomands
-                                                        <input type="checkbox" class="form-checkbox" id="diomands"
-                                                               value="diomands">
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </div>
-                                                <div class="form-checkbox-container">
-                                                    <label class="label-container" for="pearls">
-                                                        Pearls
-                                                        <input type="checkbox" class="form-checkbox" id="pearls"
-                                                               value="pearls">
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="filter-item">
-                                            <h2>Genders</h2>
-                                            <div class="form-checkbox-column">
-                                                <div class="form-checkbox-container">
-                                                    <label for="women" class="label-container">
-                                                        Women
-                                                        <input type="checkbox" class="form-checkbox" id="women"
-                                                               value="women">
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </div>
-                                                <div class="form-checkbox-container">
-                                                    <label for="men" class="label-container">
-                                                        Men
-                                                        <input type="checkbox" class="form-checkbox" id="men" value="men">
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="filter-item">
-                                            <h2>Filter by price</h2>
-                                            <div class="widget--- ltn__price-filter-widget">
-                                                <div class="price_filter">
-                                                    <div class="price_slider_amount">
-                                                        <input type="submit" value="Your range:" />
-                                                        <br />
-                                                        <input type="text" class="amount w-100" name="price" placeholder="Add Your Price" />
-                                                    </div>
-                                                    <input type="hidden" id="minPrice" name="minPrice" value="10" />
-                                                    <input type="hidden" id="maxPrice" name="maxPrice" value="1000" />
-                                                    <div class="slider-range"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 filter-end">
-                                        <div class="filter-button">
-                                            <p role="button">
-                                                Clear all
-                                            </p>
-                                            <button type="submit" class="button button-secondary">
-                                                Apply <span>(1)</span> filter
-                                            </button>
+                                            }
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-2">
+                                    <div class="filter-item">
+                                        <h2>Materials</h2>
+                                        <div class="form-checkbox-column">
+                                            <div class="form-checkbox-container">
+                                                <label for="gold" class="label-container">
+                                                    Gold
+                                                    <input type="checkbox" class="form-checkbox" id="gold" value="gold">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="form-checkbox-container">
+                                                <label for="silver" class="label-container">
+                                                    Silver
+                                                    <input type="checkbox" class="form-checkbox" id="silver"
+                                                           value="silver">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="form-checkbox-container">
+                                                <label class="label-container" for="diomands">
+                                                    Diomands
+                                                    <input type="checkbox" class="form-checkbox" id="diomands"
+                                                           value="diomands">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="form-checkbox-container">
+                                                <label class="label-container" for="pearls">
+                                                    Pearls
+                                                    <input type="checkbox" class="form-checkbox" id="pearls"
+                                                           value="pearls">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="filter-item">
+                                        <h2>Genders</h2>
+                                        <div class="form-checkbox-column">
+                                            <div class="form-checkbox-container">
+                                                <label for="women" class="label-container">
+                                                    Women
+                                                    <input type="checkbox" class="form-checkbox" id="women"
+                                                           value="women">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="form-checkbox-container">
+                                                <label for="men" class="label-container">
+                                                    Men
+                                                    <input type="checkbox" class="form-checkbox" id="men" value="men">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="filter-item">
+                                        <h2>Filter by price</h2>
+                                        <div class="widget--- ltn__price-filter-widget">
+                                            <div class="price_filter">
+                                                <div class="price_slider_amount">
+                                                    <input type="submit" value="Your range:" />
+                                                    <br />
+                                                    <input type="text" class="amount w-100" name="price" placeholder="Add Your Price" />
+                                                </div>
+                                                <input type="hidden" id="minPrice" name="minPrice" value="10" />
+                                                <input type="hidden" id="maxPrice" name="maxPrice" value="1000" />
+                                                <div class="slider-range"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 filter-end">
+                                    <div class="filter-button">
+                                        <p role="button">
+                                            Clear all
+                                        </p>
+                                        <button type="submit" class="button button-secondary">
+                                            Apply <span>(1)</span> filter
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
-            </section>
-            <!--Favorites-->
-            <section id="favory">
-                <div class="favory-title">
-                    <h2>Fine Favorites</h2>
-                </div>
-                <div class="container-fluid">
-                    <div class="row">
-                        @for (int i = 0; i < Model.Products.Count; i++)
-                        {
-                            <div class="col-md-4">
-                                <div class="favory-item" id="@Model.Products[i].Id">
-                                    @for (int j = 0; j < Model.Products[i].ProductColors.Count; j++)
-                                    {
-                                        <div class="card-image @(j==0?"active":"")" id="@Model.Products[i].ProductColors[j].Color.Name">
-                                            <div class="img-product">
-                                                <div class="content-colors">
-                                                    <div class="content-color">
-                                                        <a asp-action="detail" asp-controller="product" asp-route-id="@Model.Products[i].Id">
-                                                            <img src="~/uploads/product/@Model.Products[i].ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
-                                                            <img src="~/uploads/product/@Model.Products[i].ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image"
-                                                                 class="img-responsive-hov">
-                                                        </a>
-                                                    </div>
+            </div>
+        </section>
+        <!--Favorites-->
+        <section id="favory">
+            <div class="favory-title">
+                <h2>Fine Favorites</h2>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    @for (int i = 0; i < Model.Products.Count; i++)
+                    {
+                        <div class="col-md-4">
+                            <div class="favory-item" id="@Model.Products[i].Id">
+                                @for (int j = 0; j < Model.Products[i].ProductColors.Count; j++)
+                                {
+                                    <div class="card-image @(j==0?"active":"")" id="@Model.Products[i].ProductColors[j].Color.Name">
+                                        <div class="img-product">
+                                            <div class="content-colors">
+                                                <div class="content-color">
+                                                    <a asp-action="detail" asp-controller="product" asp-route-id="@Model.Products[i].Id">
+                                                        <img src="~/uploads/product/@Model.Products[i].ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
+                                                        <img src="~/uploads/product/@Model.Products[i].ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image"
+                                                             class="img-responsive-hov">
+                                                    </a>
                                                 </div>
                                             </div>
-                                            <div class="hover-btns">
-                                                <a asp-action="addtobasket" asp-controller="product" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" class="single-btn add-basket">
-                                                    <i class="fas fa-shopping-basket"></i>
-                                                </a>
-                                                @if (favs != null)
-                                                {
-                                                    @if (!favs.Any(f => f.ProductColorId == Model.Products[i].ProductColors[j].Id))
-                                                    {
-                                                        <a class="single-btn add-fav fav" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" asp-action="addtofav" asp-controller="product" title="Wishlist" style="background-color:white">
-                                                            <i class="far fa-heart"></i>
-                                                        </a>
-                                                    }
-                                                    else
-                                                    {
-                                                        <a class="single-btn delete-fav fav" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" asp-action="deletefromfav" asp-controller="product" title="Wishlist" style="background-color: #B4876E; color: white;">
-                                                            <i onMouseOver="this.style.color='#FFFFFF'" class="far fa-heart"></i>
-                                                        </a>
-                                                    }
-                                                }
-                                                else
+                                        </div>
+                                        <div class="hover-btns">
+                                            <a asp-action="addtobasket" asp-controller="product" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" class="single-btn add-basket">
+                                                <i class="fas fa-shopping-basket"></i>
+                                            </a>
+                                            @if (favs != null)
+                                            {
+                                                @if (!favs.Any(f => f.ProductColorId == Model.Products[i].ProductColors[j].Id))
                                                 {
                                                     <a class="single-btn add-fav fav" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" asp-action="addtofav" asp-controller="product" title="Wishlist" style="background-color:white">
                                                         <i class="far fa-heart"></i>
                                                     </a>
                                                 }
+                                                else
+                                                {
+                                                    <a class="single-btn delete-fav fav" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" asp-action="deletefromfav" asp-controller="product" title="Wishlist" style="background-color: #B4876E; color: white;">
+                                                        <i onMouseOver="this.style.color='#FFFFFF'" class="far fa-heart"></i>
+                                                    </a>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <a class="single-btn add-fav fav" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" asp-action="addtofav" asp-controller="product" title="Wishlist" style="background-color:white">
+                                                    <i class="far fa-heart"></i>
+                                                </a>
+                                            }
 
-                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                            <div class="fav-info">
+                                <a href="">
+                                    <h2 class="basket-head">@Model.Products[i].Name</h2>
+                                </a>
+                                <p class="basket-price">
+                                    <span>$</span>
+                                    @Model.Products[i].SalePrice
+                                </p>
+                            </div>
+                            <div class="fav-color">
+                                <div class="color-items" data-id="@Model.Products[i].Id">
+                                    @for (int j = 0; j < Model.Products[i].ProductColors.Count; j++)
+                                    {
+                                        <div class="color-item">
+                                            <a class="tab-color @(j==0?"active":"")"
+                                               data-target="@Model.Products[i].ProductColors[j].Color.Name">
+                                                <img src="~/uploads/color/@Model.Products[i].ProductColors[j].Color.Image" alt="">
+                                            </a>
                                         </div>
                                     }
 
                                 </div>
-                                <div class="fav-info">
-                                    <a href="">
-                                        <h2 class="basket-head">@Model.Products[i].Name</h2>
-                                    </a>
-                                    <p class="basket-price">
-                                        <span>$</span>
-                                        @Model.Products[i].SalePrice
-                                    </p>
-                                </div>
-                                <div class="fav-color">
-                                    <div class="color-items" data-id="@Model.Products[i].Id">
-                                        @for (int j = 0; j < Model.Products[i].ProductColors.Count; j++)
-                                        {
-                                            <div class="color-item">
-                                                <a class="tab-color @(j==0?"active":"")"
-                                                   data-target="@Model.Products[i].ProductColors[j].Color.Name">
-                                                    <img src="~/uploads/color/@Model.Products[i].ProductColors[j].Color.Image" alt="">
-                                                </a>
-                                            </div>
-                                        }
 
-                                    </div>
-
-                                    @*<p>@Model.Products[i].ProductColors[d].Color.Desc</p>*@
-                                </div>
+                                @*<p>@Model.Products[i].ProductColors[d].Color.Desc</p>*@
                             </div>
-                        }
-                    </div>
-                </div>
-                <div class="ltn__pagination-area text-center">
-                    <div class="ltn__pagination">
-                        <div class="ltn__pagination">
-                            <ul class="pagination">
-                                @if (selectedPage > 1)
-                                {
-                                    <li><a asp-controller="shop"  asp-route-genderId="@ViewBag.CurrentGenderId" asp-route-categoryId="@ViewBag.CurrentCategoryId" asp-action="index" asp-route-page="@(selectedPage - 1)"><i class="fas fa-angle-double-left"></i></a></li>
-
-                                }
-                                @{
-                                    int startPage = (selectedPage == 1 || totalPage <= 3) ? 1 : selectedPage < totalPage ? selectedPage - 1 : selectedPage - 2;
-                                    int endPage = totalPage > 2 ? startPage + 2 : (int)totalPage;
-                                }
-
-                                @for (int i = startPage; i <= endPage; i++)
-                                {
-                                    <li class="@(i==selectedPage?"active":"")"><a asp-controller="shop" asp-route-genderId="@ViewBag.CurrentGenderId" asp-route-categoryId="@ViewBag.CurrentCategoryId" asp-action="index" asp-route-page="@i">@i</a></li>
-                                }
-                                @if (selectedPage < totalPage)
-                                {
-                                    <li><a asp-controller="shop" asp-route-genderId="@ViewBag.CurrentGenderId" asp-route-categoryId="@ViewBag.CurrentCategoryId" asp-action="index" asp-route-page="@(selectedPage+1)"><i class="fas fa-angle-double-right"></i></a></li>
-
-                                }
-                            </ul>
                         </div>
+                    }
+                </div>
+            </div>
+            <div class="ltn__pagination-area text-center">
+                <div class="ltn__pagination">
+                    <div class="ltn__pagination">
+                        <ul class="pagination">
+                            @if (selectedPage > 1)
+                            {
+                                <li><a asp-controller="shop" asp-route-genderId="@ViewBag.CurrentGenderId" asp-route-categoryId="@ViewBag.CurrentCategoryId" asp-action="index" asp-route-page="@(selectedPage - 1)"><i class="fas fa-angle-double-left"></i></a></li>
+
+                            }
+                            @{
+                                int startPage = (selectedPage == 1 || totalPage <= 3) ? 1 : selectedPage < totalPage ? selectedPage - 1 : selectedPage - 2;
+                                int endPage = totalPage > 2 ? startPage + 2 : (int)totalPage;
+                            }
+
+                            @for (int i = startPage; i <= endPage; i++)
+                            {
+                                <li class="@(i==selectedPage?"active":"")"><a asp-controller="shop" asp-route-genderId="@ViewBag.CurrentGenderId" asp-route-categoryId="@ViewBag.CurrentCategoryId" asp-action="index" asp-route-page="@i">@i</a></li>
+                            }
+                            @if (selectedPage < totalPage)
+                            {
+                                <li><a asp-controller="shop" asp-route-genderId="@ViewBag.CurrentGenderId" asp-route-categoryId="@ViewBag.CurrentCategoryId" asp-action="index" asp-route-page="@(selectedPage+1)"><i class="fas fa-angle-double-right"></i></a></li>
+
+                            }
+                        </ul>
                     </div>
                 </div>
-            </section>
             </div>
-    </main>
+        </section>
+    </div>
+</main>

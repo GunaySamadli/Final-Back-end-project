@@ -51,6 +51,12 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                 return View();
             }
 
+            if (_context.Materials.Any(x => x.Name.ToLower() == material.Name.ToLower()))
+            {
+                ModelState.AddModelError("Name", "The name is already available");
+                return View();
+            }
+
             _context.Materials.Add(material);
             _context.SaveChanges();
 
@@ -61,7 +67,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         {
             Material material = _context.Materials.FirstOrDefault(x => x.Id == id);
 
-            if (material == null) return NotFound();
+            if (material == null) return RedirectToAction("index", "error");
 
             return View(material);
         }
@@ -75,10 +81,16 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
 
             Material existMaterial = _context.Materials.FirstOrDefault(x => x.Id == material.Id);
 
-            if (existMaterial == null) return NotFound();
+            if (existMaterial == null) return RedirectToAction("index", "error");
 
 
             existMaterial.Name = material.Name;
+
+            if (_context.Materials.Any(x => x.Name.ToLower() == material.Name.ToLower()))
+            {
+                ModelState.AddModelError("Name", "The name is already available");
+                return View();
+            }
 
             _context.SaveChanges();
 

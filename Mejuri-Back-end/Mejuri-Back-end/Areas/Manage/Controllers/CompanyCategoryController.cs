@@ -93,7 +93,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         {
             CompanyCategory companyCategory = _context.CompanyCategories.FirstOrDefault(x => x.Id == id);
 
-            if (companyCategory == null) return NotFound();
+            if (companyCategory == null) return RedirectToAction("index", "error");
 
             return View(companyCategory);
         }
@@ -105,7 +105,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
 
             CompanyCategory existCategory = _context.CompanyCategories.FirstOrDefault(x => x.Id == companyCategory.Id);
 
-            if (existCategory == null) return NotFound();
+            if (existCategory == null) return RedirectToAction("index", "error");
 
             if (companyCategory.ImageFile != null)
             {

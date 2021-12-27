@@ -93,7 +93,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         public IActionResult Edit(int id)
         {
             Slider slider = _context.Sliders.FirstOrDefault(x => x.Id == id);
-            if (slider == null) return NotFound();
+            if (slider == null) return RedirectToAction("index", "error");
 
             return View(slider);
         }
@@ -104,7 +104,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
 
             Slider existSlider = _context.Sliders.FirstOrDefault(x => x.Id == slider.Id);
 
-            if (existSlider == null) return NotFound();
+            if (existSlider == null) return RedirectToAction("index", "error");
 
             if (slider.ImageFile != null)
             {

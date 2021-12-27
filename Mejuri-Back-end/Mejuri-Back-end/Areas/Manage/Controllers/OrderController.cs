@@ -47,7 +47,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         {
             Order order = _context.Orders.Include(x => x.OrderItems).FirstOrDefault(x => x.Id == id);
 
-            if (order == null) return NotFound();
+            if (order == null) return RedirectToAction("index", "error");
 
             return View(order);
         }
@@ -55,7 +55,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         public IActionResult Accept(int id)
         {
             Order order = _context.Orders.Include(x=>x.OrderItems).Include(x=>x.AppUser).FirstOrDefault(x => x.Id == id);
-            if (order == null) return NotFound();
+            if (order == null) return RedirectToAction("index", "error");
 
             order.Status = Models.Enums.OrderStatus.Accepted;
             _context.SaveChanges();

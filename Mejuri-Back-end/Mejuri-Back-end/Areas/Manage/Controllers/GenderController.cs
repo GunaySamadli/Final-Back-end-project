@@ -50,6 +50,11 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             {
                 return View();
             }
+            if (_context.Genders.Any(x => x.Name.ToLower() == gender.Name.ToLower()))
+            {
+                ModelState.AddModelError("Name", "The name is already available");
+                return View();
+            }
 
             _context.Genders.Add(gender);
             _context.SaveChanges();
@@ -61,7 +66,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         {
             Gender gender = _context.Genders.FirstOrDefault(x => x.Id == id);
 
-            if (gender == null) return NotFound();
+            if (gender == null) return RedirectToAction("index", "error");
 
             return View(gender);
         }
@@ -75,10 +80,16 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
 
             Gender existGender  = _context.Genders.FirstOrDefault(x => x.Id == gender.Id);
 
-            if (existGender == null) return NotFound();
+            if (existGender == null) return RedirectToAction("index", "error");
 
 
             existGender.Name = gender.Name;
+
+            if (_context.Genders.Any(x => x.Name.ToLower() == gender.Name.ToLower()))
+            {
+                ModelState.AddModelError("Name", "The name is already available");
+                return View();
+            }
 
             _context.SaveChanges();
 

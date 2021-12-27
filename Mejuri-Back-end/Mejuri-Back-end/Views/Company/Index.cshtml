@@ -5,6 +5,8 @@
 @{
     ViewData["Title"] = "Company";
     List<FavoryItemViewModel> favs = ViewBag.Favorites;
+    int selectedPage = ViewBag.SelectedPage;
+    decimal totalPage = ViewBag.TotalPage;
     Setting setting = service.GetSetting();
 
 }
@@ -20,7 +22,7 @@
                                 <ul>
                                     @foreach (var category in Model.CompanyCategories)
                                     {
-                                        <li><a href="">@category.Name</a></li>
+                                        <li><a asp-action="index" asp-controller="company" asp-route-categoryId="@category.Id">@category.Name</a></li>
 
                                     }
                                 </ul>
@@ -57,7 +59,7 @@
             </div>
         </section>
         <!--Section Info-->
-        <section id="info">
+        <section id="info" style="margin-bottom:7rem;">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
@@ -72,98 +74,124 @@
         </section>
         <!--Personilazed Company-->
 
-        @for (int i = 0; i < Model.Companies.Count; i++)
-        {
-            <section id="favory">
-                <div class="favory-title">
-                    <h2>@Model.Companies[i].CompanyCategory.Name</h2>
-                </div>
+        
+        <section id="favory">
+            
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="favory-item" id="@Model.Companies[i].Id">
-                                <p class="percent">%@Model.Companies[i].Percent Discount</p>
-                                <div class="datetime">
-                                    <p>@Model.Companies[i].StartTime.ToString("HH:mm dd MMM yyyy") </p>
-                                    <span>-</span>
-                                    <p>@Model.Companies[i].EndTime.ToString("HH:mm dd MMM yyyy")</p>
-                                </div>
-                                @for (int j = 0; j < Model.Companies[i].Product.ProductColors.Count; j++)
-                                {
-                                    <div class="card-image @(j==0?"active":"")" id="@Model.Companies[i].Product.ProductColors[j].Color.Name">
-                                        <div class="img-product">
-                                            <div class="content-colors">
-                                                <div class="content-color">
-                                                    <a asp-action="detail" asp-controller="product" asp-route-id="@Model.Companies[i].Product.Id">
-                                                        <img src="~/uploads/product/@Model.Companies[i].Product.ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
-                                                        <img src="~/uploads/product/@Model.Companies[i].Product.ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image"
-                                                             class="img-responsive-hov">
-                                                    </a>
+                        @for (int i = 0; i < Model.Companies.Count; i++)
+                        {
+                            <div class="col-md-4">
+                                <div class="favory-item" id="@Model.Companies[i].Id">
+                                    <p class="percent">%@Model.Companies[i].Percent Discount</p>
+                                    <div class="datetime">
+                                        <p>@Model.Companies[i].StartTime.ToString("HH:mm dd MMM yyyy") </p>
+                                        <span>-</span>
+                                        <p>@Model.Companies[i].EndTime.ToString("HH:mm dd MMM yyyy")</p>
+                                    </div>
+                                    @for (int j = 0; j < Model.Companies[i].Product.ProductColors.Count; j++)
+                                    {
+                                        <div class="card-image @(j==0?"active":"")" id="@Model.Companies[i].Product.ProductColors[j].Color.Name">
+                                            <div class="img-product">
+                                                <div class="content-colors">
+                                                    <div class="content-color">
+                                                        <a asp-action="detail" asp-controller="product" asp-route-id="@Model.Companies[i].Product.Id">
+                                                            <img src="~/uploads/product/@Model.Companies[i].Product.ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
+                                                            <img src="~/uploads/product/@Model.Companies[i].Product.ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image"
+                                                                 class="img-responsive-hov">
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="hover-btns">
-                                            <a asp-action="addtobasket" asp-controller="product" asp-route-id="@Model.Companies[i].Product.ProductColors[j].Id" data-id="@Model.Companies[i].Product.ProductColors[j].Id" class="single-btn add-basket">
-                                                <i class="fas fa-shopping-basket"></i>
-                                            </a>
-                                            @if (favs != null)
-                                            {
-                                                @if (!favs.Any(f => f.ProductColorId == Model.Companies[i].Product.ProductColors[j].Id))
+                                            <div class="hover-btns">
+                                                <a asp-action="addtobasket" asp-controller="product" asp-route-id="@Model.Companies[i].Product.ProductColors[j].Id" data-id="@Model.Companies[i].Product.ProductColors[j].Id" class="single-btn add-basket">
+                                                    <i class="fas fa-shopping-basket"></i>
+                                                </a>
+                                                @if (favs != null)
+                                                {
+                                                    @if (!favs.Any(f => f.ProductColorId == Model.Companies[i].Product.ProductColors[j].Id))
+                                                    {
+                                                        <a class="single-btn add-fav fav" asp-route-id="@Model.Companies[i].Product.ProductColors[j].Id" data-id="@Model.Companies[i].Product.ProductColors[j].Id" asp-action="addtofav" asp-controller="product" title="Wishlist" style="background-color:white">
+                                                            <i class="far fa-heart"></i>
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="single-btn delete-fav fav" asp-route-id="@Model.Companies[i].Product.ProductColors[j].Id" data-id="@Model.Companies[i].Product.ProductColors[j].Id" asp-action="deletefromfav" asp-controller="product" title="Wishlist" style="background-color: #B4876E; color: white;">
+                                                            <i onMouseOver="this.style.color='#FFFFFF'" class="far fa-heart"></i>
+                                                        </a>
+                                                    }
+                                                }
+                                                else
                                                 {
                                                     <a class="single-btn add-fav fav" asp-route-id="@Model.Companies[i].Product.ProductColors[j].Id" data-id="@Model.Companies[i].Product.ProductColors[j].Id" asp-action="addtofav" asp-controller="product" title="Wishlist" style="background-color:white">
                                                         <i class="far fa-heart"></i>
                                                     </a>
                                                 }
-                                                else
-                                                {
-                                                    <a class="single-btn delete-fav fav" asp-route-id="@Model.Companies[i].Product.ProductColors[j].Id" data-id="@Model.Companies[i].Product.ProductColors[j].Id" asp-action="deletefromfav" asp-controller="product" title="Wishlist" style="background-color: #B4876E; color: white;">
-                                                        <i onMouseOver="this.style.color='#FFFFFF'" class="far fa-heart"></i>
-                                                    </a>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <a class="single-btn add-fav fav" asp-route-id="@Model.Companies[i].Product.ProductColors[j].Id" data-id="@Model.Companies[i].Product.ProductColors[j].Id" asp-action="addtofav" asp-controller="product" title="Wishlist" style="background-color:white">
-                                                    <i class="far fa-heart"></i>
-                                                </a>
-                                            }
 
-                                        </div>
-                                    </div>
-                                }
-
-                            </div>
-                            <div class="fav-info">
-                                <a href="">
-                                    <h2 class="basket-head">@Model.Companies[i].Product.Name</h2>
-                                </a>
-                                <p class="basket-price">
-                                    <span>$</span>
-                                    @(Model.Companies[i].Product.SalePrice - ((Model.Companies[i].Product.SalePrice / 100) * Model.Companies[i].Percent))
-                                </p>
-                            </div>
-                            <div class="fav-color">
-                                <div class="color-items" data-id="@Model.Companies[i].Id">
-                                    @for (int j = 0; j < Model.Companies[i].Product.ProductColors.Count; j++)
-                                    {
-                                        <div class="color-item">
-                                            <a class="tab-color @(j==0?"active":"")"
-                                               data-target="@Model.Companies[i].Product.ProductColors[j].Color.Name">
-                                                <img src="~/uploads/color/@Model.Companies[i].Product.ProductColors[j].Color.Image" alt="">
-                                            </a>
+                                            </div>
                                         </div>
                                     }
 
                                 </div>
+                                <div class="fav-info">
+                                    <a href="">
+                                        <h2 class="basket-head">@Model.Companies[i].Product.Name</h2>
+                                    </a>
+                                    <p class="basket-price">
+                                        <span>$</span>
+                                        @(((100 - Model.Companies[i].Percent)* Model.Companies[i].Product.SalePrice)/100 )
+                                    </p>
+                                </div>
+                                <div class="fav-color">
+                                    <div class="color-items" data-id="@Model.Companies[i].Id">
+                                        @for (int j = 0; j < Model.Companies[i].Product.ProductColors.Count; j++)
+                                        {
+                                            <div class="color-item">
+                                                <a class="tab-color @(j==0?"active":"")"
+                                                   data-target="@Model.Companies[i].Product.ProductColors[j].Color.Name">
+                                                    <img src="~/uploads/color/@Model.Companies[i].Product.ProductColors[j].Color.Image" alt="">
+                                                </a>
+                                            </div>
+                                        }
 
-                                @*<p>@Model.Products[i].ProductColors[d].Color.Desc</p>*@
+                                    </div>
+
+                                    @*<p>@Model.Products[i].ProductColors[d].Color.Desc</p>*@
+                                </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </div>
-            </section>
-        }
+            <div class="ltn__pagination-area text-center">
+                <div class="ltn__pagination">
+                    <div class="ltn__pagination">
+                        <ul class="pagination">
+                            @if (selectedPage > 1)
+                            {
+                                <li><a asp-controller="shop" asp-route-genderId="@ViewBag.CurrentGenderId" asp-route-categoryId="@ViewBag.CurrentCategoryId" asp-action="index" asp-route-page="@(selectedPage - 1)"><i class="fas fa-angle-double-left"></i></a></li>
 
+                            }
+                            @{
+                                int startPage = (selectedPage == 1 || totalPage <= 3) ? 1 : selectedPage < totalPage ? selectedPage - 1 : selectedPage - 2;
+                                int endPage = totalPage > 2 ? startPage + 2 : (int)totalPage;
+                            }
+
+                            @for (int i = startPage; i <= endPage; i++)
+                            {
+                                <li class="@(i==selectedPage?"active":"")"><a asp-controller="shop" asp-route-genderId="@ViewBag.CurrentGenderId" asp-route-categoryId="@ViewBag.CurrentCategoryId" asp-action="index" asp-route-page="@i">@i</a></li>
+                            }
+                            @if (selectedPage < totalPage)
+                            {
+                                <li><a asp-controller="shop" asp-route-genderId="@ViewBag.CurrentGenderId" asp-route-categoryId="@ViewBag.CurrentCategoryId" asp-action="index" asp-route-page="@(selectedPage+1)"><i class="fas fa-angle-double-right"></i></a></li>
+
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </section>
 
     </div>
 </main>
