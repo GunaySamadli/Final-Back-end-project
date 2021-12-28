@@ -88,9 +88,20 @@
                         @for (int i = 0; i < Model.Product.ProductColors.Count; i++)
                         {
 
-                            <a asp-action="addtobasket" asp-controller="product" asp-route-id="@Model.Product.ProductColors[i].Id" data-id="@Model.Product.ProductColors[i].Id" class="btton button-secondary stock-btn add-basket @(i==0?"active":"")"  id="@Model.Product.ProductColors[i].Id">
-                                Add To Bag
-                            </a>
+                            @if (Model.Product.IsStock == true)
+                            {
+                                <a asp-action="addtobasket" asp-controller="product" asp-route-id="@Model.Product.ProductColors[i].Id" data-id="@Model.Product.ProductColors[i].Id" class="btton button-secondary stock-btn add-basket @(i==0?"active":"")" id="@Model.Product.ProductColors[i].Id">
+                                    Add To Bag
+                                </a>
+                            }
+                            else
+                            {
+                                <p style="background: white; padding: 10px; width: max-content; border-radius: 10px; font-size: 20px; margin-bottom: 20px;">
+                                    <i class="far fa-frown"></i>
+                                    Out Of Stock
+                                </p>
+                            }
+
                         }
                         <div class="detail-info">
                             <div class="product-name">
@@ -117,7 +128,7 @@
                                 </div>
                                 <div class="description-body">
                                     <p>
-                                        @Model.Product.Desc
+                                        @Html.Raw(Model.Product.Desc)
                                     </p>
                                 </div>
                             </div>
@@ -385,9 +396,27 @@
         </div>
         <div class="container">
             <div class="row">
-                @if (Model.Product.Category.Name == "rings")
+                @if (Model.Product.IsStock == true)
                 {
-                    @foreach (var item in relatedProducts.Where(x => x.Category.Name == "rings").Take(4))
+                    @foreach (var item in relatedProducts.Where(x => x.IsStock == true).Take(4))
+                    {
+                        @for (int i = 0; i < item.ProductColors.Count; i++)
+                        {
+                            <div class="col-md-3 col-sm-6">
+                                <div class="category-img">
+                                    <div class="img">
+                                        <a asp-action="detail" asp-controller="product" asp-route-id="@item.Id">
+                                            <img src="~/uploads/product/@item.ProductColors[i].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" alt="">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+                @if (Model.Product.IsStock == false)
+                {
+                    @foreach (var item in relatedProducts.Where(x => x.IsStock == false).Take(4))
                     {
                         @for (int i = 0; i < item.ProductColors.Count; i++)
                         {
@@ -407,3 +436,4 @@
         </div>
     </section>
 </main>
+

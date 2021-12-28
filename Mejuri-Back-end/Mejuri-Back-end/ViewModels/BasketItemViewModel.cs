@@ -12,6 +12,8 @@ namespace Mejuri_Back_end.ViewModels
         public string Image { get; set; }
         public string Name { get; set; }
         public string ColorName { get; set; }
+
+        public bool IsStock { get; set; }
         public int Count { get; set; }
     }
 }

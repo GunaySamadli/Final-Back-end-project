@@ -36,7 +36,8 @@ namespace Mejuri_Back_end.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(MemberRegisterViewModel registerVM)
         {
-            if (!ModelState.IsValid) return PartialView("_RegisterPartial");
+            if (!ModelState.IsValid) return View(registerVM);
+
 
             AppUser member = await _userManager.FindByNameAsync(registerVM.UserName);
 

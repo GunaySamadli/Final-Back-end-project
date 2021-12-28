@@ -24,6 +24,10 @@ namespace Mejuri_Back_end.Models
         [StringLength(maximumLength: 150)]
         public string ShopImg { get; set; }
         [StringLength(maximumLength: 150)]
+        public string ContactImg { get; set; }
+        [StringLength(maximumLength: 150)]
+        public string FaqImg { get; set; }
+        [StringLength(maximumLength: 150)]
         public string CompanyImg { get; set; }
         [StringLength(maximumLength: 100)]
         public string Fb { get; set; }
@@ -44,6 +48,16 @@ namespace Mejuri_Back_end.Models
         [StringLength(maximumLength: 150)]
         public string TwitterUrl { get; set; }
 
+        [StringLength(maximumLength: 25)]
+        public string FaqTitle { get; set; }
+        [StringLength(maximumLength: 25)]
+        public string ContactTitle { get; set; }
+
+        [StringLength(maximumLength: 150)]
+        public string ContactSubtitle1 { get; set; }
+        [StringLength(maximumLength: 250)]
+        public string ContactSubtitle2 { get; set; }
+
         [NotMapped]
         public IFormFile HomePageImgFile { get; set; }
         [NotMapped]
@@ -52,5 +66,9 @@ namespace Mejuri_Back_end.Models
         public IFormFile ShopImgFile { get; set; }
         [NotMapped]
         public IFormFile CompanyImgFile { get; set; }
+        [NotMapped]
+        public IFormFile ContactImgFile { get; set; }
+        [NotMapped]
+        public IFormFile FaqImgFile { get; set; }
     }
 }

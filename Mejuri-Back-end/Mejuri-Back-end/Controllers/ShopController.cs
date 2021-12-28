@@ -1,6 +1,7 @@
 ﻿using Mejuri_Back_end.Models;
 using Mejuri_Back_end.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,11 +17,13 @@ namespace Mejuri_Back_end.Controllers
     {
         private readonly AppDbContext _context;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public ShopController(AppDbContext context, UserManager<AppUser> userManager)
+        public ShopController(AppDbContext context, UserManager<AppUser> userManager, IHttpContextAccessor contextAccessor)
         {
             _context = context;
             _userManager = userManager;
+            _contextAccessor = contextAccessor;
         }
         public IActionResult Index(int? minPrice, int? maxPrice, string search = null, int? categoryId = null, int? materailId = null, int? genderId = null, int page = 1)
         {
@@ -42,8 +45,8 @@ namespace Mejuri_Back_end.Controllers
                 query = query.Where(x => x.CategoryId == categoryId);
 
 
-            //if (materailId != null)
-            //    query = query.Where(x => x.ProductMaterials == materailId);
+            if (materailId != null)
+                query = query.Where(x => x.ProductMaterials.Any(x=>x.MaterialId == materailId)) ;
 
             if (genderId != null)
                 query = query.Where(x => x.GenderId == genderId);
@@ -53,20 +56,63 @@ namespace Mejuri_Back_end.Controllers
                 query = query.Where(x => x.Name.Contains(search));
             }
 
-
-            string strPr = HttpContext.Request.Cookies["Favory"];
+            #region Favory
             ViewBag.Favorites = null;
-            if (strPr != null)
-            {
-                ViewBag.Favorites = JsonConvert.DeserializeObject<List<FavoryItemViewModel>>(strPr);
 
+            AppUser member = null;
+
+            if (_contextAccessor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                member = _userManager.Users.FirstOrDefault(x => x.UserName == _contextAccessor.HttpContext.User.Identity.Name && !x.IsAdmin);
             }
+
+            List<FavoryItemViewModel> items = new List<FavoryItemViewModel>();
+            if (member == null)
+            {
+                var itemsStr = _contextAccessor.HttpContext.Request.Cookies["Favory"];
+
+                if (itemsStr != null)
+                {
+                    items = JsonConvert.DeserializeObject<List<FavoryItemViewModel>>(itemsStr);
+
+                    foreach (var item in items)
+                    {
+                        ProductColor product = _context.ProductColors.Include(x => x.Color)
+                            .Include(c => c.ProductColorImages).Include(x => x.Product).FirstOrDefault(x => x.Id == item.ProductColorId);
+
+                        if (product != null)
+                        {
+                            item.Name = product.Product.Name;
+                            item.Price = product.Product.SalePrice;
+                            item.ColorName = product.Color.Name;
+                            item.Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true)?.Image;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                List<FavoryItem> favories = _context.FavoryItems
+                    .Include(x => x.ProductColor).ThenInclude(x => x.ProductColorImages)
+                    .Include(x => x.ProductColor).ThenInclude(x => x.Product)
+                    .Include(x => x.ProductColor).ThenInclude(x => x.Color)
+                    .Where(x => x.AppUserId == member.Id).ToList();
+                items = favories.Select(x => new FavoryItemViewModel
+                {
+                    ProductColorId = x.ProductColorId,
+                    Image = x.ProductColor.ProductColorImages.FirstOrDefault(bi => bi.PosterStatus == true)?.Image,
+                    Name = x.ProductColor.Product.Name,
+                    ColorName = x.ProductColor.Color.Name,
+                    Price = x.ProductColor.Product.SalePrice
+                }).ToList();
+            }
+            ViewBag.Favorites = items;
+            #endregion
 
 
             List<Product> products = query
                .Include(x => x.ProductColors).ThenInclude(x => x.Color)
                .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages)
-               //.Include(x=>x.Companies).Where(x=>x.Companies==null)
                .Skip((page - 1) * 6).Take(6).ToList();
 
             ShopViewModel shopVM = new ShopViewModel

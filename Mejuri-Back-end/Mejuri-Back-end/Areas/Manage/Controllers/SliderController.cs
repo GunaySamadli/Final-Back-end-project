@@ -111,12 +111,12 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                 if (slider.ImageFile.ContentType != "image/png" && slider.ImageFile.ContentType != "image/jpeg" && slider.ImageFile.ContentType != "image/jfif")
                 {
                     ModelState.AddModelError("ImageFile", "File type can be only jpeg,jpg,jfif or png!");
-                    return View();
+                    return View(existSlider);
                 }
                 if (slider.ImageFile.Length > 2097152)
                 {
                     ModelState.AddModelError("ImageFile", "File size can not be more than 2MB!");
-                    return View();
+                    return View(existSlider);
                 }
 
                 string fileName = slider.ImageFile.FileName;

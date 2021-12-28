@@ -1,0 +1,40 @@
+﻿@model List<Faq>
+@inject LayoutService service
+@{
+    ViewData["Title"] = "Index";
+    Setting setting = service.GetSetting();
+
+
+}
+
+<main>
+    <section id="faq">
+        <div class="faq-info">
+            <img src="~/uploads/setting/@setting.FaqImg" alt="">
+            <h1>@setting.FaqTitle</h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="ship">
+                    <h2>Shipping</h2>
+                </div>
+                <div class="col-lg-12">
+                    <div class="faq-accordions">
+                        @foreach (var item in Model)
+                        {
+                            <div class="faq-accordion">
+                                <h4>
+                                    @item.Question?
+                                </h4>
+                                <img src="~/assets/images/accordion.png" alt="">
+                            </div>
+                            <div class="accordion-content">
+                                @Html.Raw(item.Answer)
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

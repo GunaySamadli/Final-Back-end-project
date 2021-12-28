@@ -34,7 +34,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             review.Accept = true;
             _context.SaveChanges();
 
-            return RedirectToAction("index");
+            return RedirectToAction("index", "product");
         }
 
         public IActionResult DeleteFetch(int id)

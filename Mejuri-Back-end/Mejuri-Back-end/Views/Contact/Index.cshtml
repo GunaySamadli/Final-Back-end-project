@@ -1,23 +1,25 @@
 ﻿@model List<Contact>
+@inject LayoutService service
 @{
     ViewData["Title"] = "Index";
+    Setting setting = service.GetSetting();
 }
 
 <main>
     <section id="contact">
         <div class="contact-info">
-            <img src="./assets/images/contact.jfif" alt="">
-            <h1>CONTACT US</h1>
+            <img src="~/uploads/setting/@setting.ContactImg"  alt="">
+            <h1>@setting.ContactTitle</h1>
         </div>
         <div class="contact-body">
             <div class="contact-body-info">
                 <div class="container">
                     <p>
-                        Feel free to check out our FAQs or send us an email or text.
+                        @setting.ContactSubtitle1
                     </p>
                     <h5>
-                        Due to an intermittent system outage, we are experiencing higher than normal volume & our
-                        Customer Happiness team may take up to 5 business days to respond.
+                        @setting.ContactSubtitle2
+
                     </h5>
                 </div>
             </div>

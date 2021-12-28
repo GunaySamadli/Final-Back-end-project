@@ -36,7 +36,7 @@ namespace Mejuri_Back_end.Controllers
 
             ViewBag.RelatedProducts = _context.Products.Include(x => x.ProductColors).ThenInclude(x=>x.ProductColorImages)
                 .Include(x => x.ProductColors).ThenInclude(x => x.Color).Include(x => x.Category)
-                .Include(x => x.ProductMaterials).ThenInclude(x => x.Material)
+                .Include(x => x.ProductMaterials).ThenInclude(x => x.Material).Take(4)
                 .ToList();
             if (product==null)  return RedirectToAction("index", "error");
 
@@ -70,6 +70,10 @@ namespace Mejuri_Back_end.Controllers
                 member = _userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name && !x.IsAdmin);
 
             }
+            if (product.Product.IsStock == true)
+            {
+
+            }
             List<BasketItemViewModel> products = new List<BasketItemViewModel>();
 
             if (member == null)
@@ -80,7 +84,7 @@ namespace Mejuri_Back_end.Controllers
                     productsStr = HttpContext.Request.Cookies["Products"];
                     products = JsonConvert.DeserializeObject<List<BasketItemViewModel>>(productsStr);
 
-                    basketItem = products.FirstOrDefault(x => x.ProductColorId == id);
+                    basketItem = products.Where(x=>x.IsStock).FirstOrDefault(x => x.ProductColorId == id);
                 }
 
                 if (basketItem == null)
@@ -92,9 +96,13 @@ namespace Mejuri_Back_end.Controllers
                         Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true).Image,
                         Price = (company != null) ? ((100-company.Percent)* product.Product.SalePrice) / 100 : product.Product.SalePrice,
                         ColorName =product.Color.Name,
+                        IsStock=product.Product.IsStock,
                         Count = 1
                     };
-                    products.Add(basketItem);
+                    if (product.Product.IsStock==true)
+                    {
+                        products.Add(basketItem);
+                    }
                 }
                 else
                 {
@@ -127,6 +135,7 @@ namespace Mejuri_Back_end.Controllers
                   {
                       ProductColorId = x.ProductColorId,
                       Count = x.Count,
+                      IsStock=x.ProductColor.Product.IsStock,
                       Name = x.ProductColor.Product.Name,
                       Price = _context.Companies.Any(c => c.ProductId == x.ProductColor.ProductId) ?
                     ((100 - (_context.Companies.FirstOrDefault(c => c.ProductId == x.ProductColor.ProductId).Percent)) * x.ProductColor.Product.SalePrice) / 100 :

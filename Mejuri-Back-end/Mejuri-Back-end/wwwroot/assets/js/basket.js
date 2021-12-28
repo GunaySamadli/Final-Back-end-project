@@ -35,7 +35,6 @@
 
     $(document).on("click", ".add-fav", function (e) {
         e.preventDefault();
-
         var id = $(this).attr("data-id");
         fetch('https://localhost:44318/product/addtofav/' + id)
             .then(response => response.text())
@@ -100,3 +99,4 @@
         })
     })
 })
+

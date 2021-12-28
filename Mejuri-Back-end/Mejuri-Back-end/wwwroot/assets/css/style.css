@@ -6236,7 +6236,7 @@ footer {
           display: block;
           padding-top: 3rem; } }
     footer .footer-up .footer-item {
-      font-size: 1.4rem; }
+      font-size: 18px; }
       footer .footer-up .footer-item h3 {
         margin-bottom: 24px;
         font-weight: 500;
@@ -6305,7 +6305,7 @@ footer {
     display: flex; }
     footer .foot-item li {
       margin-right: 24px;
-      font-size: 10px; }
+      font-size: 16px; }
       footer .foot-item li i {
         font-size: 2rem; }
     @media screen and (max-width: 768px) {
@@ -7638,6 +7638,7 @@ aside {
 #review .review-up .review-down-body .review-item .tab-review {
   cursor: pointer;
   float: left;
+  font-size:13px;
   margin: 0px 18px 4px 0px;
   font-weight: 100;
   color: #6B6D76; }
@@ -7664,7 +7665,7 @@ aside {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          font-size: 12px; }
+          font-size: 18px; }
           #review .review-up .container.reviewes .row .content-reviewes .content-review .content-review-body .name-date .name {
             color: #B4876E; }
           #review .review-up .container.reviewes .row .content-reviewes .content-review .content-review-body .name-date .date {
@@ -7684,13 +7685,13 @@ aside {
           align-items: center; }
           #review .review-up .container.reviewes .row .content-reviewes .content-review .content-question-body .question .question-user-name-date .question-user-name {
             color: #B4876E;
-            font-size: 12px; }
+            font-size: 18px; }
           #review .review-up .container.reviewes .row .content-reviewes .content-review .content-question-body .question .question-user-name-date .question-user-date {
             color: #6A6C77;
-            font-size: 12px; }
+            font-size: 18px; }
         #review .review-up .container.reviewes .row .content-reviewes .content-review .content-question-body .question p {
           padding: 1rem 0;
-          font-size: 1.4rem;
+          font-size: 20px;
           color: #6A6C77; }
         #review .review-up .container.reviewes .row .content-reviewes .content-review .content-question-body .answer {
           margin-left: 22px;
@@ -7704,13 +7705,13 @@ aside {
             padding-bottom: 1rem; }
             #review .review-up .container.reviewes .row .content-reviewes .content-review .content-question-body .answer .answer-admin-name-date .answer-admin-name {
               color: #B4876E;
-              font-size: 12px; }
+              font-size: 18px; }
             #review .review-up .container.reviewes .row .content-reviewes .content-review .content-question-body .answer .answer-admin-name-date .answer-admin-date {
               color: #6A6C77;
-              font-size: 12px; }
+              font-size: 18px; }
           #review .review-up .container.reviewes .row .content-reviewes .content-review .content-question-body .answer p {
             padding-left: 1rem;
-            font-size: 14px;
+            font-size: 17px;
             color: #6A6C77; }
     #review .review-up .container.reviewes .row .content-reviewes .content-review.active {
       display: block; }
@@ -8835,3 +8836,78 @@ aside {
         font-size: 14px;
         border-bottom: 1px solid black;
     }
+
+#faq .faq-info {
+    position: relative;
+}
+
+    #faq .faq-info img {
+        height: 250px;
+        width: 100%;
+    }
+
+    #faq .faq-info h1 {
+        position: absolute;
+        top: 43%;
+        right: 23%;
+        font-size: 42px;
+        font-weight: 500;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.7) !important;
+        width: 50% !important;
+        padding: 10px 20px !important;
+        text-align: center;
+    }
+
+@media screen and (max-width: 768px) {
+    #faq .faq-info h1 {
+        display: none;
+    }
+}
+
+#faq .ship {
+    margin: 30px 0;
+}
+
+    #faq .ship h2 {
+        font-size: 36px;
+        text-align: left;
+        padding: 30px 0 20px;
+        text-transform: none;
+        border-bottom: 1px solid #000;
+    }
+
+#faq .faq-accordion {
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+    #faq .faq-accordion h4 {
+        font-size: 20px;
+    }
+
+    #faq .faq-accordion img {
+        width: 2%;
+        margin-left: 20px;
+        cursor: pointer;
+    }
+
+@media screen and (max-width: 768px) {
+    #faq .faq-accordion img {
+        width: 4%;
+    }
+}
+
+#faq .accordion-content {
+    display: none;
+}
+
+    #faq .accordion-content ul li {
+        font-size: 18px;
+        line-height: 25px;
+        padding-bottom: 15px;
+        font-weight: 300;
+    }
+
+

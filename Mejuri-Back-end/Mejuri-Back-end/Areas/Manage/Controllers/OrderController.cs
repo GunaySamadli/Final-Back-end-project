@@ -83,7 +83,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             body = body.Replace("{{total}}", order.TotalAmount.ToString()).Replace("{{orderItems}}", orderItems);
 
 
-            _emailService.Send(order.AppUser.Email, "Order accepted", body);
+            _emailService.Send(order.Email, "Order accepted", body);
             return RedirectToAction("index");
         }
 

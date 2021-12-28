@@ -34,6 +34,8 @@ namespace Mejuri_Back_end.Models
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Setting> Settings { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Faq> Faqs { get; set; }
+
 
 
 

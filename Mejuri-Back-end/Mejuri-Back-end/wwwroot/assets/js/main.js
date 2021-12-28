@@ -245,6 +245,23 @@ $(function () {
     });
 });
 
+// Accordion
+
+$(document).ready(function () {
+    $('.faq-accordion').on('click', function (e) {
+        e.preventDefault();
+        if ($(this).next('.accordion-content').css('display') == 'none') {
+            $(this).find('img').css('transform', 'rotate(90deg)');
+        }
+        else {
+            $(this).find('img').css('transform', 'rotate(0deg)');
+        }
+
+        $(this).next('.accordion-content').slideToggle();
+    })
+});
+
+
 //ask
 const ask = document.querySelector(".ask")
 ask.addEventListener("click", function (e) {

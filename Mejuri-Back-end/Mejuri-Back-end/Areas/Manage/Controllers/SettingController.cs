@@ -58,7 +58,11 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                     InstaUrl = setting.InstaUrl,
                     PinterestUrl = setting.PinterestUrl,
                     TwitterUrl = setting.TwitterUrl,
-                    CopyRight = setting.CopyRight
+                    CopyRight = setting.CopyRight,
+                    FaqTitle=setting.FaqTitle,
+                    ContactTitle=setting.ContactTitle,
+                    ContactSubtitle1=setting.ContactSubtitle1,
+                    ContactSubtitle2=setting.ContactSubtitle2
                 };
                 // Inserted Header Logo
 
@@ -82,6 +86,16 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                     ModelState.AddModelError("CompanyImgFile", "CompanyImg null ola bilmez");
                     return View("Index", setting);
                 }
+                if (setting.ContactImgFile == null)
+                {
+                    ModelState.AddModelError("ContactImgFile", "ContactImg null ola bilmez");
+                    return View("Index", setting);
+                }
+                if (setting.FaqImgFile == null)
+                {
+                    ModelState.AddModelError("FaqImgFile", "FaqImg null ola bilmez");
+                    return View("Index", setting);
+                }
                 if (!setting.HomePageImgFile.CheckContent())
                 {
                     ModelState.AddModelError("HomePageImgFile", "Fayl shekil formatinda olmalidir");
@@ -102,6 +116,30 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                 if (setting.LocationImgFile.CheckSize(200))
                 {
                     ModelState.AddModelError("LocationImgFile", "Faylin olchusu 200kb-dan chox olmamalidi!");
+                    return View("Index", setting);
+                }
+
+                // Inserted ContactImg 
+                if (!setting.ContactImgFile.CheckContent())
+                {
+                    ModelState.AddModelError("ContactImgFile", "Fayl shekil formatinda olmalidir");
+                    return View("Index", setting);
+                }
+                if (setting.LocationImgFile.CheckSize(200))
+                {
+                    ModelState.AddModelError("ContactImgFile", "Faylin olchusu 200kb-dan chox olmamalidi!");
+                    return View("Index", setting);
+                }
+
+                // Inserted FaqImg 
+                if (!setting.FaqImgFile.CheckContent())
+                {
+                    ModelState.AddModelError("FaqImgFile", "Fayl shekil formatinda olmalidir");
+                    return View("Index", setting);
+                }
+                if (setting.LocationImgFile.CheckSize(200))
+                {
+                    ModelState.AddModelError("FaqImgFile", "Faylin olchusu 200kb-dan chox olmamalidi!");
                     return View("Index", setting);
                 }
 
@@ -139,7 +177,9 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
 
                 newSetting.CompanyImg = await setting.CompanyImgFile.SaveImage(path);
 
+                newSetting.ContactImg = await setting.CompanyImgFile.SaveImage(path);
 
+                newSetting.FaqImg = await setting.FaqImgFile.SaveImage(path);
 
                 // Added Other Data
 
@@ -218,6 +258,43 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                     settingDb.CompanyImg = await setting.CompanyImgFile.SaveImage(path);
 
                 }
+                if (setting.ContactImgFile != null)
+                {
+                    if (!setting.ContactImgFile.CheckContent())
+                    {
+                        ModelState.AddModelError("ContactImgFile", "Fayl shekil formatinda olmalidir");
+                        return View("Index", setting);
+                    }
+                    if (setting.CompanyImgFile.CheckSize(200))
+                    {
+                        ModelState.AddModelError("ContactImgFile", "Faylin olchusu 200kb-dan chox olmamalidi!");
+                        return View("Index", setting);
+                    }
+
+                    Helper.FileDelete(path, settingDb.ContactImg);
+                    settingDb.CompanyImg = await setting.ContactImgFile.SaveImage(path);
+
+                }
+
+                if (setting.FaqImgFile != null)
+                {
+                    if (!setting.FaqImgFile.CheckContent())
+                    {
+                        ModelState.AddModelError("FaqImgFile", "Fayl shekil formatinda olmalidir");
+                        return View("Index", setting);
+                    }
+                    if (setting.CompanyImgFile.CheckSize(200))
+                    {
+                        ModelState.AddModelError("FaqImgFile", "Faylin olchusu 200kb-dan chox olmamalidi!");
+                        return View("Index", setting);
+                    }
+
+                    Helper.FileDelete(path, settingDb.FaqImg);
+                    settingDb.CompanyImg = await setting.FaqImgFile.SaveImage(path);
+
+                }
+
+
                 settingDb.HomePageInfo = setting.HomePageInfo;
                 settingDb.LocationTitle = setting.LocationTitle;
                 settingDb.LocationSubTitle = setting.LocationSubTitle;
@@ -230,6 +307,10 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                 settingDb.PinterestUrl = setting.PinterestUrl;
                 settingDb.Twitter = setting.Twitter;
                 settingDb.TwitterUrl = setting.TwitterUrl;
+                settingDb.FaqTitle = setting.FaqTitle;
+                settingDb.ContactTitle = setting.ContactTitle;
+                settingDb.ContactSubtitle1 = setting.ContactSubtitle1;
+                settingDb.ContactSubtitle2 = setting.ContactSubtitle2;
             }
 
             await _context.SaveChangesAsync();

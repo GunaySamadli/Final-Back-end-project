@@ -131,37 +131,18 @@
                                     <div class="filter-item">
                                         <h2>Materials</h2>
                                         <div class="form-checkbox-column">
-                                            <div class="form-checkbox-container">
-                                                <label for="gold" class="label-container">
-                                                    Gold
-                                                    <input type="checkbox" class="form-checkbox" id="gold" value="gold">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="form-checkbox-container">
-                                                <label for="silver" class="label-container">
-                                                    Silver
-                                                    <input type="checkbox" class="form-checkbox" id="silver"
-                                                           value="silver">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="form-checkbox-container">
-                                                <label class="label-container" for="diomands">
-                                                    Diomands
-                                                    <input type="checkbox" class="form-checkbox" id="diomands"
-                                                           value="diomands">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="form-checkbox-container">
-                                                <label class="label-container" for="pearls">
-                                                    Pearls
-                                                    <input type="checkbox" class="form-checkbox" id="pearls"
-                                                           value="pearls">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
+                                            @foreach (var product in Model.ProductMaterials)
+                                            {
+                                                <div class="form-checkbox-container">
+                                                    <label for="gold" class="label-container">
+                                                        <a asp-action="index" asp-controller="shop" asp-route-categoryId="@product.Material.Id">
+                                                            <input type="checkbox" class="form-checkbox" id="gold" value="gold">
+                                                            <span class="checkmark"></span>
+                                                        </a>
+                                                        @product.Material.Name
+                                                    </label>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -169,21 +150,18 @@
                                     <div class="filter-item">
                                         <h2>Genders</h2>
                                         <div class="form-checkbox-column">
-                                            <div class="form-checkbox-container">
-                                                <label for="women" class="label-container">
-                                                    Women
-                                                    <input type="checkbox" class="form-checkbox" id="women"
-                                                           value="women">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="form-checkbox-container">
-                                                <label for="men" class="label-container">
-                                                    Men
-                                                    <input type="checkbox" class="form-checkbox" id="men" value="men">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
+                                            @foreach (var product in Model.Genders)
+                                            {
+                                                <div class="form-checkbox-container">
+                                                    <label class="label-container">
+                                                        <a asp-action="index" asp-controller="shop" asp-route-categoryId="@product.Id">
+                                                            <input type="checkbox" class="form-checkbox" id=" @(product.Id == @ViewBag.CurrentGenderId ? "checked" : "")">
+                                                            <span class="checkmark"></span>
+                                                            @product.Name
+                                                        </a>
+                                                    </label>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -246,9 +224,19 @@
                                             </div>
                                         </div>
                                         <div class="hover-btns">
-                                            <a asp-action="addtobasket" asp-controller="product" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" class="single-btn add-basket">
-                                                <i class="fas fa-shopping-basket"></i>
-                                            </a>
+                                            @if (Model.Products[i].IsStock == true)
+                                            {
+                                                <a asp-action="addtobasket" asp-controller="product" asp-route-id="@Model.Products[i].ProductColors[j].Id" data-id="@Model.Products[i].ProductColors[j].Id" class="single-btn add-basket">
+                                                    <i class="fas fa-shopping-basket"></i>
+                                                </a>
+                                            }
+                                            @if (Model.Products[i].IsStock == false)
+                                            {
+                                                <p style="background: white; padding: 10px; width: max-content; border-radius: 10px; font-size: 20px; margin-bottom: 20px;">
+                                                    <i class="far fa-frown"></i>
+                                                    Out Of Stock
+                                                </p>
+                                            }
                                             @if (favs != null)
                                             {
                                                 @if (!favs.Any(f => f.ProductColorId == Model.Products[i].ProductColors[j].Id))
@@ -311,7 +299,7 @@
                         <ul class="pagination">
                             @if (selectedPage > 1)
                             {
-                                <li><a asp-controller="shop" asp-route-genderId="@ViewBag.CurrentGenderId" asp-route-categoryId="@ViewBag.CurrentCategoryId" asp-action="index" asp-route-page="@(selectedPage - 1)"><i class="fas fa-angle-double-left"></i></a></li>
+                                <li><a asp-controller="shop" asp-route-genderId="@ViewBag.CurrentGenderId" asp-route-categoryId="@ViewBag.CurrentCategoryId" asp-route-materialId="@ViewBag.CurrentMaterialId" asp-action="index" asp-route-page="@(selectedPage - 1)"><i class="fas fa-angle-double-left"></i></a></li>
 
                             }
                             @{
@@ -321,11 +309,11 @@
 
                             @for (int i = startPage; i <= endPage; i++)
                             {
-                                <li class="@(i==selectedPage?"active":"")"><a asp-controller="shop" asp-route-genderId="@ViewBag.CurrentGenderId" asp-route-categoryId="@ViewBag.CurrentCategoryId" asp-action="index" asp-route-page="@i">@i</a></li>
+                                <li class="@(i==selectedPage?"active":"")"><a asp-controller="shop" asp-route-genderId="@ViewBag.CurrentGenderId" asp-route-categoryId="@ViewBag.CurrentCategoryId" asp-route-materialId="@ViewBag.CurrentMaterialId  asp-action="index" asp-route-page="@i">@i</a></li>
                             }
                             @if (selectedPage < totalPage)
                             {
-                                <li><a asp-controller="shop" asp-route-genderId="@ViewBag.CurrentGenderId" asp-route-categoryId="@ViewBag.CurrentCategoryId" asp-action="index" asp-route-page="@(selectedPage+1)"><i class="fas fa-angle-double-right"></i></a></li>
+                                <li><a asp-controller="shop" asp-route-genderId="@ViewBag.CurrentGenderId" asp-route-categoryId="@ViewBag.CurrentCategoryId" asp-route-materialId="@ViewBag.CurrentMaterialId asp-action="index" asp-route-page="@(selectedPage+1)"><i class="fas fa-angle-double-right"></i></a></li>
 
                             }
                         </ul>
