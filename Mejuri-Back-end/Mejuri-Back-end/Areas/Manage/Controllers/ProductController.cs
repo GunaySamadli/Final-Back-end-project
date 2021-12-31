@@ -76,8 +76,11 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             ViewBag.Color = _context.Colors.ToList();
             ViewBag.Material = _context.Materials.ToList();
 
+
             if (!_context.Genders.Any(x => x.Id == product.GenderId)) ModelState.AddModelError("GenderId", "Gender not found!");
             if (!_context.Categories.Any(x => x.Id == product.CategoryId)) ModelState.AddModelError("CategoryId", "Category not found!");
+
+            if (!ModelState.IsValid) return View();
 
             foreach (var materialid in product.MaterialIds)
             {
@@ -216,12 +219,6 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             if (product.SalePrice < 0)
             {
                 ModelState.AddModelError("SalePrice", "Sale Price can not be less than 0");
-                return View();
-            }
-
-            if (_context.Products.Any(x => x.Name.ToLower() == product.Name.ToLower()))
-            {
-                ModelState.AddModelError("Name", "The name is already available");
                 return View();
             }
 

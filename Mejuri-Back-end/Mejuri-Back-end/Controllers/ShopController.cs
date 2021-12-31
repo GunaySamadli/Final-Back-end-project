@@ -25,7 +25,7 @@ namespace Mejuri_Back_end.Controllers
             _userManager = userManager;
             _contextAccessor = contextAccessor;
         }
-        public IActionResult Index(int? minPrice, int? maxPrice, string search = null, int? categoryId = null, int? materailId = null, int? genderId = null, int page = 1)
+        public IActionResult Index(int? minPrice, int? maxPrice, string search = null, int? categoryId = null, int? genderId = null, int? materialId = null, int page = 1)
         {
             var query = _context.Products.Include(x=>x.ProductMaterials).ThenInclude(x=>x.Material)
                 .AsQueryable();
@@ -34,9 +34,10 @@ namespace Mejuri_Back_end.Controllers
             if (maxPrice != null) query = query.Where(x => x.SalePrice < maxPrice);
 
             ViewBag.CurrentCategoryId = categoryId;
-            ViewBag.CurrentMaterialId = materailId;
             ViewBag.CurrentSearch = search;
             ViewBag.CurrentGenderId = genderId;
+            ViewBag.CurrentMaterialId = materialId;
+
 
             if (!string.IsNullOrWhiteSpace(search))
                 query = query.Where(x => x.Name.Contains(search));
@@ -45,11 +46,11 @@ namespace Mejuri_Back_end.Controllers
                 query = query.Where(x => x.CategoryId == categoryId);
 
 
-            if (materailId != null)
-                query = query.Where(x => x.ProductMaterials.Any(x=>x.MaterialId == materailId)) ;
-
             if (genderId != null)
                 query = query.Where(x => x.GenderId == genderId);
+
+            if (materialId != null)
+                query = query.Where(x => x.ProductMaterials.Any(x=>x.MaterialId==materialId));
 
             if (!string.IsNullOrWhiteSpace(search))
             {
@@ -113,14 +114,15 @@ namespace Mejuri_Back_end.Controllers
             List<Product> products = query
                .Include(x => x.ProductColors).ThenInclude(x => x.Color)
                .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages)
+               .Include(x=>x.Companies)
                .Skip((page - 1) * 6).Take(6).ToList();
 
             ShopViewModel shopVM = new ShopViewModel
             {
                 Products = products,
-                Categories = _context.Categories.ToList(),
-                Genders = _context.Genders.ToList(),
-                ProductMaterials = _context.ProductMaterials.Include(x => x.Material).ToList()
+                Categories = _context.Categories.Include(x => x.Products).ToList(),
+                Genders = _context.Genders.Include(x=>x.Products).ToList(),
+                Materials = _context.Materials.ToList()
             };
             ViewBag.TotalPage = Math.Ceiling(query.Count() / 6m);
             ViewBag.SelectedPage = page;

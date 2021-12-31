@@ -85,14 +85,16 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                 color.Image = newFileName;
             }
 
-            _context.Colors.Add(color);
-            _context.SaveChanges();
-
             if (_context.Colors.Any(x => x.Name.ToLower() == color.Name.ToLower()))
             {
                 ModelState.AddModelError("Name", "The name is already available");
                 return View();
             }
+
+            _context.Colors.Add(color);
+            _context.SaveChanges();
+
+            
 
             return RedirectToAction("index");
         }
@@ -119,12 +121,12 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                 if (color.ImageFile.ContentType != "image/png" && color.ImageFile.ContentType != "image/jpeg" && color.ImageFile.ContentType != "image/jfif" && color.ImageFile.ContentType != "image/svg")
                 {
                     ModelState.AddModelError("ImageFile", "File type can be only jpeg,jpg,jfif or png!");
-                    return View();
+                    return View(existColor);
                 }
                 if (color.ImageFile.Length > 2097152)
                 {
                     ModelState.AddModelError("ImageFile", "File size can not be more than 2MB!");
-                    return View();
+                    return View(existColor);
                 }
 
                 string fileName = color.ImageFile.FileName;

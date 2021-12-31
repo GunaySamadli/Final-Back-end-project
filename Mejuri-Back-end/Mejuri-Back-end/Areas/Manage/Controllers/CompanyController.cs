@@ -1,4 +1,5 @@
-﻿using Mejuri_Back_end.Models;
+﻿using Mejuri_Back_end.Helpers;
+using Mejuri_Back_end.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,9 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         {
             _context = context;
         }
+
+       
+
         public IActionResult Index(int page=1, string search = null)
         {
             var query = _context.Companies.AsQueryable();
@@ -34,9 +38,14 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
                 .Include(x => x.Product).Include(x => x.CompanyCategory)
                .Skip((page - 1) * 4).Take(4).ToList();
 
+            foreach (var item in companies)
+            {
+                Deleted.DeleteCompany(item, _context);
+            };
+
+
             ViewBag.TotalPage = Math.Ceiling(query.Count() / 4m);
             ViewBag.SelectedPage = page;
-
 
             return View(companies);
         }
@@ -53,6 +62,7 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         [HttpPost]
         public IActionResult Create(Company company)
         {
+
             ViewBag.CompanyCategory = _context.CompanyCategories.ToList();
             ViewBag.Product = _context.Products.ToList();
 
@@ -65,6 +75,12 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
             if (company.EndTime < company.StartTime)
             {
                 ModelState.AddModelError("EndTime", "EndTime can not be smaller than StartTime");
+                return View();
+            }
+
+            if (company.EndTime < DateTime.UtcNow)
+            {
+                ModelState.AddModelError("EndTime", "EndTime can not be smaller than Now Time");
                 return View();
             }
 
@@ -91,7 +107,6 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
         [HttpPost]
         public IActionResult Edit(Company company)
         {
-
             ViewBag.CompanyCategory = _context.CompanyCategories.ToList();
             ViewBag.Product = _context.Products.ToList();
 
@@ -125,12 +140,16 @@ namespace Mejuri_Back_end.Areas.Manage.Controllers
 
         }
 
+        
+
         public IActionResult DeleteFetch(int id)
         {
-            Company company = _context.Companies.FirstOrDefault(x => x.Id == id);
+            Company company = _context.Companies.Include(x=>x.Product).FirstOrDefault(x => x.Id == id);
+
+            
 
             if (company == null) return Json(new { status = 404 });
-
+            
             try
             {
                 _context.Companies.Remove(company);

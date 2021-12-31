@@ -104,41 +104,22 @@
                     </div>
                 </div>
                 <div class="edit-item company-slider">
-                    @*@foreach (var company in Model.Companies)
-                        {
-                            <div class="col-md-3 company-slider-item">
-                                <a href="">
-                                    <div class="img-product">
-                                        @foreach (var item in company.Product.ProductColors)
-                                        {
-                                            <a href="./detail.html">
-                                                <img src="~/uploads/product/@item.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
-                                                <img src="~/uploads/product/@item.ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image" class="img-responsive-hov">
-                                            </a>
-                                        }
-                                    </div>
-                                    <a href="">
-                                        <p>@company.Title</p>
-                                    </a>
-                                </a>
-                            </div>
-                        }*@
-                    @for (int i = 0; i < Model.Companies.Count; i++)
+                    @foreach (var item in Model.Companies.OrderBy(x => x.EndTime).Where(x => x.EndTime >= DateTime.Now).ToList())
                     {
                         <section id="favory" style="width:100% !important">
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-md-12 company-slider-item">
-                                        <div class="favory-item" id="@Model.Companies[i].Id">
-                                            @for (int j = 0; j < Model.Companies[i].Product.ProductColors.Count; j++)
+                                        <div class="favory-item" id="@item.Id">
+                                            @for (int j = 0; j < item.Product.ProductColors.Count; j++)
                                             {
-                                                <div class="card-image @(j==0?"active":"")" id="@Model.Companies[i].Product.ProductColors[j].Color.Name">
+                                                <div class="card-image @(j==0?"active":"")" id="@item.Product.ProductColors[j].Color.Name">
                                                     <div class="img-product">
                                                         <div class="content-colors">
                                                             <div class="content-color">
-                                                                <a asp-action="detail" asp-controller="product" asp-route-id="@Model.Companies[i].Product.Id">
-                                                                    <img src="~/uploads/product/@Model.Companies[i].Product.ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
-                                                                    <img src="~/uploads/product/@Model.Companies[i].Product.ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image"
+                                                                <a asp-action="detail" asp-controller="product" asp-route-id="@item.Product.Id">
+                                                                    <img src="~/uploads/product/@item.Product.ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image" class="img-responsive">
+                                                                    <img src="~/uploads/product/@item.Product.ProductColors[j].ProductColorImages.FirstOrDefault(x=>x.PosterStatus==false)?.Image"
                                                                          class="img-responsive-hov">
                                                                 </a>
                                                             </div>
@@ -149,17 +130,17 @@
                                         </div>
                                         <div class="fav-info">
                                             <a href="">
-                                                <h2 class="basket-head">@Model.Companies[i].Title</h2>
+                                                <h2 class="basket-head">@item.Title</h2>
                                             </a>
                                         </div>
                                         <div class="fav-color">
-                                            <div class="color-items" data-id="@Model.Companies[i].Id" style="display: flex; flex-direction: row; align-items: center;">
-                                                @for (int j = 0; j < Model.Companies[i].Product.ProductColors.Count; j++)
+                                            <div class="color-items" data-id="@item.Id" style="display: flex; flex-direction: row; align-items: center;">
+                                                @for (int j = 0; j < item.Product.ProductColors.Count; j++)
                                                 {
                                                     <div class="color-item">
                                                         <a class="tab-color @(j==0?"active":"")"
-                                                           data-target="@Model.Companies[i].Product.ProductColors[j].Color.Name">
-                                                            <img src="~/uploads/color/@Model.Companies[i].Product.ProductColors[j].Color.Image" alt="" style="margin: 5px 5px 0 0; display: inline-block; padding: 3px; cursor: pointer; border-radius: 50px; border-width: 1px; border-style: solid; line-height: 1; border-width: 1px; height: 22px; width: 22px; border-color: #c1c1c1;">
+                                                           data-target="@item.Product.ProductColors[j].Color.Name">
+                                                            <img src="~/uploads/color/@item.Product.ProductColors[j].Color.Image" alt="" style="margin: 5px 5px 0 0; display: inline-block; padding: 3px; cursor: pointer; border-radius: 50px; border-width: 1px; border-style: solid; line-height: 1; border-width: 1px; height: 22px; width: 22px; border-color: #c1c1c1;">
                                                         </a>
                                                     </div>
                                                 }
@@ -170,6 +151,7 @@
                                 </div>
                             </div>
                         </section>
+
                     }
                 </div>
             </div>
@@ -188,7 +170,7 @@
                                 <div class="new-info">
                                     <h4>@slider.SubTitle</h4>
                                     <p>@slider.Title</p>
-                                    <a class="button button-primary" href="">Shop New</a>
+                                    <a class="button button-primary" asp-action="index" asp-controller="shop">Shop New</a>
                                 </div>
                             </div>
                         </div>
@@ -215,38 +197,24 @@
         </div>
     </section>
     <!--Brand-->
-    <section id="brand">
-        <div class="container brands">
-            <div class="row">
-                <div class="col-md-12 col-xs-12">
-                    <div class="content-brands">
-                        @for (int i = 0; i < Model.Brands.Count; i++)
-                        {
-                            <div class="content-brand @(i==0?"active":"")" active" id="@Model.Brands[i].Id">
-                                <p class="text-brand">
-                                    <q>
-                                        @Model.Brands[i].Text
-                                    </q>
-                                </p>
-                            </div>
-                        }
-
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section id="new">
         <div class="container">
             <div class="row">
-                <div class="brand-items">
-                    @for (int i = 0; i < Model.Brands.Count; i++)
+                <div class="new-items single-items">
+                    @for (int k = 0; k < Model.Brands.Count; k++)
                     {
-                        <div class="brand-item">
-                            <a class="tab-brand @(i==0?"active":"")" data-target="@Model.Brands[i].Id">
-                                <img src="~/assets/images/@Model.Brands[i].Image">
+                        <div class="content-brand">
+                            <p class="text-brand">
+                                <q>
+                                    @Model.Brands[k].Text
+                                </q>
+                            </p>
+                            <a class="tab-brand">
+                                <img src="~/uploads/brand/@Model.Brands[k].Image">
                             </a>
                         </div>
-
                     }
+
                 </div>
             </div>
         </div>

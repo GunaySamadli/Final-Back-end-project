@@ -147,6 +147,9 @@ namespace Mejuri_Back_end.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Percent")
                         .HasColumnType("int");
 

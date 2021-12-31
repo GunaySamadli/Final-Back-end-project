@@ -32,6 +32,7 @@ namespace Mejuri_Back_end.Controllers
                 .Include(x => x.ProductColors).ThenInclude(x => x.ProductColorImages)
                 .Include(x => x.ProductColors).ThenInclude(x => x.Color)
                 .Include(x => x.ProductMaterials).ThenInclude(x=>x.Material)
+                .Include(x=>x.Companies)
                 .FirstOrDefault(x => x.Id == id);
 
             ViewBag.RelatedProducts = _context.Products.Include(x => x.ProductColors).ThenInclude(x=>x.ProductColorImages)
@@ -228,6 +229,9 @@ namespace Mejuri_Back_end.Controllers
             ProductColor product = _context.ProductColors.Include(x=>x.Color)
                 .Include(x => x.Product).Include(x => x.ProductColorImages)
                 .FirstOrDefault(x => x.Id == id);
+
+            Company company = _context.Companies.FirstOrDefault(x => x.ProductId == product.ProductId);
+
             FavoryItemViewModel favItem = null;
 
             if (product == null) return RedirectToAction("index", "error");
@@ -261,8 +265,8 @@ namespace Mejuri_Back_end.Controllers
                         ProductColorId = product.Id,
                         Name = product.Product.Name,
                         Image = product.ProductColorImages.FirstOrDefault(x => x.PosterStatus == true).Image,
-                        Price = product.Product.SalePrice,
-                        ColorName=product.Color.Name
+                        Price = (company != null) ? ((100 - company.Percent) * product.Product.SalePrice) / 100 : product.Product.SalePrice,
+                        ColorName =product.Color.Name
                     };
                     products.Add(favItem);
                 }
@@ -293,7 +297,9 @@ namespace Mejuri_Back_end.Controllers
                       ProductColorId = x.ProductColorId,
                       Name = x.ProductColor.Product.Name,
                       ColorName=x.ProductColor.Color.Name,
-                      Price = x.ProductColor.Product.SalePrice,
+                      Price = _context.Companies.Any(c => c.ProductId == x.ProductColor.ProductId) ?
+                    ((100 - (_context.Companies.FirstOrDefault(c => c.ProductId == x.ProductColor.ProductId).Percent)) * x.ProductColor.Product.SalePrice) / 100 :
+                    x.ProductColor.Product.SalePrice,
                       Image = x.ProductColor.ProductColorImages
                                 .FirstOrDefault(bi => bi.PosterStatus == true).Image
                   }).ToList();
@@ -368,7 +374,7 @@ namespace Mejuri_Back_end.Controllers
                                          .Include(x => x.ProductMaterials).ThenInclude(x => x.Material)
                                          .AsQueryable()
                                             .Where(x => x.Name.Contains(search));
-            List<Product> products = query.OrderByDescending(x => x.Id).Take(5).ToList();
+            List<Product> products = query.OrderByDescending(x => x.Id).Take(10).ToList();
 
             return PartialView("_SearchPartial", products);
         }

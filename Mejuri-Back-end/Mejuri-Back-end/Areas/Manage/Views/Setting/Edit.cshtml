@@ -107,6 +107,29 @@
                                     <input asp-for="Pinterest" class="form-control">
                                     <span class="text-danger" asp-validation-for="Pinterest"></span>
                                 </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="ContactTitle">ContactTitle</label>
+                                    <input asp-for="ContactTitle" class="form-control">
+                                    <span class="text-danger" asp-validation-for="ContactTitle"></span>
+                                </div>
+                               
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label asp-for="FaqTitle">FaqTitle</label>
+                                    <input asp-for="FaqTitle" class="form-control">
+                                    <span class="text-danger" asp-validation-for="FaqTitle"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="ContactSubtitle1">ContactSubtitle 1</label>
+                                    <input asp-for="ContactSubtitle1" class="form-control">
+                                    <span class="text-danger" asp-validation-for="ContactSubtitle1"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="ContactSubtitle2"> ContactSubtitle 2</label>
+                                    <input asp-for="ContactSubtitle2" class="form-control">
+                                    <span class="text-danger" asp-validation-for="ContactSubtitle2"></span>
+                                </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -114,7 +137,7 @@
                                     <input asp-for="HomePageImgFile" class="form-control">
                                     <span class="text-danger" asp-validation-for="HomePageImgFile"></span>
                                     <div class="img-box" style=" display: flex; flex-direction: column; position: relative;margin-top:20px;">
-                                        <input type="hidden" asp-for="HomePageImg" value="@Model.HomePageImg"/>
+                                        <input type="hidden" asp-for="HomePageImg" value="@Model.HomePageImg" />
                                         <img style="max-width:200px" src="~/uploads/setting/@Model.HomePageImg" alt="Alternate Text" />
                                         <div style="max-width:200px" class="btn-group btn-group-sm remove-img-box">
                                             <a class="btn btn-danger"><i class="fas fa-trash"></i></a>
@@ -154,6 +177,30 @@
                                     <div class="img-box" style=" display: flex; flex-direction: column; position: relative; margin-top: 20px;">
                                         <input type="hidden" asp-for="CompanyImg" value="@Model.CompanyImg" />
                                         <img style="max-width:200px" src="~/uploads/setting/@Model.CompanyImg" alt="Alternate Text" />
+                                        <div style="max-width:200px" class="btn-group btn-group-sm remove-img-box">
+                                            <a class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="ContactImgFile">ContactImgFile</label>
+                                    <input asp-for="ContactImgFile" class="form-control">
+                                    <span class="text-danger" asp-validation-for="ContactImgFile"></span>
+                                    <div class="img-box" style=" display: flex; flex-direction: column; position: relative; margin-top: 20px;">
+                                        <input type="hidden" asp-for="ContactImg" value="@Model.ContactImg" />
+                                        <img style="max-width:200px" src="~/uploads/setting/@Model.ContactImg" alt="Alternate Text" />
+                                        <div style="max-width:200px" class="btn-group btn-group-sm remove-img-box">
+                                            <a class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="FaqImgFile">FaqImgFile</label>
+                                    <input asp-for="FaqImgFile" class="form-control">
+                                    <span class="text-danger" asp-validation-for="FaqImgFile"></span>
+                                    <div class="img-box" style=" display: flex; flex-direction: column; position: relative; margin-top: 20px;">
+                                        <input type="hidden" asp-for="FaqImg" value="@Model.FaqImg" />
+                                        <img style="max-width:200px" src="~/uploads/setting/@Model.FaqImg" alt="Alternate Text" />
                                         <div style="max-width:200px" class="btn-group btn-group-sm remove-img-box">
                                             <a class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                         </div>

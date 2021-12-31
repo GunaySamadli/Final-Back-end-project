@@ -59,6 +59,24 @@
                                         <input hidden class="fav-count" value="@favItems.Count()" />
                                     </a>
                                 </li>
+                                @*@if (favItems.Count() > 0)
+                                {
+                                    <li class="nav-item">
+                                        <a asp-controller="favory" asp-action="index" style="position:relative">
+                                            <i class="far fa-heart" style="color: firebrick"></i>
+                                        </a>
+                                    </li>
+
+                                }
+                                else
+                                {
+                                    <li class="nav-item">
+                                        <a asp-controller="favory" asp-action="index" style="position:relative">
+                                            <i class="far fa-heart"></i>
+                                        </a>
+                                    </li>
+
+                                }*@
                                 <li class="mejuri-li">
                                     <a asp-controller="home" asp-action="index">
                                         <svg class="mejuri" xmlns="http://www.w3.org/2000/svg" width="281.538"
@@ -184,16 +202,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="search-input-button" style="height: max-content">
-                                <form id="#" method="get" action="#" style="position:relative;width:50%">
+                                <form id="#" method="get" action="#" style="position:relative;width:90%">
                                     <div>
                                         <input autocomplete="off" type="text" id="search-input" name="search" placeholder="Find what you're looking for" class="search-input" value=""
                                                aria-label="search" style="display:block">
                                         <ul class="list-group search-list">
                                         </ul>
                                     </div>
-                                    <button type="submit" style="background: none; border: none; background: none;position: absolute; top: 16px; right: 0;">
-                                        <i class="fas fa-search" style="font-size: 20px;"></i>
-                                    </button>
                                 </form>
                                 <button data-h="main-search-close-btn" data-testid="main-search-close-btn"
                                         class="search-button">
@@ -280,8 +295,7 @@
             </div>
         </div>
     </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="~/assets/js/basket.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"

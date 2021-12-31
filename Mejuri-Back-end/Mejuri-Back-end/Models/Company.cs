@@ -12,6 +12,7 @@ namespace Mejuri_Back_end.Models
         public int CompanyCategoryId { get; set; }
         public int ProductId { get; set; }
 
+        public bool IsDeleted { get; set; }
         public DateTime StartTime { get; set; }
         [Required]
         public DateTime EndTime { get; set; }

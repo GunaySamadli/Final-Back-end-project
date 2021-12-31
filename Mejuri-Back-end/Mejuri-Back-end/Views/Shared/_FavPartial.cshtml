@@ -2,8 +2,9 @@
 
 @{
     Layout = null;
-
+  
 }
+
 <h1>
     What you love.
 </h1>
@@ -24,10 +25,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="hover-btns">
-                            <a asp-action="addtobasket" asp-controller="product" asp-route-id="@item.ProductColorId" data-id="@item.ProductColorId" class="single-btn add-basket">
-                                <i class="fas fa-shopping-basket"></i>
-                            </a>
+                        <div class="hover-btns" style="top: 70%;">
                             <a class="single-btn delete-fav" asp-action="deletefromfav" asp-controller="product" asp-route-id="@item.ProductColorId" data-id="@item.ProductColorId" title="Wishlist" style="background-color: #B4876E;color:white;">
                                 <i onMouseOver="this.style.color='#FFFFFF'" class="far fa-heart"></i>
                             </a>
@@ -35,7 +33,7 @@
                     </div>
                 </div>
                 <div class="fav-info">
-                    <h2 style="font-size: 20px;">
+                    <h2 style="font-size: 20px; padding-bottom: 10px;">
                         <a>@item.Name</a>
                     </h2>
                     <span style="font-size: 17px;">

@@ -1,20 +1,26 @@
 ﻿@model List<FavoryItemViewModel>
+@inject UserManager<AppUser> userManager
+
 @{
     ViewData["Title"] = "Index";
+    AppUser member = User.Identity.IsAuthenticated ? userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name && !x.IsAdmin) : null;
+
 }
 
 
 
-    <main>
-        <!--Wish-->
-        <section id="wish">
-            <div class="container">
-                <div class="row d-flex">
-                    <div class="col-md-3 profile-left">
-                        <aside class="left-aside">
-                            <div class="sidebar">
-                                <div class="container">
-                                    <div class="row">
+<main>
+    <!--Wish-->
+    <section id="wish">
+        <div class="container">
+            <div class="row d-flex">
+                <div class="col-md-3 profile-left">
+                    <aside class="left-aside">
+                        <div class="sidebar">
+                            <div class="container">
+                                <div class="row">
+                                    @if (member != null)
+                                    {
                                         <div class="sidebar-items">
                                             <div class="sidebar-item">
                                                 <ul>
@@ -24,15 +30,16 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                    </div>
+                                    }
                                 </div>
                             </div>
-                        </aside>
-                    </div>
-                    <div class="col-md-9 fav-container">
-                        @await Html.PartialAsync("_FavPartial",Model)
-                    </div>
+                        </div>
+                    </aside>
+                </div>
+                <div class="col-md-9 fav-container">
+                    @await Html.PartialAsync("_FavPartial", Model)
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+</main>

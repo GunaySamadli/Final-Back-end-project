@@ -77,3 +77,10 @@ $('.company-slider').slick({
         }
     ]
 });
+
+$('.single-brand-items').slick({
+    dots: true,
+    arrows: false,
+    infinite: false,
+    slidesToShow: 1,
+});

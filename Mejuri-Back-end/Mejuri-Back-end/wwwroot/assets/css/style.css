@@ -6121,7 +6121,7 @@ header nav .nav-items .fav-number-sum {
     top: 0px;
     z-index: 2;
     background-color: white;
-    height: 70vh; }
+    height: 80vh; }
 
     header #search .search-input-button {
       display: flex;
@@ -6223,6 +6223,7 @@ header nav .nav-items .fav-number-sum {
 
 footer {
   border-top: 1px solid #dadada;
+  margin-top:80px;
   padding-top: 4rem; }
   footer .footer-up {
     padding-bottom: 5rem; }
@@ -6738,68 +6739,120 @@ main #edit .slick-next {
   right: 0; }
 
 main #new .new-items {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end; }
-  main #new .new-items .new-item {
-    position: relative;
     display: flex;
     justify-content: center;
-    align-items: center; }
-  main #new .new-items img {
-    width: 100%; }
-  main #new .new-items .new-info {
-    position: absolute;
-    margin-left: 50%; }
-    main #new .new-items .new-info h4 {
-      font-size: 1.4rem;
-      color: white;
-      font-weight: 400;
-      margin-bottom: 15px;
-      letter-spacing: 1px;
-      line-height: 1.1; }
-    main #new .new-items .new-info p {
-      font-size: 3.2rem;
-      font-weight: 500;
-      color: white;
-      line-height: 40px;
-      margin-bottom: 30px; }
-    @media screen and (max-width: 576px) {
-      main #new .new-items .new-info {
-        margin: 0; } }
+    align-items: flex-end;
+}
+
+    main #new .new-items .new-item {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    main #new .new-items img {
+        width: 100%;
+    }
+
+    main #new .new-items .new-info {
+        position: absolute;
+        margin-left: 50%;
+    }
+
+        main #new .new-items .new-info h4 {
+            font-size: 1.4rem;
+            color: white;
+            font-weight: 400;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            line-height: 1.1;
+        }
+
+        main #new .new-items .new-info p {
+            font-size: 3.2rem;
+            font-weight: 500;
+            color: white;
+            line-height: 40px;
+            margin-bottom: 30px;
+        }
+
+@media screen and (max-width: 576px) {
+    main #new .new-items .new-info {
+        margin: 0;
+    }
+}
+
+main #new .content-brand {
+    width: 1125px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+    main #new .content-brand img {
+        width: max-content;
+    }
+
+    main #new .content-brand .text-brand {
+        margin-bottom: 16px;
+        color: #0f0d1e;
+        font-size: 24px;
+        line-height: 170%;
+        font-weight: 300;
+        text-align: center;
+    }
 
 main #new .slick-dots {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  margin: 0;
-  padding-bottom: 2rem; }
-  main #new .slick-dots li {
-    margin: 0 4px; }
-    main #new .slick-dots li button {
-      cursor: pointer;
-      height: 3px;
-      width: 35px;
-      overflow: hidden;
-      border-radius: 2px;
-      font-size: 0px;
-      border: none;
-      outline: none;
-      opacity: 0.75; }
-    main #new .slick-dots li.slick-active button {
-      opacity: 1;
-      border: none; }
-  @media screen and (max-width: 420px) {
-    main #new .slick-dots {
-      padding-bottom: 0; } }
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding-bottom: 2rem;
+}
 
+    main #new .slick-dots li {
+        margin: 0 4px;
+    }
+
+        main #new .slick-dots li button {
+            cursor: pointer;
+            height: 3px;
+            width: 35px;
+            overflow: hidden;
+            border-radius: 2px;
+            font-size: 0px;
+            border: none;
+            outline: none;
+            opacity: 0.75;
+        }
+
+        main #new .slick-dots li.slick-active button {
+            opacity: 1;
+            border: none;
+            background-color: #B4876E;
+        }
+
+@media screen and (max-width: 420px) {
+    main #new .slick-dots {
+        padding-bottom: 0;
+    }
+}
+
+
+#location{
+    margin-bottom:100px;
+}
 #location .location-left {
-  background-color: #faf7f0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center; }
+    background-color: #faf7f0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
   #location .location-left .location-info {
     color: black; }
     #location .location-left .location-info h3 {
@@ -8620,7 +8673,10 @@ aside {
         display: block;
     }
 
-
+.filter-h1 {
+    font-size: 22px;
+    margin: 20px 0;
+}
 .order-container .panel-body {
     box-shadow: 1px 1px 3px 0px #70738b;
 }
@@ -8774,9 +8830,9 @@ aside {
     #contact .contact-info h1 {
         position: absolute;
         top: 47%;
-        right: 39%;
+        right: 46%;
         font-size: 42px;
-        font-weight: 500;
+        font-weight: 600;
         color: white;
     }
 
@@ -8911,3 +8967,77 @@ aside {
     }
 
 
+
+---------------------------------------------------- */
+/* checkbox-item */
+.checkbox-item {
+    display: inline-block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 0;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox-item input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkbox-item .checkmark {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #fff;
+    border: 1px solid black;
+}
+    .checkbox-item .checkmark:hover {
+        background-color: black;
+    }
+/* On mouse-over, add a grey background color */
+.checkbox-item:hover input ~ .checkmark {
+    background-color: white;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-item input:checked ~ .checkmark {
+    background-color:black;
+    border-color:black;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkbox-item .checkmark:after {
+    position: absolute;
+    content: "";
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox-item input:checked ~ .checkmark:after {
+    display: block;
+}
+.checkbox-item span {
+    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 300;
+}
+/* Style the checkmark/indicator */
+.checkbox-item .checkmark:after {
+    left: 4px;
+    top: 0px;
+    width: 5px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 1px 1px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}

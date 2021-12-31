@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Mejuri_Back_end.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +10,7 @@ namespace Mejuri_Back_end.Helpers
 {
     public static class Helper
     {
+        
         public static void FileDelete(string path, string fileName)
         {
             string fullPath = Path.Combine(path, fileName);
@@ -17,5 +19,7 @@ namespace Mejuri_Back_end.Helpers
                 System.IO.File.Delete(fullPath);
             }
         }
+
+        
     }
 }

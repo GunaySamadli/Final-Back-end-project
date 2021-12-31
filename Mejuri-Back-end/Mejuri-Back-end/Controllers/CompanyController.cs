@@ -29,6 +29,7 @@ namespace Mejuri_Back_end.Controllers
             List<Company> companies = query
                 .Include(x => x.Product).ThenInclude(x => x.ProductColors).ThenInclude(x => x.Color)
                 .Include(x => x.Product).ThenInclude(x => x.ProductColors).ThenInclude(x => x.ProductColorImages)
+                .Where(x => x.EndTime >= DateTime.Now)
                 .Skip((page - 1) * 6).Take(6).ToList();
 
 
