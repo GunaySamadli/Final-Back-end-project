@@ -76,6 +76,11 @@
                                     <select asp-for="MaterialIds" class="form-control" id="MaterialIds" asp-items="@(new SelectList(ViewBag.Material,"Id","Name"))">
                                     </select>
                                 </div>
+                                <div class="form-group col-md-3 d-flex justify-content-center align-items-center">
+                                    <label asp-for="IsStock">IsStock</label>
+                                    <input asp-for="IsStock" class="form-control mr-5">
+                                    <span class="text-danger" asp-validation-for="IsStock"></span>
+                                </div>
                                 <div class="form-group col-md-3">
                                     <label asp-for="ColorIds"> Color</label>
                                     <select asp-for="ColorIds" class="form-control" id="ColorIds" asp-items="@(new SelectList(ViewBag.Color,"Id","Name"))">

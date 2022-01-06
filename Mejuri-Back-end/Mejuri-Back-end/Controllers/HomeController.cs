@@ -32,8 +32,8 @@ namespace Mejuri_Back_end.Controllers
                 .ThenInclude(x=>x.Color)
                 .Include(x => x.Product).ThenInclude(x => x.ProductColors)
                 .ThenInclude(x => x.ProductColorImages)
-                .Where(x => x.EndTime >= DateTime.Now).OrderBy(x => x.EndTime).Take(4)
-                .Where(x=>x.IsDeleted==false).ToList()
+                .Where(x => x.EndTime >= DateTime.Now).OrderBy(x => x.EndTime)
+                .Where(x=>x.IsDeleted==false).Take(4).ToList()
             };
 
             return View(homeVM);
